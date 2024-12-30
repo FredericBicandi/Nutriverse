@@ -1,3 +1,48 @@
+<?php
+session_start();
+
+function user_validation_rules($input)
+{
+    if (empty($input) || strlen($input) < 2) {
+        return (false);
+    }
+
+    return (true);
+}
+
+function validate()
+{
+    $_SESSION['errors'] = [];
+
+    if (isset($_POST['fullName'])) {
+        $fullname = strip_tags(trim($_POST['fullName']));
+        $firstname = explode(' ', $fullname)[0];
+        $lastname = explode(' ', $fullname)[1];
+
+        if (!user_validation_rules($firstname) || !user_validation_rules($lastname)) {
+            $_SESSION['errors']['fullName'] = 'Please enter both first and last name.';
+            return false;
+        }
+
+    } else {
+        $_SESSION['errors']['fullName'] = 'Full name is required.';
+        return false;
+    }
+
+    return true;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!validate()) {
+        header("Location: create_user.php");
+    } else {
+        session_unset();
+        session_destroy();
+        die("true");
+    }
+}
+?>
+<?php include("../php/components/material_nutriblog.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,52 +88,10 @@
 </head>
 
 <body class="h-screen">
-    <!-- Initialize AOS -->
-    <script>
-        AOS.init();
-    </script>
-
-    <!-- Heading -->
+    <!-- navbar -->
     <section>
-        <!-- Navbar -->
-        <nav class="px-6 py-2">
-
-            <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
-                <div class="md:hidden lg:hidden">
-                    <button id="menu-toggle" class="focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-                <h1 class="lg:ml-32 sm:ml-4 sm:text-center primary text-4xl font-semibold leading-normal">
-                    <strong>NutriBlog</strong>
-                </h1>
-                <div class="primary hidden md:flex space-x-6 items-center ml-6 mt-2">
-                    <a data-aos="zoom-out" href="blog.html" class="px-2 w-fit"><b>Blog</b></a>
-                    <a data-aos-delay="100" data-aos="zoom-out" href="nutrition.html"
-                        class="px-2 w-fit"><b>Nutritions</b></a>
-                    <a data-aos-delay="200" data-aos="zoom-out" href="entrepreneur.html"
-                        class="px-2 w-fit"><b>Entrepreneur</b></a>
-                </div>
-            </div>
-
-            <!-- Mobile Navbar Version -->
-            <div id="mobile-menu" class="bg- primary hidden md:hidden mt-4">
-                <a data-aos="zoom-out" href="blog.html" class="px-2 text-lg w-fit"><b>Blog</b></a>
-                <br>
-                <a data-aos-delay="100" data-aos="zoom-out" href="nutrition.html"
-                    class="px-2 text-lg w-fit"><b>Nutritions</b></a>
-                <br>
-                <a data-aos-delay="200" data-aos="zoom-out" href="entrepreneur.html"
-                    class="px-2 text-lg w-fit"><b>Entrepreneur</b></a>
-                <br>
-                <hr>
-            </div>
-        </nav>
+        <?= blog_navbar() ?>
+        <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
     </section>
 
     <main class="lg:mt-32 lg:ml-12 min-h-screen">
@@ -99,18 +102,24 @@
                 </h2>
             </div>
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form class="space-y-6" action="#" method="POST">
+                <form class="space-y-6" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
                     <div data-aos="zoom-out">
                         <label for="text" class="block text-sm/6 font-medium text-gray-900">Full Name</label>
                         <div class="mt-2">
-                            <input type="text" name="fullName" id="fullname" required
+                            <input type="text" placeholder="eg: John Smith" name="fullName" id="fullname" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base  text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
+                        <?php
+                        if (isset($_SESSION['errors']['fullName'])) {
+                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['fullName']}</p>");
+                        }
+                        ?>
                     </div>
                     <div data-aos="zoom-out">
                         <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
                         <div class="mt-2">
-                            <input type="email" name="email" id="email" autocomplete="email" required
+                            <input type="email" placeholder="eg: example@domain.com" name="email" id="email"
+                                autocomplete="email" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base  text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
                     </div>
@@ -121,8 +130,8 @@
                             <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
                         </div>
                         <div class="mt-2">
-                            <input type="password" name="password" id="password" autocomplete="current-password"
-                                required
+                            <input type="password" placeholder="Minimum lenght 8" name="password" id="password"
+                                autocomplete="current-password" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
                     </div>
@@ -133,43 +142,30 @@
                                 Password</label>
                         </div>
                         <div class="mt-2">
-                            <input type="password" name="password" id="password" autocomplete="current-password"
-                                required
+                            <input type="password" name="confirm_password" id="confirm_password"
+                                autocomplete="current-password" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
                     </div>
 
                     <div data-aos-delay="200" data-aos="zoom-out">
                         <button type="submit"
-                            class="flex w-full justify-center rounded-md bg-[#231f20] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#414040] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">Sign
-                            in</button>
+                            class="flex w-full justify-center rounded-md bg-[#231f20] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#414040] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">Create
+                            Account</button>
                     </div>
+
                 </form>
                 <p class="mt-10 text-center text-sm/6 text-gray-500">
-                    Not a member?
-                    <a href="Sign_in.html" class="font-semibold text-[#231f20] hover:text-[#757575]">Sign in to your
+                    Already a member?
+                    <a href="sign_in.php" class="font-semibold text-[#231f20] hover:text-[#757575]">Sign in to your
                         account</a>
                 </p>
             </div>
         </div>
     </main>
 
-    <br>
     <!-- Footer -->
-    <footer class="sm:w-screen text-[#4a4a4a] border-[#231f20]">
-        <div class="container mx-auto px-6 md:px-12 text-center py-12">
-            <p>&copy; 2024 NutriVerse. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+    <?= footer() ?>
 </body>
 
 </html>

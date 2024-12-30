@@ -1,3 +1,8 @@
+# [12/30/2024]
+Done blog fething from db
+//TODO:: 
+    create user validation
+    sign validation and authentication
 # [12/29/2024]
 
 //TODO:: 

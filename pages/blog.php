@@ -54,45 +54,51 @@ $connection = sql_connect();
     </section>
 
     <main class="sm:w-screen lg:w-fit">
-    <h3 class="text-[#bea7a3] text-5xl mt-12 lg:mt-64 ml-8 lg:text-5xl lg:ml-32">
-        <b>
-            <?php
-            if ($_GET["Filter"] == "nutritions") {
-                print ("Nutrition Blogs");
-            } else if ($_GET["Filter"] == "entrepreneur") {
-                print ("Entrepreneur Blogs");
-            } else {
-                print ("All Blogs");
-            }
-            ?>
-        </b>
-    </h3>
+        <h3 class="text-[#bea7a3] text-5xl mt-12 lg:mt-64 ml-8 lg:text-5xl lg:ml-32">
+            <b>
+                <?php
+                if ($_GET["Filter"] == "nutritions") {
+                    print ("Nutrition Blogs");
+                } else if ($_GET["Filter"] == "entrepreneur") {
+                    print ("Entrepreneur Blogs");
+                } else {
+                    print ("All Blogs");
+                }
+                ?>
+            </b>
+        </h3>
 
-    <!-- first row  -->
-    <div class="ml-5 md:flex justify-center mt-12 gap-12">
-        <?= blogBox(
-            delay:100,
-            image: "",
-            title: "",
-            describtion: "",
-            date: "",
-        ) ?>
-        <?= blogBox(
-            delay:200,
-            image: "",
-            title: "",
-            describtion: "",
-            date: "",
-        ) ?>
-        <?= blogBox(
-            delay:200,
-            image: "",
-            title: "",
-            describtion: "",
-            date: "",
-        ) ?>
-    </div>
-</main>
+        <!-- first row  -->
+
+        <?php
+        if (!empty($_GET["Filter"])) {
+            $sql = "SELECT * from Blogs WHERE blog_type='{$_GET['Filter']}'";
+        } else
+            $sql = "SELECT * from Blogs";
+        $result = mysqli_query($connection, $sql); ?>
+        <?php
+        $i = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+            if ($i == 1) {
+                print ("<div class='ml-5 md:flex justify-center mt-12 gap-12'>");
+            }
+            blogBox(
+                delay: $i * 100,
+                image: "{$row['image_url']}",
+                id: "{$row['blog_id']}",
+                title: "<b>{$row['blog_title']}</b>",
+                describtion: substr($row['blog_description'], 0, 80),
+                date: explode(" ", $row['created_at'])[0]
+            );
+            $i++;
+            if ($i == 4) {
+                print ("</div>");
+                $i = 1;
+            }
+        }
+        ?>
+        </div>
+    </main>
     <br>
     <!-- Footer -->
     <?= footer() ?>
