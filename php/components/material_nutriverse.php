@@ -2,7 +2,7 @@
 
 function nutrinavbar($style)
 {
-    $nutriverse_home = "home.php";
+    $nutriverse_home = "/project/pages/nutriverse/";
     $nutriverse_about = "about.php";
     $nutriverse_blog = "../blog.php";
     $nutriverse_request = "request_form.php";
