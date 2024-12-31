@@ -1,44 +1,70 @@
 <?php
+require("../php/database.php");
 session_start();
-
-function user_validation_rules($input)
-{
-    if (empty($input) || strlen($input) < 2) {
-        return (false);
-    }
-
-    return (true);
-}
 
 function validate()
 {
     $_SESSION['errors'] = [];
+    $data = [];
 
     if (isset($_POST['fullName'])) {
         $fullname = strip_tags(trim($_POST['fullName']));
         $firstname = explode(' ', $fullname)[0];
         $lastname = explode(' ', $fullname)[1];
+        $password = strip_tags($_POST['password']);
+        $email = strip_tags($_POST['email']);
 
-        if (!user_validation_rules($firstname) || !user_validation_rules($lastname)) {
+        if (!user_validation_rules($firstname, 'username') || !user_validation_rules($lastname, 'username')) {
             $_SESSION['errors']['fullName'] = 'Please enter both first and last name.';
             return false;
         }
+        
+        if (!user_validation_rules($email, 'email')) {
+            $_SESSION['errors']['email'] = 'email already found.';
+            return false;
+        }
 
+        if (!user_validation_rules($password, 'password')) {
+            $_SESSION['errors']['password'] = 'your password must be at least 8 charachters.';
+            return false;
+        } else {
+            if ($password != $_POST['confirm_password']) {
+                $_SESSION['errors']['confirm_password'] = 'password does not match';
+                return false;
+            }
+        }
+        $data = [
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT)
+        ];
     } else {
         $_SESSION['errors']['fullName'] = 'Full name is required.';
         return false;
     }
-
-    return true;
+    return $data;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!validate()) {
+    $data = [];
+    if (!$data = validate()) {
         header("Location: create_user.php");
     } else {
         session_unset();
         session_destroy();
-        die("true");
+        $connection = sql_connect();
+        if ($connection) {
+            $sql = "INSERT INTO 
+            Users (first_name, last_name, email, password_hash) 
+            VALUES ('{$data['firstname']}', '{$data['lastname']}', '{$data['email']}', '{$data['password']}')";
+            if (mysqli_query($connection, $sql)) {
+                mysqli_close($connection);
+                session_start();
+                $_SESSION['success']['creation_account'] = 'Account Created Succesfully';
+                header("Location: create_user.php");
+            }
+        }
     }
 }
 ?>
@@ -122,6 +148,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 autocomplete="email" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base  text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
+                        <?php
+                        if (isset($_SESSION['errors']['email'])) {
+                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['email']}</p>");
+                        }
+                        ?>
                     </div>
 
                     <div data-aos-delay="100" data-aos="zoom-out">
@@ -134,6 +165,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 autocomplete="current-password" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
+                        <?php
+                        if (isset($_SESSION['errors']['password'])) {
+                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['password']}</p>");
+                        }
+                        ?>
                     </div>
 
                     <div data-aos-delay="100" data-aos="zoom-out">
@@ -146,6 +182,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 autocomplete="current-password" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
+                        <?php
+                        if (isset($_SESSION['errors']['confirm_password'])) {
+                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['confirm_password']}</p>");
+                        }
+                        ?>
                     </div>
 
                     <div data-aos-delay="200" data-aos="zoom-out">
@@ -159,7 +200,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Already a member?
                     <a href="sign_in.php" class="font-semibold text-[#231f20] hover:text-[#757575]">Sign in to your
                         account</a>
+                    <?php
+                    if (isset($_SESSION['success']['creation_account'])) {
+                        printf("<p class='mt-3 text-center' style='color:green'>{$_SESSION['success']['creation_account']}</p>");
+                    } ?>
                 </p>
+
             </div>
         </div>
     </main>
