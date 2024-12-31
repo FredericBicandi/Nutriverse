@@ -1,6 +1,6 @@
 <?php
 include("../php/components/material_nutriblog.php");
-require("../php/connection.php");
+require("../php/database.php");
 $connection = sql_connect();
 ?>
 <!DOCTYPE html>
