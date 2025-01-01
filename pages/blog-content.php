@@ -27,7 +27,7 @@
 </head>
 
 <body class="bg-gray-100 h-screen">
-    <?= blog_navbar() ?>
+    <?= blog_navbar(content:'Daily Tips For Everyone') ?>
     <div
         class="bg-[url('https://i0.wp.com/wp.nutrium.com/wp-content/uploads/2024/09/3.png?w=1920&ssl=1')] bg-no-repeat bg-cover w-screen h-1/2 hidden md:block">
     </div>

@@ -1,8 +1,6 @@
 <?php
 include("../php/components/material_nutriblog.php");
-require("../php/database.php");
-$connection = sql_connect();
-?>
+session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,55 +47,21 @@ $connection = sql_connect();
 
 <body class="h-screen">
     <section>
-        <?= blog_navbar(content:"Daily Tips For Everyone") ?>
-        <div class="bg_image bg-no-repeat bg-cover bg-center h-96 hidden sm:block md:block">
+        <?= blog_navbar(content: false) ?>
+        <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
     </section>
 
     <main class="sm:w-screen lg:w-fit">
-        <h3 class="text-[#bea7a3] text-5xl mt-12 lg:mt-64 ml-8 lg:text-5xl lg:ml-32">
-            <b>
-                <?php
-                if ($_GET["Filter"] == "nutritions") {
-                    print ("Nutrition Blogs");
-                } else if ($_GET["Filter"] == "entrepreneur") {
-                    print ("Entrepreneur Blogs");
-                } else {
-                    print ("All Blogs");
-                }
-                ?>
-            </b>
-        </h3>
-
-        <!-- first row  -->
-
-        <?php
-        if (!empty($_GET["Filter"])) {
-            $sql = "SELECT * from Blogs WHERE blog_type='{$_GET['Filter']}'";
-        } else
-            $sql = "SELECT * from Blogs";
-        $result = mysqli_query($connection, $sql); ?>
-        <?php
-        $i = 1;
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($i == 1) {
-                print ("<div class='ml-5 md:flex justify-center mt-12 gap-12'>");
-            }
-            blogBox(
-                delay: $i * 100,
-                image: "{$row['image_url']}",
-                id: "{$row['blog_id']}",
-                title: "<b>{$row['blog_title']}</b>",
-                describtion: substr($row['blog_description'], 0, 80),
-                date: explode(" ", $row['created_at'])[0]
-            );
-            $i++;
-            if ($i == 4) {
-                print ("</div>");
-                $i = 1;
-            }
-        }
-        ?>
+        <div class="w-screen h-screen text-center mt-12 lg:mt-32">
+            <h1 class='primary text-6xl font-semibold'>
+                <strong>404</strong>
+            </h1>
+            <h2 class='primary mt-5 text-2xl font-semibold text-gray-700'>
+                <i><?= isset($_SESSION['error_message']) ? $_SESSION['error_message'] : 'Unknown error'; ?></i>
+            </h2>
+            <a href='/project/pages/blog.php' class="mt-2"><strong>return home</strong></a>
         </div>
+
     </main>
     <br>
     <!-- Footer -->

@@ -1,3 +1,48 @@
+<?php
+require("../php/database.php");
+session_start();
+
+function validate()
+{
+    $_SESSION['errors'] = [];
+
+    if (isset($_POST['email'])) {
+        $email_field = strtolower($_POST['email']);
+
+        if (user_validation_rules($email_field, 'email')) {
+            session_unset();
+            $_SESSION['s_errors']['email'] = 'email not found.';
+            return false;
+        }
+        $password = $_POST['password'];
+        $sql = "SELECT password_hash FROM `Users` WHERE email='$email_field'";
+        $connection = sql_connect();
+        $password_hash = mysqli_fetch_assoc(mysqli_query($connection, $sql))['password_hash'];
+        if (!password_verify($password, $password_hash)) {
+            session_unset();
+            $_SESSION['s_errors']['password'] = 'incorrect password';
+            return false;
+        }
+    } else {
+        return false;
+    }
+    return true;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $data = [];
+    if (!$data = validate()) {
+        header("Location: sign_in.php");
+    } else {
+        session_unset();
+        session_destroy();
+        session_start();
+        $_SESSION['auth'] = 'VALIDATED';
+        header("Location: member.php");
+        exit();
+    }
+}
+?>
 <?php include("../php/components/material_nutriblog.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,11 +89,10 @@
 </head>
 
 <body class="h-screen">
- 
 
     <!-- navbar -->
     <section>
-        <?= blog_navbar() ?>
+        <?= blog_navbar(content: false) ?>
         <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
     </section>
 
@@ -60,13 +104,18 @@
             </div>
 
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form class="space-y-6" action="<?=$_SERVER['PHP_SELF']?>" method="POST">
+                <form class="space-y-6" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
                     <div data-aos="zoom-out">
                         <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
                         <div class="mt-2">
                             <input type="email" name="email" id="email" autocomplete="email" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
+                        <?php
+                        if (isset($_SESSION['s_errors']['email'])) {
+                            printf("<p class='mt-3' style='color:red'>{$_SESSION['s_errors']['email']}</p>");
+                        }
+                        ?>
                     </div>
 
                     <div data-aos-delay="100" data-aos="zoom-out">
@@ -82,6 +131,11 @@
                                 required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
+                        <?php
+                        if (isset($_SESSION['s_errors']['password'])) {
+                            printf("<p class='mt-3' style='color:red'>{$_SESSION['s_errors']['password']}</p>");
+                        }
+                        ?>
                     </div>
 
                     <div data-aos-delay="200" data-aos="zoom-out">
@@ -104,13 +158,3 @@
 </body>
 
 </html>
-
-<?php
-
-if (isset($_POST)) {
-    print ("TRUE POST");
-} else  {
-    print ("<h3 style='color:red'>test</h3>");
-}
-
-?>

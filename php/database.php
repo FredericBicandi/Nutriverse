@@ -24,7 +24,6 @@ function user_validation_rules($input, $type)
         return (false);
     }
     if ($type == 'email') {
-        printf("EMAIL RECIEVED {$input}<br>");
         $connection = sql_connect();
         if ($connection) {
             $sql = "SELECT email FROM Users";

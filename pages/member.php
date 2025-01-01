@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['auth'])) {
+    session_unset();
+    include("../php/components/material_nutriblog.php");
+    $_SESSION['error_message']= "Not Authenticated";
+    header("Location: abort.php");
+    exit(); 
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

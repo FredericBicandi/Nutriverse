@@ -18,7 +18,7 @@ function validate()
             $_SESSION['errors']['fullName'] = 'Please enter both first and last name.';
             return false;
         }
-        
+
         if (!user_validation_rules($email, 'email')) {
             $_SESSION['errors']['email'] = 'email already found.';
             return false;
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="h-screen">
     <!-- navbar -->
     <section>
-        <?= blog_navbar() ?>
+        <?= blog_navbar(content: false) ?>
         <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
     </section>
 
@@ -205,7 +205,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         printf("<p class='mt-3 text-center' style='color:green'>{$_SESSION['success']['creation_account']}</p>");
                     } ?>
                 </p>
-
             </div>
         </div>
     </main>
