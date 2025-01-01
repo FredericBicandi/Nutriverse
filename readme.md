@@ -1,3 +1,9 @@
+# [1/1/2025]
+Done sign in user with authentication/validation and testing
+    also member auth with dynamic abort 
+//TODO::
+    implement member.php
+    fetch the blog content from blog table based on blogid
 # [12/31/2024]
 Done create user with validation and testing all good
 //TODO:: 

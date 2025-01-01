@@ -1,5 +1,6 @@
 <?php
-function blog_navbar()
+
+function blog_navbar($content)
 {
     $nutriblog_nutriverse = "nutriverse/";
     $nutriblog_home = "blog.php";
@@ -29,7 +30,9 @@ function blog_navbar()
                 </h1>
                 <div class='absolute mt-96 transform -translate-y-1/2 text hidden md:block'>
                     <h1 class='lg:ml-64 text-white text-6xl font-bold'>
-                        <span><b>Daily Tips For Everyone</b></span>
+                        <span>
+                            {$content} 
+                        </span>
                     </h1>
                 </div>
                 <div class='primary hidden md:flex space-x-6 items-center ml-6 mt-2'>
@@ -81,7 +84,7 @@ function blogBox($delay, $id, $image, $title, $describtion, $date)
 }
 function content()
 {
-    
+
     print ("
         <h1 class='text-black text-3xl'>
             <strong> Main points to know </strong>
@@ -459,6 +462,7 @@ function comments()
                 </div>
             </section>');
 }
+
 function footer()
 {
     print ("
