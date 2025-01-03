@@ -12,7 +12,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
+        <style>
+        .hover-steer-left {
+            transition: transform 0.5s ease;
+        }
+
+        .hover-steer-left:hover {
+            transform: translateX(-20px);
+        }
+
+        .bg_image {
+            background-image: url('https://storage.googleapis.com/nutriverse/blog-home.png');
+            background-size: 120%;
+            background-position: center;
+        }
+        .text {
+            color: #4a4a4a;
+            font-family: Poppins;
+        }
+
+        .title {
+            color: #4a4a4a;
+            transition: color 0.2s ease;
+            font-family: Poppins;
+        }
+
+        .title:hover {
+            color: #1ab394;
+            font-family: Poppins;
+        }
+
+        .text_accent {
+            color: #1ab394;
+            font-family: Poppins;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
         }
@@ -30,11 +64,10 @@
     </style>
 </head>
 
-<body>
+<body class="w-full h-screen overflow-x-hidden">
     <!-- Nav bar -->
     <section>
         <?= blog_navbar(content: false) ?>
-        <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
     </section>
 
     <!-- Main Section -->
@@ -93,9 +126,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 py-6 text-center text-gray-300">
-        <p>&copy; 2024 NutriVerse. All Rights Reserved.</p>
-    </footer>
+   <?=footer()?>
 
     <!-- Scripts -->
     <script>

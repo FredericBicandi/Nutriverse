@@ -1,6 +1,7 @@
 <?php
 
-function abort($message){
+function abort($message)
+{
     session_start();
     $_SESSION['error_message'] = $message;
     header("location: abort.php");
@@ -11,12 +12,12 @@ function blog_navbar($content)
     $nutriblog_nutriverse = "nutriverse/";
     session_start();
     $nutriblog_home = !isset($_SESSION['auth']) ? "blog.php" : "member.php";
-    $nutriblog_nutritions = "{$_SERVER['PHP_SELF']}?Filter=nutritions";
-    $nutriblog_entrepreneur = "{$_SERVER['PHP_SELF']}?Filter=entrepreneur";
+    $nutriblog_nutritions = "{$_SERVER['PHP_SELF']}?filter=nutritions";
+    $nutriblog_entrepreneur = "{$_SERVER['PHP_SELF']}?filter=entrepreneur";
     $uri = explode('.php', $_SERVER['PHP_SELF'])[0];
     if ($uri != '/project/pages/member' && $uri != '/project/pages/blog') {
-        $nutriblog_entrepreneur = "/project/pages/blog.php?Filter=entrepreneur";
-        $nutriblog_nutritions = "/project/pages/blog.php?Filter=nutritions";
+        $nutriblog_nutritions = "/project/pages/blog.php?filter=nutritions";
+        $nutriblog_entrepreneur = "/project/pages/blog.php?filter=entrepreneur";
     }
     $nutriblog_create_user = "create_user.php";
     $nutriblog_sign_in = "sign_in.php";
@@ -41,7 +42,7 @@ function blog_navbar($content)
                 <h1 class='lg:ml-32 sm:ml-4 primary text-4xl font-semibold leading-normal'>
                     <a href='{$nutriblog_home}'><strong>NutriBlog</strong></a>
                 </h1>
-                <div class='absolute mt-96 transform -translate-y-1/2 text hidden md:block'>
+                <div data-aos='fade-right' data-aos-delay='400' class='absolute mt-96 transform -translate-y-1/2 text hidden md:block'>
                     <h1 class='lg:ml-64 text-white text-6xl font-bold'>
                         <span>
                             {$content} 
@@ -79,9 +80,9 @@ function blog_navbar($content)
                 <br>");
     if (!isset($_SESSION['auth'])) {
         print ("
-                                <a href='{$nutriblog_create_user}' class='px-2 w-fit'><b>Create</b></a>
-                                <a href='{$nutriblog_sign_in}' class='px-2 w-fit'><b>Sign in</b></a>
-                    ");
+                <a href='{$nutriblog_create_user}' class='px-2 w-fit'><b>Create</b></a>
+                <a href='{$nutriblog_sign_in}' class='px-2 w-fit'><b>Sign in</b></a>
+            ");
     } else {
         if ($_SERVER['PHP_SELF'] != '/project/pages/create_blog.php')
             print ("<a href='{$create_blog}' class='px-2 text-lg w-fit'><b>Write your blog</b></a><hr>");
@@ -97,14 +98,13 @@ function blogBox($delay, $id, $image, $title, $describtion, $date)
     print ("
         <div data-aos-delay='{$delay}' data-aos='fade-up' class='border-2 h-fit w-11/12 mt-5 lg:w-3/12'>
             <!-- Col 1  -->
-            <img class='hover-steer-left'
-                src='{$image}'>
-            <a href='{$nutriblog_content}?blogId={$id}'>
+            <a href='{$nutriblog_content}?id={$id}'>
+                <img class='hover-steer-left' src='{$image}'>
                 <h2 class='text-2xl ml-5 mt-3 title'>{$title}</h2>
-                <p class='text mt-3 ml-5'>{$describtion}...</p>
-                <br>
-                <p class='text-xs mb-5 ml-5 text-[#4a4a4a] underline'>$date</p>
             </a>
+            <p class='text mt-3 ml-5'>{$describtion}...</p>
+            <br>
+            <p class='text-xs mb-5 ml-5 text-[#4a4a4a] underline'>$date</p>
         </div>
     ");
 }

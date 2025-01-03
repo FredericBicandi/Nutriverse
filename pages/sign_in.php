@@ -47,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-<?php include("../php/components/material_nutriblog.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,12 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 
-<body class="h-screen">
+<body class="w-full h-screen overflow-x-hidden">
 
     <!-- navbar -->
     <section>
         <?= blog_navbar(content: false) ?>
-        <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
     </section>
 
     <main class="lg:mt-32 lg:ml-12 min-h-screen">

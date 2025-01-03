@@ -6,6 +6,8 @@ in nutriverse
     fixed the navbar style i made it white for about and black for the rest
     also i added hover accent style transition
 in nutriblog
+    FIXED Wigling in all Screen 
+    Added intro animation
     made underline animation for navbar
     fixed the routing based on authentication
     changed the text theme accent

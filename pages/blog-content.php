@@ -1,6 +1,6 @@
 <?php
 include("../php/components/material_nutriblog.php");
-$id = $_GET['blogId'];
+$id = $_GET['id'];
 $i = 0;
 while ($i < strlen($id)) {
     if (!is_numeric($id[$i])) {
@@ -89,7 +89,7 @@ $content['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
     </style>
 </head>
 
-<body class="bg-gray-100 h-screen">
+<body class="bg-gray-100 w-full h-screen overflow-x-hidden">
     <?php
     blog_navbar(content: 'Daily Tips For Everyone'); ?>
     <div class="bg-[url('<?= $content['cover_url'] ?>')] bg-no-repeat bg-cover w-screen h-1/2 hidden md:block">

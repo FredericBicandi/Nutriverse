@@ -31,10 +31,9 @@ session_start();
     </style>
 </head>
 
-<body class="h-screen">
+<body class="w-full h-screen overflow-x-hidden">
     <section>
         <?= blog_navbar(content: false) ?>
-        <div class="container mx-auto flex items-center justify-start border-b-2 border-[#231f20]">
     </section>
 
     <main class="sm:w-screen lg:w-fit">
@@ -50,7 +49,6 @@ session_start();
         </div>
 
     </main>
-    <br>
     <!-- Footer -->
     <?= footer() ?>
 </body>
