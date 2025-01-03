@@ -10,18 +10,59 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <style>
-        .primary {
-            color: #f7c761;
+        .button_color {
+            background-color: #f7c761;
+            border-color: #f7c761;
+            font-family: Geomanist Medium, sans-serif; 
+        }
+        .button_color:hover {
+            background-color: transparent;
+            border-color: #f7c761;
+            font-family: Geomanist Medium, sans-serif; 
+        }
+        .button_text {
+            color: white;
             font-family: Geomanist Medium, sans-serif;
         }
-
-        .text {
+        .button_text:hover {
             color: #222222;
             font-family: Geomanist Medium, sans-serif;
         }
 
-        .accent {
-            color: #F2E8CF;
+        .primary {
+            color: #f7c761;
+            transition: color 0.2s ease;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .primary:hover {
+            color: #222222;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .text_mobile {
+            color: #222222;
+            font-family: Geomanist Medium, sans-serif;
+        }
+        .text {
+            color: #222222;
+            transition: color 0.1s ease;
+            font-family: Geomanist Medium, sans-serif;
+        }
+        .text:hover {
+            color: #f7c761;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .body_text {
+            color: #222222;
+            font-family: Geomanist Medium, sans-serif;
+        }
+       
+        .bg_image {
+            background-image: url('https://storage.googleapis.com/nutriverse/About_image.jpeg');
+            background-size: 100%;
+            background-position: center;
         }
     </style>
 </head>
@@ -40,7 +81,7 @@
         <section
             class="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between">
             <div class="lg:w-1/2 lg:mb-32 text-center lg:text-left" data-aos="fade-up">
-                <h1 class="text text-4xl md:text-6xl font-semibold leading-tight">
+                <h1 class="body_text text-4xl md:text-6xl font-semibold leading-tight">
                     Ready to elevate your <span class="text-white bg-[#f7c761] px-2">well-being?</span>
                 </h1>
                 <p class="mt-6 text-lg mb-12">

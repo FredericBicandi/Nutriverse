@@ -1,13 +1,21 @@
 <?php
 function sql_connect()
 {
-    $host = "192.168.0.109";
+    $host = "100.127.90.109";
     $username = "null";
     $password = "@1120338#7";
     $database = "NutriVerse";
-    $connection = mysqli_connect($host, $username, $password, $database);
-    if (!$connection) {
-        die("Connection failed: " . mysqli_connect_error());
+    try {
+        $connection = mysqli_connect($host, $username, $password, $database);
+        if (!$connection) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+    } catch (e) {
+        $host = "192.168.0.109";
+        $connection = mysqli_connect($host, $username, $password, $database);
+        if (!$connection) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
     }
     return $connection;
 }

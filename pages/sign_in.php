@@ -1,7 +1,10 @@
 <?php
-require("../php/database.php");
+include("../php/components/material_nutriblog.php");
 session_start();
-
+if (isset($_SESSION['auth'])) {
+    abort(message: "Already logged in");
+}
+require("../php/database.php");
 function validate()
 {
     $_SESSION['errors'] = [];
@@ -42,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
+
 ?>
 <?php include("../php/components/material_nutriblog.php"); ?>
 <!DOCTYPE html>
@@ -68,6 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .primary {
             color: #231f20;
+            transition: color 0.2s ease;
+            font-family: Poppins 100;
+        }
+
+        .primary:hover {
+            color: #3b3738;
             font-family: Poppins 100;
         }
 

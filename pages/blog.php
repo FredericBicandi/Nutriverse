@@ -1,4 +1,13 @@
 <?php
+session_start();
+if (isset($_SESSION['auth']) && isset($_GET['Filter'])) {
+    header("Location: member.php?Fliter={$_GET['Filter']}");
+    exit();
+}
+if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/project/pages/blog") {
+    header("Location: member.php");
+    exit();
+}
 include("../php/components/material_nutriblog.php");
 require("../php/database.php");
 $connection = sql_connect();
@@ -27,6 +36,12 @@ $connection = sql_connect();
 
         .primary {
             color: #231f20;
+            transition: color 0.2s ease;
+            font-family: Poppins 100;
+        }
+
+        .primary:hover {
+            color: #3b3738;
             font-family: Poppins 100;
         }
 
@@ -35,26 +50,40 @@ $connection = sql_connect();
             font-family: Poppins 100;
         }
 
+        .title {
+            color: #4a4a4a;
+            transition: color 0.2s ease;
+            font-family: Poppins 100;
+        }
+
+        .title:hover {
+            color: #1ab394;
+            font-family: Poppins 100;
+        }
+
+        .text_accent {
+            color: #1ab394;
+            font-family: Poppins 100;
+        }
+
         .hover-steer-left {
             transition: transform 0.5s ease;
-            /* Smooth animation effect */
         }
 
         .hover-steer-left:hover {
             transform: translateX(-20px);
-            /* Moves the image 20px to the left */
         }
     </style>
 </head>
 
 <body class="h-screen">
     <section>
-        <?= blog_navbar(content:"Daily Tips For Everyone") ?>
+        <?= blog_navbar(content: "Daily Tips For Everyone") ?>
         <div class="bg_image bg-no-repeat bg-cover bg-center h-96 hidden sm:block md:block">
     </section>
 
     <main class="sm:w-screen lg:w-fit">
-        <h3 class="text-[#bea7a3] text-5xl mt-12 lg:mt-64 ml-8 lg:text-5xl lg:ml-32">
+        <h3 class="text_accent text-5xl mt-12 lg:mt-32 ml-8 lg:text-5xl lg:ml-32">
             <b>
                 <?php
                 if ($_GET["Filter"] == "nutritions") {
@@ -69,7 +98,6 @@ $connection = sql_connect();
         </h3>
 
         <!-- first row  -->
-
         <?php
         if (!empty($_GET["Filter"])) {
             $sql = "SELECT * from Blogs WHERE blog_type='{$_GET['Filter']}'";

@@ -1,13 +1,26 @@
 <?php
 
+function abort($message){
+    session_start();
+    $_SESSION['error_message'] = $message;
+    header("location: abort.php");
+    exit();
+}
 function blog_navbar($content)
 {
     $nutriblog_nutriverse = "nutriverse/";
-    $nutriblog_home = "blog.php";
-    $nutriblog_nutritions = "blog.php?Filter=nutritions";
-    $nutriblog_entrepreneur = "blog.php?Filter=entrepreneur";
+    session_start();
+    $nutriblog_home = !isset($_SESSION['auth']) ? "blog.php" : "member.php";
+    $nutriblog_nutritions = "{$_SERVER['PHP_SELF']}?Filter=nutritions";
+    $nutriblog_entrepreneur = "{$_SERVER['PHP_SELF']}?Filter=entrepreneur";
+    $uri = explode('.php', $_SERVER['PHP_SELF'])[0];
+    if ($uri != '/project/pages/member' && $uri != '/project/pages/blog') {
+        $nutriblog_entrepreneur = "/project/pages/blog.php?Filter=entrepreneur";
+        $nutriblog_nutritions = "/project/pages/blog.php?Filter=nutritions";
+    }
     $nutriblog_create_user = "create_user.php";
     $nutriblog_sign_in = "sign_in.php";
+    $create_blog = "create_blog.php";
     print ("
     <script>
         AOS.init();
@@ -36,31 +49,44 @@ function blog_navbar($content)
                     </h1>
                 </div>
                 <div class='primary hidden md:flex space-x-6 items-center ml-6 mt-2'>
-                    <a data-aos='zoom-out' href='{$nutriblog_nutriverse}' class='px-2 w-fit'><b>Home</b></a>
+                    <a data-aos='zoom-out' href='{$nutriblog_nutriverse}' class='px-2 w-fit hover:underline'><b>Home</b></a>
                     <a data-aos-delay='100' data-aos='zoom-out' href='{$nutriblog_nutritions}'
-                        class='px-2 w-fit'><b>Nutritions</b></a>
+                        class='hover:underline px-2 w-fit'><b>Nutritions</b></a>
                     <a data-aos-delay='200' data-aos='zoom-out' href='{$nutriblog_entrepreneur}'
-                        class='px-2 w-fit'><b>Entrepreneur</b></a>
+                        class='hover:underline px-2 w-fit'><b>Entrepreneur</b></a>
                 </div>
-                <div class='mt-3 ml-auto hidden md:block'>
-                    <a href='{$nutriblog_create_user}' class='px-2 w-fit'><b>Create</b></a>
-                    <a href='{$nutriblog_sign_in}' class='px-2 w-fit'><b>Sign in</b></a>
+                <div class='mt-3 ml-auto hidden md:block'>");
+    if (!isset($_SESSION['auth'])) {
+        print ("
+                <a href='{$nutriblog_create_user}' class='px-2 w-fit'><b>Create</b></a>
+                <a href='{$nutriblog_sign_in}' class='px-2 w-fit'><b>Sign in</b></a>");
+    } else {
+        if ($_SERVER['PHP_SELF'] != '/project/pages/create_blog.php')
+            print ("<a href='{$create_blog}' class='px-2 w-fit'><b>Write your blog</b></a><hr>");
+    }
+    print ("
                 </div>
             </div>
-
             <!-- Mobile Navbar Version -->
-            <div id='mobile-menu' class='bg- primary hidden md:hidden mt-4'>
+            <div id='mobile-menu' class='bg-primary hidden md:hidden mt-4'>
                 <a data-aos='zoom-out' href='{$nutriblog_nutriverse}' class='px-2 text-lg w-fit'><b>Home</b></a>
                 <br>
                 <a data-aos-delay='100' data-aos='zoom-out' href='{$nutriblog_nutritions}'
-                    class='px-2 text-lg w-fit'><b>Nutritions</b></a>
+                class='px-2 text-lg w-fit'><b>Nutritions</b></a>
                 <br>
                 <a data-aos-delay='200' data-aos='zoom-out' href='{$nutriblog_entrepreneur}'
                     class='px-2 text-lg w-fit'><b>Entrepreneur</b></a>
-                <br>
-                <a href='{$nutriblog_create_user}' class='px-2 w-fit'><b>Create</b></a>
-                <a href={$nutriblog_sign_in} class='px-2 w-fit'><b>Sign in</b></a>
-                <hr>
+                <br>");
+    if (!isset($_SESSION['auth'])) {
+        print ("
+                                <a href='{$nutriblog_create_user}' class='px-2 w-fit'><b>Create</b></a>
+                                <a href='{$nutriblog_sign_in}' class='px-2 w-fit'><b>Sign in</b></a>
+                    ");
+    } else {
+        if ($_SERVER['PHP_SELF'] != '/project/pages/create_blog.php')
+            print ("<a href='{$create_blog}' class='px-2 text-lg w-fit'><b>Write your blog</b></a><hr>");
+    }
+    print ("
             </div>
         </nav>");
 }
@@ -74,115 +100,22 @@ function blogBox($delay, $id, $image, $title, $describtion, $date)
             <img class='hover-steer-left'
                 src='{$image}'>
             <a href='{$nutriblog_content}?blogId={$id}'>
-                <h2 class='text-2xl ml-5 mt-3 text-[#4a4a4a] hover:text-[#bea7a3]'>{$title}</h2>
-                <p class='text-[#4a4a4a] mt-3 ml-5'>{$describtion}...</p>
+                <h2 class='text-2xl ml-5 mt-3 title'>{$title}</h2>
+                <p class='text mt-3 ml-5'>{$describtion}...</p>
                 <br>
                 <p class='text-xs mb-5 ml-5 text-[#4a4a4a] underline'>$date</p>
             </a>
         </div>
     ");
 }
-function content()
+
+function content($content)
 {
-
-    print ("
-        <h1 class='text-black text-3xl'>
-            <strong> Main points to know </strong>
-        </h1>
-            <ul class='text list-disc mt-2 ml-5'>
-                <li>
-                    Ozempic
-                    and Mounjaro are both approved by the FDA to treat type 2 diabetes, but doctors often
-                    prescribe them
-                    for weight
-                    loss, too;
-                </li>
-                <li>Both meds work well for losing weight, but studies show Mounjaro might help you lose a bit more;
-                </li>
-                <li>They have similar side effects, like nausea, vomiting, and constipation, but Mounjaro tends to cause
-                    more
-                    serious
-                    stomach problems;
-                </li>
-                <li>Mounjaro targets two receptors linked to weight loss, while Ozempic focuses on just one;
-                </li>
-                <li>To get the best results from these meds, it’s important to pair them with healthy eating. Platforms
-                    like
-                    Nutrium provide
-                    personalized nutrition plans to help manage diabetes and reach your weight loss goals.
-                </li>
-            </ul>
-            <h1 class='text-black text-3xl mt-12'>
-                <strong> What are Ozempic and Mounjaro? </strong>
-            </h1>
-            <p class='mt-5 text'>
-                Let’s break it down. Ozempic and Mounjaro are meds that help adults with type 2 diabetes keep their
-                blood sugar in
-                check. They do this by mimicking a hormone called GLP-1, which boosts insulin production, lowers blood
-                sugar, and
-                even
-                tells your brain, 'Hey, you’re full!'
-
-                This means they don’t just help with diabetes. They can also help with weight loss by reducing those
-                constant food
-                cravings and making you feel fuller faster. Some people find that these meds help silence the
-                never-ending thoughts
-                about food, leading to quicker and more noticeable results.
-
-                However, Ozempic and Mounjaro are only FDA-approved for people with type 2 diabetes, but not as weight
-                loss drugs.
-                They
-                can be prescribed off-label for weight loss, but insurance may not cover them if you don't have type 2
-                diabetes.
-
-                If your main goal is weight loss, there are other FDA-approved options like Wegovy and Zepbound. These
-                might be
-                easier
-                to get covered by insurance.
-
-                Here’s a breakdown for easier understanding:
-            </p>
-            <img width='600' src='https://wp.nutrium.com/wp-content/uploads/2024/09/teste.svg'>
-            <h1 class='mt-6 text-black text-3xl'>
-                <strong>
-                    Ozempic vs Mounjaro: what are their differences?
-                </strong>
-            </h1>
-            <p class='mt-5 text'>
-                These two medications have a lot of similarities, but there are some key differences between them
-                too.
-                Let’s get into
-                that.
-            </p>
-            <h2 class='mt-2 text text-2xl'>
-                <strong>
-                    How Ozempic works
-                </strong>
-            </h2>
-            <p class='mt-2 text'>The magic behind Ozempic comes from its active ingredient, semaglutide. This ingredient
-                acts like a
-                hormone in your
-                body
-                called GLP-1, which helps keep your blood sugar levels in check. By acting like GLP-1, semaglutide
-                helps
-                lower blood
-                sugar, reduces appetite, and makes you feel fuller for longer. This means you eat less and take in
-                fewer
-                calories,
-                leading to visible weight loss over time.
-
-                Ozempic is taken once a week as an under the skin injection in the belly, thigh, or upper arm. It
-                starts
-                at a low
-                dose
-                of 0.25 mg and can gradually increase up to 2 mg, depending on what your doctor thinks is best for
-                you.
-
-                As for cost, it depends on your prescription and insurance coverage. Without insurance, Ozempic
-                typically runs
-                around
-                $935 a month. You can check here if your insurance covers it.
-            </p>");
+    $raw_content = htmlspecialchars($content);
+    $blog_content = explode("<br>", $content);
+    $i = 0;
+    while ($i < count($blog_content))
+        print $blog_content[$i++];
 }
 
 function likes()
@@ -460,7 +393,29 @@ function comments()
                         </div>
                     </article>
                 </div>
-            </section>');
+            </section>
+            <script>
+                   // Like Button Logic
+                const likeButton = document.getElementById("likeButton");
+                const likeIcon = document.getElementById("likeIcon");
+                const likeCount = document.getElementById("likeCount");
+
+                let isLiked = false;
+                let count = 0;
+
+                likeButton.addEventListener("click", () => {
+                    isLiked = !isLiked; // Toggle like state
+                    count += isLiked ? 1 : -1; // Increment or decrement the like count
+
+                    // Update UI
+                    likeCount.textContent = count;
+                    likeIcon.setAttribute(
+                        "fill",
+                        isLiked ? "red" : "none" // Change heart color when liked
+                    );
+                    likeIcon.classList.toggle("text-red-500", isLiked); // Apply red color via Tailwind when liked
+                });</script>
+            ');
 }
 
 function footer()
@@ -471,7 +426,6 @@ function footer()
             <p>&copy; 2024 NutriVerse. All Rights Reserved.</p>
         </div>
     </footer>
-
     <script>
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');

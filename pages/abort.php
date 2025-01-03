@@ -1,6 +1,7 @@
 <?php
 include("../php/components/material_nutriblog.php");
-session_start(); ?>
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,30 +18,15 @@ session_start(); ?>
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <style>
-        .bg_image {
-            background-image: url('https://storage.googleapis.com/nutriverse/blog-home.png');
-            background-size: 120%;
-            background-position: center;
-        }
-
         .primary {
             color: #231f20;
+            transition: color 0.2s ease;
             font-family: Poppins 100;
         }
 
-        .text {
-            color: #4a4a4a;
+        .primary:hover {
+            color: #3b3738;
             font-family: Poppins 100;
-        }
-
-        .hover-steer-left {
-            transition: transform 0.5s ease;
-            /* Smooth animation effect */
-        }
-
-        .hover-steer-left:hover {
-            transform: translateX(-20px);
-            /* Moves the image 20px to the left */
         }
     </style>
 </head>
@@ -59,7 +45,8 @@ session_start(); ?>
             <h2 class='primary mt-5 text-2xl font-semibold text-gray-700'>
                 <i><?= isset($_SESSION['error_message']) ? $_SESSION['error_message'] : 'Unknown error'; ?></i>
             </h2>
-            <a href='/project/pages/blog.php' class="mt-2"><strong>return home</strong></a>
+            <strong>return <a href='/project/pages/blog.php' class="mt-2"> <span
+                        class="hover:underline">home</span></strong></a>
         </div>
 
     </main>
