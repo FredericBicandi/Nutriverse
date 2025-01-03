@@ -93,6 +93,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .primary {
             color: #231f20;
+            transition: color 0.2s ease;
+            font-family: Poppins 100;
+        }
+        .primary:hover {
+            color: #3b3738;
             font-family: Poppins 100;
         }
 

@@ -12,14 +12,14 @@ function nutrinavbar($style)
     </script>
     <nav class='{$style} px-6 py-4 md:px-12'>
         <div class='container mx-auto flex items-center justify-between'>
-            <h1 data-aos='fade-up' class='sm:block hidden ml-32 primary text-5xl font-semibold leading-normal'>
-                <a href='{$nutriverse_home}'><strong>NutriVerse</strong></a>
+            <h1 data-aos='fade-up' class='sm:block hidden ml-32 text-5xl font-semibold leading-normal'>
+                <a href='{$nutriverse_home}' class='primary'><strong>NutriVerse</strong></a>
             </h1>
             <div class='hidden md:flex space-x-6 items-center'>
-                <a href='{$nutriverse_about}' class='no-underline text px-2'><b>About</b></a>
-                <a href='{$nutriverse_blog}' class='no-underline text px-2'><b>Blog</b></a>
+                <a href='{$nutriverse_about}' class='no-underline text px-2 hover:text-[#f7c761]'><b>About</b></a>
+                <a href='{$nutriverse_blog}' class='no-underline text px-2 hover:text-[#f7c761]'><b>Blog</b></a>
                 <a href='{$nutriverse_request}'
-                    class='bg-[#f7c761] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-transparent hover:text-[#363c48] hover:border-[#f7c761] border duration-300'>
+                    class='button_color button_text px-4 py-2 rounded-full text-sm font-medium border duration-300'>
                     <b>Request Consultation</b>
                 </a>
             </div>
@@ -37,11 +37,11 @@ function nutrinavbar($style)
 
         <!-- Mobile Navbar Version -->
         <div id='mobile-menu' class='hidden md:hidden mt-4'>
-            <a href='{$nutriverse_home}' class='block no-underline text px-2'><b>Home</b></a>
+            <a href='{$nutriverse_home}' class='block no-underline text_mobile px-2'><b>Home</b></a>
             <hr>
-            <a href='{$nutriverse_about}' class='mt-5 block no-underline text px-2'><b>About</b></a>
+            <a href='{$nutriverse_about}' class='mt-5 block no-underline text_mobile px-2'><b>About</b></a>
             <hr>
-            <a href='{$nutriverse_blog}' class='mt-5 block no-underline text px-2'><b>Blog</b></a>
+            <a href='{$nutriverse_blog}' class='mt-5 block no-underline text_mobile px-2'><b>Blog</b></a>
             <hr>
             <a href='{$nutriverse_request}' class='mt-5 block bg-[#f7c761] text-white px-4 py-2 rounded-full'><b>Request
                     Consultation</b></a>
@@ -58,7 +58,7 @@ function features_card($delay, $title, $highlited, $describe)
                     <h2 class='text-2xl text-gray-800 font-bold'>
                     {$title} <span class='bg-[#F2E8CF] text-gray-800 px-2'>{$highlited}</span>
                     </h2>
-                    <p class='mt-4 text text-center'>
+                    <p class='mt-4 body_text text-center'>
                         {$describe}</b>
                     </p>
                 </div>");
@@ -114,14 +114,14 @@ function FAQ()
     <section align="center" class="container mx-auto px-6 md:px-12 py-12 items-center lg:justify-between">
         <!-- Title -->
         <div class="text-center">
-            <h2 class="text text-center text-4xl font-semibold leading-normal">
+            <h2 class="body_text text-center text-4xl font-semibold leading-normal">
                 Still have questions? We have the answers
             </h2>
         </div>
         <!-- Q1 -->
         <div data-aos="zoom-in"
             class="lg:w-1/2 text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-16">
-            <h2 class="text  font-semibold leading-normal">
+            <h2 class="body_text  font-semibold leading-normal">
                 How can I access the nutritional monitoring?
             </h2>
             <p data-aos="zoom-in" class="mt-5 px-2 text-gray-700">
@@ -152,7 +152,7 @@ function FAQ()
 
         <div data-aos="zoom-in"
             class="lg:w-1/2 text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-8">
-            <h2 class="text  font-semibold leading-normal">
+            <h2 class="body_text  font-semibold leading-normal">
                 How does NutriVerse analyze my food?
             </h2>
             <p data-aos="zoom-in" class="mt-5 px-2 text-gray-700">
@@ -166,7 +166,7 @@ function FAQ()
         <!-- Q3 -->
         <div data-aos="zoom-in"
             class="lg:w-1/2 text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-8">
-            <h2 class="text  font-semibold leading-normal">
+            <h2 class="body_text  font-semibold leading-normal">
                 Can I use NutriVerse without a dietician?
             </h2>
             <p data-aos="zoom-in" class="mt-5 px-2 text-gray-700">

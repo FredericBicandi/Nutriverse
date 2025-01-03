@@ -10,18 +10,45 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <style>
-        .primary {
-            color: #f7c761;
+        .button_color {
+            background-color: #f7c761;
+            border-color: #f7c761;
+            font-family: Geomanist Medium, sans-serif; 
+        }
+        .button_color:hover {
+            background-color: transparent;
+            border-color: #f7c761;
+            font-family: Geomanist Medium, sans-serif; 
+        }
+        .button_text {
+            color: white;
             font-family: Geomanist Medium, sans-serif;
         }
 
-        .text {
+        .primary {
+            color: #f7c761;
+            transition: color 0.2s ease;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .primary:hover {
+            color: white;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .text_mobile {
             color: #222222;
             font-family: Geomanist Medium, sans-serif;
         }
+        .text {
+            color: white;
+            transition: color 0.1s ease;
+            font-family: Geomanist Medium, sans-serif;
+        }
 
-        .accent {
-            color: #F2E8CF;
+        .text:hover {
+            color: #f7c761;
+            font-family: Geomanist Medium, sans-serif;
         }
 
         .bg_image {

@@ -10,18 +10,59 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <style>
-        .primary {
-            color: #f7c761;
+        .button_color {
+            background-color: #f7c761;
+            border-color: #f7c761;
+            font-family: Geomanist Medium, sans-serif; 
+        }
+        .button_color:hover {
+            background-color: transparent;
+            border-color: #f7c761;
+            font-family: Geomanist Medium, sans-serif; 
+        }
+        .button_text {
+            color: white;
             font-family: Geomanist Medium, sans-serif;
         }
-
-        .text {
+        .button_text:hover {
             color: #222222;
             font-family: Geomanist Medium, sans-serif;
         }
 
-        .accent {
-            color: #F2E8CF;
+        .primary {
+            color: #f7c761;
+            transition: color 0.2s ease;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .primary:hover {
+            color: #222222;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .text_mobile {
+            color: #222222;
+            font-family: Geomanist Medium, sans-serif;
+        }
+        .text {
+            color: #222222;
+            transition: color 0.1s ease;
+            font-family: Geomanist Medium, sans-serif;
+        }
+        .text:hover {
+            color: #f7c761;
+            font-family: Geomanist Medium, sans-serif;
+        }
+
+        .body_text {
+            color: #222222;
+            font-family: Geomanist Medium, sans-serif;
+        }
+       
+        .bg_image {
+            background-image: url('https://storage.googleapis.com/nutriverse/About_image.jpeg');
+            background-size: 100%;
+            background-position: center;
         }
     </style>
 </head>
@@ -39,7 +80,7 @@
             <div class="lg:w-1/2 text-center lg:text-left" data-aos="fade-up">
 
                 <!-- Your best version ust a click away -->
-                <h1 class="text text-6xl font-semibold leading-tight">
+                <h1 class="body_text text-6xl font-semibold leading-tight">
                     Your <span class="text-white bg-[#f7c761] px-2">best version<br></b></span> just a click away
                 </h1>
                 <p class="mt-6 text-lg">
@@ -60,13 +101,13 @@
         <section class="container mx-auto px-6 md:px-12 py-12 flex flex-col items-center lg:justify-between">
 
             <!-- A new way to experience nutrition Title -->
-            <h2 class="text text-center text-4xl font-semibold leading-normal">
+            <h2 class="body_text text-center text-4xl font-semibold leading-normal">
                 A new way to
                 <span class="text-white bg-[#f7c761] px-2">
                     <b data-aos="fade-up">experience nutrition</b>
                 </span>
             </h2>
-            <p class="mt-5 px-2 text-xl text-center text">
+            <p class="mt-5 px-2 text-xl text-center body_text">
                 Experience totally personalized nutrition, closer than ever. Because it's easier to achieve
                 <b>results when
                     you have the right <br>
@@ -106,13 +147,13 @@
 
             <div class="text-center">
                 <!-- What if from today everything changes? Title-->
-                <h2 class="text text-center text-4xl font-semibold leading-normal">
+                <h2 class="body_text text-center text-4xl font-semibold leading-normal">
                     What if from today
                     <span data-aos="fade-up" class="text-white bg-[#f7c761] px-2">
                         <b>everything changes?</b>
                     </span>
                 </h2>
-                <p class="mt-5 px-2 text-xl text-center text">
+                <p class="mt-5 px-2 text-xl text-center body_text">
                     Achieving your goals is easier with <b>personalized guidance and continuous monitoring</b>.At
                     NutriVerse,you'll find qualified <br>
                     dietitians who are with you far beyond the appointments.
@@ -124,7 +165,7 @@
                 class="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between">
                 <div class="lg:w-1/2 text-center lg:text-left">
                     <!--  unlimited appointments  -->
-                    <h1 class="text text-4xl font-semibold leading-normal">
+                    <h1 class="body_text text-4xl font-semibold leading-normal">
                         Find the right dietitian for <br>
                         you and get access to<br>
                         <span class="text-white bg-[#c9e08a] px-2">
@@ -149,7 +190,7 @@
 
                 <div class="lg:w-1/2 text-center lg:text-left">
                     <!-- available a daily basis -->
-                    <h1 class="text text-4xl font-semibold leading-normal">
+                    <h1 class="body_text text-4xl font-semibold leading-normal">
                         Never lose motivation with <br>
                         a dietitian always
                         <span class="text-white bg-[#ccb8b8] px-2"><b data-aos="zoom-in">available
@@ -168,7 +209,7 @@
                 class="mt-12 container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between">
                 <!-- recipes,e-books and tips -->
                 <div class="lg:w-1/2 text-center lg:text-left">
-                    <h1 class="text text-4xl font-semibold leading-normal">
+                    <h1 class="body_text text-4xl font-semibold leading-normal">
                         Simplify your diet with the<br>
                         help of <span data-aos="fade-up" class="text-white bg-[#e39269] px-2">
                             <strong>recipes,e-books and
