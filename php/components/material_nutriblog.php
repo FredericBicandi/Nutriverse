@@ -7,6 +7,38 @@ function abort($message)
     header("location: abort.php");
     exit();
 }
+
+function add_content_button()
+{
+    print ("<!-- Dropdown Button -->
+   <div class='fixed bottom-4 right-4 md:mt-8 flex justify-center'>
+        <button id='dropdown-button'
+            class='bg-[#231f20] text-white px-4 py-1 rounded-full items-center space-x-2 hover:bg-[#414040]'>
+            <span class='text-lg font-bold'>+</span>
+            <span class='hidden md:inline text-sm font-semibold'>Add Content</span>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id='dropdown-menu'
+            class='hidden left-0 mt-2 bg-white border border-gray-200 shadow-lg rounded-md w-48 z-10'>
+            <ul class='py-2'>
+                <li>
+                    <button onclick=\"addElement('h2')\" class='block w-full px-4 py-2 hover:bg-gray-100'>SubTitle</button>
+                </li>
+                <li>
+                    <button onclick=\"addElement('pre')\" class='block w-full px-4 py-2 hover:bg-gray-100'>Paragraph</button>
+                </li>
+                <li>
+                    <button onclick=\"addElement('img')\" class='block w-full px-4 py-2 hover:bg-gray-100'>Image</button>
+                </li>
+                <li>
+                    <button onclick=\"addElement('a')\" class='block w-full px-4 py-2 hover:bg-gray-100'>URL</button>
+                </li>
+            </ul>
+        </div>
+    </div>");
+}
+
 function blog_navbar($content)
 {
     $nutriblog_nutriverse = "nutriverse/";
@@ -43,7 +75,7 @@ function blog_navbar($content)
                     <a href='{$nutriblog_home}'><strong>NutriBlog</strong></a>
                 </h1>
                 <div data-aos='fade-right' data-aos-delay='400' class='absolute mt-96 transform -translate-y-1/2 text hidden md:block'>
-                    <h1 class='lg:ml-64 text-white text-6xl font-bold'>
+                    <h1 class='lg:ml-32 text-white text-6xl font-bold'>
                         <span>
                             {$content} 
                         </span>
