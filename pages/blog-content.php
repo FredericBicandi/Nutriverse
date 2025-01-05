@@ -1,23 +1,39 @@
 <?php
 include("../php/components/material_nutriblog.php");
-$id = $_GET['id'];
-$i = 0;
-while ($i < strlen($id)) {
-    if (!is_numeric($id[$i])) {
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $i = 0;
+    while ($i < strlen($id)) {
+        if (!is_numeric($id[$i])) {
+            abort(message: "blog not found");
+        }
+        $i++;
+    }
+    require("../php/database.php");
+    $connection = sql_connect();
+    $sql = "SELECT * FROM Blogs WHERE blog_id={$id}";
+    $content = mysqli_fetch_assoc(mysqli_query($connection, $sql));
+    if (!$content) {
         abort(message: "blog not found");
     }
-    $i++;
+    $sql = "SELECT first_name, last_name FROM Users WHERE user_id={$content['user_id']}";
+    $user = mysqli_fetch_assoc(mysqli_query($connection, $sql));
+    $content['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
+} else if (isset($_GET['preview']) && $_GET['preview'] == "true") {
+    session_start();
+    if (isset($_SESSION['POST'])) {
+        $content['cover_url'] = $_SESSION['POST']['cover'];
+        $content['blog_title'] = $_SESSION['POST']['title'];
+        $content['user_id'] = 'unknown';
+        $content['created_at'] = date("Y-m-d");
+        $content['blog_description'] = $_SESSION['POST']['desc'];
+        $content['blog_content'] = $_SESSION['POST']['content'];
+
+
+    }
+} else {
+    abort(message: "no content to display");
 }
-require("../php/database.php");
-$connection = sql_connect();
-$sql = "SELECT * FROM Blogs WHERE blog_id={$id}";
-$content = mysqli_fetch_assoc(mysqli_query($connection, $sql));
-if (!$content) {
-    abort(message: "blog not found");
-}
-$sql = "SELECT first_name, last_name FROM Users WHERE user_id={$content['user_id']}";
-$user = mysqli_fetch_assoc(mysqli_query($connection, $sql));
-$content['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
 
 
 ?>
@@ -95,13 +111,11 @@ $content['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
     <div class="bg-[url('<?= $content['cover_url'] ?>')] bg-no-repeat bg-cover w-screen h-1/2 hidden md:block">
     </div>
 
-    <div data-aos="fade-up" class="relative min-h-screen">
+    <div data-aos="fade-up" class="relative w-screen">
 
-        <div class="top-0 left-0 w-full h-full bg-cover bg-center"
-            style="background-image: url('your-background-image.jpg'); filter: brightness(80%);"></div>
         <!-- Content Box -->
         <div
-            class="absolute lg:left-1/2 lg:-translate-x-1/2 md:translate-y-9 bg-white text_accent border border-[#ddd] lg:w-11/12 sm:w-8/12 p-8 shadow-lg">
+            class="absolute lg:left-1/2 lg:-translate-x-1/2 md:translate-y-9 bg-white text_accent border border-[#ddd] lg:w-11/12 sm:w-screen p-8 shadow-lg overflow-x-hidden">
             <!-- Title -->
             <h1 class="text-center text-4xl font-bold mb-6 leading-tight">
                 <?= $content['blog_title'] ?>
@@ -119,7 +133,6 @@ $content['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
                 <?= $content['blog_description'] ?>
             </p>
             <!-- content -->
-
             <?= content(content: $content['blog_content']) ?>
             <?= likes() ?>
             <?= comments() ?>

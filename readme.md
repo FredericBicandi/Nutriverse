@@ -1,3 +1,13 @@
+# [1/5/2025]
+//REMAINING::Comments and like with AJAX (GOOD JOB :P <3 love you)
+// TODO:: FIX the content blog form to have dynamic id instead os static ones
+        try to make a form with only a button saying submit after user preview and change the original submit to preview
+        also remove navbar from preview
+fixed content-blog default routing now abort with message
+also added content-blog preview route
+fixed create blog all styles
+create blog is now functional with an issue 
+added preview iframe for content blog submit
 # [1/3/2025]
 //REMAINING::Comments and like with AJAX (GOOD JOB :P <3 love you)
 //TODO:: all posts and creat_blog functioning

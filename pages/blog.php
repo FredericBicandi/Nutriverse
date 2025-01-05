@@ -82,7 +82,8 @@ $connection = sql_connect();
 <body class="w-full h-screen overflow-x-hidden">
     <section>
         <?= blog_navbar(content: "Daily Tips For Everyone") ?>
-        <div class="bg_image bg-no-repeat bg-cover h-96 hidden sm:block md:block">
+        <div class="bg_image bg-no-repeat bg-cover h-96 hidden md:block">
+            
     </section>
 
     <main class="w-full sm:w-screen ">
