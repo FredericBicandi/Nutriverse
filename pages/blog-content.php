@@ -1,5 +1,5 @@
 <?php
-$ispreview = false;
+$ispreview = 0;
 include("../php/components/material_nutriblog.php");
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -14,14 +14,18 @@ if (isset($_GET['id'])) {
     $connection = sql_connect();
     $sql = "SELECT * FROM Blogs WHERE blog_id={$id}";
     $content = mysqli_fetch_assoc(mysqli_query($connection, $sql));
+   
     if (!$content) {
         abort(message: "blog not found");
     }
     $sql = "SELECT first_name, last_name FROM Users WHERE user_id={$content['user_id']}";
     $user = mysqli_fetch_assoc(mysqli_query($connection, $sql));
     $content['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
+    if ($content['accepted']==0) {
+        $ispreview = 1;
+    }
 } else if (isset($_GET['preview']) && $_GET['preview'] == "true") {
-    $ispreview = true;
+    $ispreview = 1;
     session_start();
     if (isset($_SESSION['POST'])) {
         $content['cover_url'] = $_SESSION['POST']['cover'];
@@ -110,7 +114,7 @@ if (isset($_GET['id'])) {
 <body class="bg-gray-100 w-full h-screen overflow-x-hidden">
 
     <?php
-    if (!$ispreview) {
+    if ($ispreview == 0) {
         blog_navbar(content: 'Daily Tips For Everyone');
     } else {
         print ("
@@ -148,10 +152,10 @@ if (isset($_GET['id'])) {
                 <?= $content['blog_description'] ?>
             </p>
             <!-- content -->
-            <?= content(content: $content['blog_content'])?>
-            <?= !$ispreview? likes():'' ?>
-            <?= !$ispreview? comments():'' ?>
-            <?= !$ispreview?footer():'' ?>
+            <?= content(content: $content['blog_content']) ?>
+            <?= !$ispreview ? likes() : '' ?>
+            <?= !$ispreview ? comments() : '' ?>
+            <?= !$ispreview ? footer() : '' ?>
         </div>
 </body>
 

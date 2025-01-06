@@ -1,5 +1,5 @@
 <?php
-include("../components/material_nutriblog.php");
+include("../components/material_nutriadmin.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -19,30 +19,47 @@ session_start();
         rel="stylesheet">
     <style>
         .primary {
-            color: #231f20;
+            color: #333333;
             transition: color 0.2s ease;
             font-family: Poppins 100;
         }
 
+
         .primary:hover {
-            color: #3b3738;
+            color: #007bff;
             font-family: Poppins 100;
+        }
+
+        .accent {
+            color: #007bff;
+            transition: color 0.2s ease;
+            font-family: Poppins 100;
+        }
+
+        .text {
+            color: #333333;
+            font-family: Poppins 100;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
 
 <body class="w-full h-screen overflow-x-hidden">
-    
     <main class="sm:w-screen lg:w-fit">
         <div class="w-screen h-screen text-center mt-12 lg:mt-32">
-            <h1 class='primary text-6xl font-semibold'>
+            <h1 class='accent text-7xl font-semibold'>
                 <strong>404</strong>
             </h1>
-            <h2 class='primary mt-5 text-2xl font-semibold text-gray-700'>
+            <h2 class='text mt-5 text-2xl font-semibold text-gray-700'>
                 <i><?= isset($_SESSION['error_message']) ? $_SESSION['error_message'] : 'Unknown error'; ?></i>
             </h2>
-            <strong>return <a href='/project/pages/blog.php' class="mt-2"> <span
-                        class="hover:underline">home</span></strong></a>
+            <strong>return <a href='/project/php/nutriAdmin/' class="mt-2"> <span
+                        class="accent hover:underline">home</span></strong></a>
         </div>
 
     </main>
