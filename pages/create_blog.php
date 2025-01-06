@@ -1,5 +1,78 @@
-<?php include("../php/components/material_nutriblog.php"); ?>
+<?php
+include("../php/components/material_nutriblog.php");
+session_start();
+if (!$_SESSION['auth']) {
+    abort(message: 'your are not authenticated');
+}
+?>
 
+<?php
+$_SESSION['error'] = "";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST)) {
+        unset($_SESSION['error']);
+        unset($_SESSION['POST']);
+        $file_names = [];
+        $file_index = 0;
+        foreach ($_FILES as $label => $value) {
+            $labels[$file_index] = $label;
+            if (isset($_FILES[$label]) && explode("/", $_FILES[$label]['type'])[0] == "image") {
+                if (move_uploaded_file($_FILES[$label]['tmp_name'], "images/" . $_FILES[$label]['name'])) {
+                    $file_names[$file_index] = $_FILES[$label]['name'];
+                } else {
+                    $_SESSION['error'] = 'Error while uploading the image';
+                }
+            } else {
+                $_SESSION['error'] = 'Files should be only images';
+            }
+            $file_index++;
+        }
+        
+        $_SESSION['POST']['cover'] = explode("?", $_POST['cover'])[0] . "?w=1920&ssl=1";
+        $_SESSION['POST']['img'] = explode("?", $_POST['cover'])[0] . "?resize=800%2C612&ssl=1";
+        $_SESSION['POST']['title'] = $_POST['title'];
+        $_SESSION['POST']['desc'] = $_POST['desc'];
+        $_SESSION['POST']['content'] = '';
+        $file_index = 0;
+        foreach ($_POST as $label => $value) {
+            $raw_label = explode("-", $label)[0];
+            if ($raw_label == "h2") {
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "
+                <h2 class='mt-5 text-black text-3xl'>
+                <strong>{$value}</strong>
+                </h2>
+                <br>";
+            } else if ($raw_label == "pre") {
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "<pre class='ml-12 mt-5 text'>{$value}</pre>
+                <br>";
+            } else if ($raw_label == "url") {
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "
+                <pre class='ml-12 mt-5 text'><a class='text_accent' href='{$value}'>{$value}</a></pre>
+                <br>";
+            } else if ($raw_label == "imgurl"  && !empty($value)) {
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "<img align='center' src='{$value}' width='900' /><br>";
+            } else if (!empty($file_names[$file_index])) {
+                $value = $file_names[$file_index++];
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "<img align='center' src='images/{$value}' width='900' /><br>";
+            }
+        }
+    }
+    print ("SESSION <pre>");
+    print_r($_SESSION['POST']);
+    print ("</pre>");
+
+}
+
+if (explode("?", $_GET['accept'])[0]) {
+    if (!empty($_SESSION['error'])) {
+        foreach ($_SESSION['POST'] as $label => $value) {
+            if (empty($value)) {
+                $_SESSION['error'] = "{$label} cannot be empty";
+            }
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +126,9 @@
 
         <!-- Blog Form -->
         <div class="flex justify-center mt-6">
-            <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" id="blog-form" class="space-y-6 text-center">
+            <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data" id="blog-form"
+                class="space-y-6 text-center">
+                
                 <input class="block lg:w-96 p-2 border border-gray-300 rounded mt-6" type="url"
                     placeholder="Your blog cover picture url" id="cover" name="cover" required>
 
@@ -62,36 +137,32 @@
 
                 <textarea class="block lg:w-96 p-2 border border-gray-300 rounded mt-6"
                     placeholder="Your blog description" id="desc" name="desc" required></textarea>
+                <?= isset($_SESSION['error']) ? "<p class='mt-5 text-red-600'>{$_SESSION['error']}</p>" : ""; ?>
 
                 <div class="flex flex-col items-center" id="form-elements-container"></div>
 
                 <button type="submit"
                     class="bg-[#231f20] text-white py-2 px-4 rounded hover:bg-[#414040] focus:ring focus:ring-[#231f20]">
-                    Submit Blog
+                    Preview your blog
                 </button>
+
             </form>
         </div>
+
         <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST)) {
-                session_start();
-                echo "<pre>";
-                print_r($_POST);
-                echo "</pre>";
-                $_SESSION['POST']['cover'] = $_POST['cover'];
-                $_SESSION['POST']['title'] = $_POST['title'];
-                $_SESSION['POST']['desc'] =$_POST['desc'];
-                $_SESSION['POST']['content'] = '';
-                if ($_POST['h2']) {
-                    $_SESSION['POST']['content'] =  $_SESSION['POST']['content']."
-                        <h2 class='mt-5 text-black text-3xl'>
-                            <strong>{$_POST['h2']}</strong>
-                        </h2>
-                    <br>";
-                }
                 print ("
-                <iframe class='mt-12' height='800' width='100%' src='http://100.127.90.108/project/pages/blog-content.php?preview=true'>
-                    </iframe>");
+                    <iframe class='mt-12' height='800' width='100%' src='http://100.127.90.108/project/pages/blog-content.php?preview=true'></iframe>
+                    <div class='flex justify-center mt-6'>
+                        <form method='GET'action='{$_SERVER['PHP_SELF']}' class='mt-8'>
+                            <input type='text' class='hidden' name='accept' value='true'>
+                                <button type='submit' class='bg-[#231f20] text-white py-2 px-4 rounded hover:bg-[#414040] focus:ring focus:ring-[#231f20]'>
+                                    Submit Blog
+                                </button>
+                        </form>
+                    </div>
+                ");
             }
         }
         ?>
@@ -122,37 +193,46 @@
         });
 
         // Function to dynamically add form elements
+        let imgCounter = 0;
+        let h2Counter = 0;
+        let urlCounter = 0;
+        let preCounter = 0;
+        let img_urlCounter = 0;
         function addElement(tag) {
             const container = document.getElementById('form-elements-container');
             let element;
 
             switch (tag) {
                 case 'img':
+                    imgCounter++;
                     element = document.createElement('input');
                     element.type = 'file';
-                    element.id = 'img';
-                    element.name = 'img';
-                    element.accept = 'image/*';
+                    element.id = 'img-' + imgCounter;
+                    element.name = 'img-' + imgCounter;
                     element.placeholder = 'Upload an image';
                     break;
                 case 'a':
+                    urlCounter++;
                     element = document.createElement('input');
                     element.type = 'url';
-                    element.id = 'url';
-                    element.name = 'url';
+                    element.id = 'url-' + urlCounter;
+                    element.name = 'url-' + urlCounter;
                     element.placeholder = 'Enter a URL';
                     break;
                 case 'h2':
+                    h2Counter++;
                     element = document.createElement('input');
                     element.type = 'text';
-                    element.id = 'h2';
-                    element.name = 'h2';
+                    element.id = 'h2-' + h2Counter;
+                    element.name = 'h2-' + h2Counter;
                     element.placeholder = 'Subtitle';
                     break;
                 case 'pre':
+                    preCounter++;
                     element = document.createElement('textarea');
                     element.id = 'pre';
-                    element.name = 'pre';
+                    element.name = 'pre-' + preCounter;
+                    element.id = 'pre-' + preCounter;
                     element.placeholder = 'Write your paragraph';
                     break;
                 default:
@@ -175,17 +255,18 @@
 
             // Wrap element and delete button
             const wrapper = document.createElement('div');
-            wrapper.className = 'flex items-center mt-4';
+            wrapper.className = 'items-center mt-4';
             wrapper.appendChild(element);
             wrapper.appendChild(deleteButton);
 
             if (tag === 'img') {
                 const urlInput = document.createElement('input');
+                img_urlCounter++;
                 urlInput.type = 'url';
-                urlInput.id = 'url';
-                urlInput.name = 'url';
+                urlInput.id = 'imgurl' + img_urlCounter;
+                urlInput.name = 'imgurl-' + img_urlCounter;
                 urlInput.placeholder = 'Or enter image URL';
-                urlInput.className = 'block w-64 p-2 border border-gray-300 rounded ml-4';
+                urlInput.className = element.className;
                 wrapper.appendChild(urlInput);
             }
 
