@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("../php/components/material_nutriblog.php");
 
 if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/project/pages/blog") {
     if (isset($_GET['filter']))
@@ -8,9 +9,6 @@ if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/pr
         header("Location: member.php");
     exit();
 }
-include("../php/components/material_nutriblog.php");
-require("../php/database.php");
-$connection = sql_connect();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +39,7 @@ $connection = sql_connect();
             background-size: 120%;
             background-position: center;
         }
+
         .text {
             color: #4a4a4a;
             font-family: Poppins;
@@ -83,7 +82,6 @@ $connection = sql_connect();
     <section>
         <?= blog_navbar(content: "Daily Tips For Everyone") ?>
         <div class="bg_image bg-no-repeat bg-cover h-96 hidden md:block">
-            
     </section>
 
     <main class="w-full sm:w-screen ">
@@ -103,12 +101,16 @@ $connection = sql_connect();
             </h3>
 
             <?php
+            require("../php/database/database.php");
             if (isset($_GET["filter"])) {
-                $sql = "SELECT * from Blogs WHERE blog_type='{$_GET['filter']}'";
+                $result = sql_read(query: "SELECT * from Blogs WHERE blog_type='{$_GET['filter']}' AND accepted=true ");
+                if (!$result)
+                    abort(message: "error connecting to database please try again later");
             } else {
-                $sql = "SELECT * from Blogs";
+                $result = sql_read(query: "SELECT * from Blogs WHERE accepted=1");
+                if (!$result)
+                    abort(message: "error connecting to database please try again later");
             }
-            $result = mysqli_query($connection, $sql);
             $i = 1;
             while ($row = mysqli_fetch_assoc($result)) {
                 if ($i == 1) {

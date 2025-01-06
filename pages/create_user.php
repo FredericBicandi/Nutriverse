@@ -1,9 +1,12 @@
 <?php
-require("../php/database.php");
+include("../php/components/material_nutriblog.php");
 session_start();
 
 function validate()
 {
+    require("../php/functions/nutriblog_functions.php");
+    require("../php/database/database.php");
+
     $_SESSION['errors'] = [];
     $data = [];
 
@@ -12,7 +15,7 @@ function validate()
         $firstname = explode(' ', $fullname)[0];
         $lastname = explode(' ', $fullname)[1];
         $password = strip_tags($_POST['password']);
-        $email = strip_tags($_POST['email']);
+        $email = strtolower(strip_tags($_POST['email']));
 
         if (!user_validation_rules($firstname, 'username') || !user_validation_rules($lastname, 'username')) {
             $_SESSION['errors']['fullName'] = 'Please enter both first and last name.';
@@ -53,22 +56,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         session_unset();
         session_destroy();
-        $connection = sql_connect();
-        if ($connection) {
-            $sql = "INSERT INTO 
-            Users (first_name, last_name, email, password_hash) 
-            VALUES ('{$data['firstname']}', '{$data['lastname']}', '{$data['email']}', '{$data['password']}')";
-            if (mysqli_query($connection, $sql)) {
-                mysqli_close($connection);
-                session_start();
-                $_SESSION['success']['creation_account'] = 'Account Created Succesfully';
-                header("Location: create_user.php");
-            }
+        if (
+            sql_create(
+                query: "INSERT INTO Users (first_name, last_name, email, password_hash) 
+                        VALUES ('{$data['firstname']}', '{$data['lastname']}', '{$data['email']}', '{$data['password']}')"
+            )
+        ) {
+
+            session_start();
+            $_SESSION['success']['creation_account'] = 'Account Created Succesfully';
+            header("Location: create_user.php");
+        } else {
+            abort(message: "error while creating new account");
         }
     }
+
 }
 ?>
-<?php include("../php/components/material_nutriblog.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,6 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             transition: color 0.2s ease;
             font-family: Poppins 100;
         }
+
         .primary:hover {
             color: #3b3738;
             font-family: Poppins 100;
@@ -139,11 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" placeholder="eg: John Smith" name="fullName" id="fullname" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base  text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
-                        <?php
-                        if (isset($_SESSION['errors']['fullName'])) {
-                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['fullName']}</p>");
-                        }
-                        ?>
+                        <?= isset($_SESSION['errors']['fullName']) ? "<p class='mt-3' style='color:red'>{$_SESSION['errors']['fullName']}</p>" : '' ?>
                     </div>
                     <div data-aos="zoom-out">
                         <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>

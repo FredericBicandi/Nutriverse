@@ -10,7 +10,7 @@ if (isset($_GET['id'])) {
         }
         $i++;
     }
-    require("../php/database.php");
+    require("../php/database/database.php");
     $connection = sql_connect();
     $sql = "SELECT * FROM Blogs WHERE blog_id={$id}";
     $content = mysqli_fetch_assoc(mysqli_query($connection, $sql));
