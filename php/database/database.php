@@ -49,4 +49,26 @@ function sql_read($query)
     return $result;
 }
 
+function sql_delete($query)
+{
+    if ($connection = sql_connect()) {
+        $result = mysqli_query($connection, $query);
+        mysqli_close($connection);
+    } else {
+        return false;
+    }
+    return $result;
+}
+
+function sql_update($query)
+{
+    if ($connection = sql_connect()) {
+        $result = mysqli_query($connection, $query);
+        mysqli_close($connection);
+    } else {
+        return false;
+    }
+    return $result;
+}
+
 ?>

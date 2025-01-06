@@ -1,50 +1,49 @@
 <?php
-include("../php/components/material_nutriblog.php");
+
+include("../components/material_nutriadmin.php");
 session_start();
-if (isset($_SESSION['auth'])) {
+if (isset($_SESSION['admin_auth'])) {
     abort(message: "Already logged in");
 }
 
+// if (explode("?",$_GET)[1]=='logout') {
+//     die("LOGOOUT");
+// }
+
 function validate()
 {
-    require("../php/functions/nutriblog_functions.php");
-    require("../php/database/database.php");
-    $_SESSION['errors'] = [];
+    require("../functions/ft_functions.php");
+    require("../database/database.php");
+    unset($_SESSION['admin_errors']);
+    $_SESSION['admin_errors'] = [];
+    if (isset($_POST['username'])) {
+        $username_field = strtolower($_POST['username']);
 
-    if (isset($_POST['email'])) {
-        $email_field = strtolower($_POST['email']);
-
-        if (user_validation_rules($email_field, 'email')) {
-            session_unset();
-            $_SESSION['s_errors']['email'] = 'email not found.';
+        $username_check = mysqli_fetch_assoc(sql_read(query: "SELECT * FROM Admins WHERE username='{$username_field}'"))['username'];
+        if (!$username_check)
             return false;
-        }
         $password = $_POST['password'];
-        $password_hash = mysqli_fetch_assoc(sql_read(query: "SELECT password_hash FROM `Users` WHERE email='$email_field'"))['password_hash'];
+        $password_hash = mysqli_fetch_assoc(sql_read(query: "SELECT password_hash FROM `Admins` WHERE username='$username_field'"))['password_hash'];
         if (!password_verify($password, $password_hash)) {
             session_unset();
-            $_SESSION['s_errors']['password'] = 'incorrect password';
+            $_SESSION['admin_errors']['password'] = 'incorrect password';
             return false;
         }
     } else {
         return false;
     }
-    $email_field = strtolower($_POST['email']);
-    $user_id = mysqli_fetch_assoc(sql_read(query: "SELECT user_id FROM Users WHERE email='{$email_field}'"))['user_id'];
-    return $user_id;
+    return true;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = validate();
-    if (!$user_id) {
-        header("Location: sign_in.php");
+    if (!validate()) {
+        header("Location: login.php");
     } else {
         session_unset();
         session_destroy();
         session_start();
-        $_SESSION['auth'] = 'VALIDATED';
-        $_SESSION['user'] = $user_id;
-        header("Location: member.php");
+        $_SESSION['admin_auth'] = 'VALIDATED';
+        header("Location: index.php");
         exit();
     }
 }
@@ -55,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutriblog</title>
+    <title>NutriAdmin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -65,101 +64,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <style>
-        .bg_image {
-            background-image: url('https://storage.googleapis.com/nutriverse/blog-home.png');
-            background-size: 120%;
-            background-position: center;
-        }
-
         .primary {
-            color: #231f20;
+            color: #333333;
             transition: color 0.2s ease;
             font-family: Poppins 100;
         }
 
+
         .primary:hover {
-            color: #3b3738;
+            color: #007bff;
+            font-family: Poppins 100;
+        }
+
+        .accent {
+            color: #007bff;
+            transition: color 0.2s ease;
             font-family: Poppins 100;
         }
 
         .text {
-            color: #4a4a4a;
+            color: #333333;
             font-family: Poppins 100;
         }
 
-        .hover-steer-left {
-            transition: transform 0.5s ease;
-            /* Smooth animation effect */
-        }
-
-        .hover-steer-left:hover {
-            transform: translateX(-20px);
-            /* Moves the image 20px to the left */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
 
 <body class="w-full h-screen overflow-x-hidden">
-
-    <!-- navbar -->
-    <section>
-        <?= blog_navbar(content: false) ?>
-    </section>
-
+    <?= admin_navbar(enable_logout: false) ?>
     <main class="lg:mt-32 lg:ml-12 min-h-screen">
+
         <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 class="text-center text-2xl/9 font-bold tracking-tight text-[#231f20]">Sign in to your account
+                <h2 class="text-center text-4xl font-bold tracking-tight accent">Admin <span class="text">Panel</span>
                 </h2>
             </div>
 
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form class="space-y-6" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
-                    <div data-aos="zoom-out">
-                        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+                    <div>
+                        <label for="username" class="block text-sm/6 font-medium text">username</label>
                         <div class="mt-2">
-                            <input type="email" name="email" id="email" autocomplete="email" required
-                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
+                            <input type="text" name="username" id="username" autocomplete="username" required
+                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text outline outline-1 -outline-offset-1 outline-[#007bff]  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#0162ff] sm:text-sm/6">
                         </div>
-                        <?= isset($_SESSION['s_errors']['email']) ? "<p class='mt-3' style='color:red'>{$_SESSION['s_errors']['email']}</p>" : ''; ?>
+                        <?= isset($_SESSION['admin_errors']['username']) ? "<p class='mt-3' style='color:red'>{$_SESSION['admin_errors']['username']}</p>" : ''; ?>
                     </div>
 
-                    <div data-aos-delay="100" data-aos="zoom-out">
+                    <div>
                         <div class="flex items-center justify-between">
-                            <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+                            <label for="password" class="block text-sm/6 font-medium text-gray-900">password</label>
                             <div class="text-sm">
-                                <a href="#" class="font-semibold text-[#231f20] hover:text-[#757575]">Forgot
-                                    password?</a>
+                                <a href="#" class="font-semibold primary">Forgot password?</a>
                             </div>
                         </div>
                         <div class="mt-2">
                             <input type="password" name="password" id="password" autocomplete="current-password"
                                 required
-                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
+                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text outline outline-1 -outline-offset-1 outline-[#007bff]  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#0162ff] sm:text-sm/6">
                         </div>
-                        <?php
-                        if (isset($_SESSION['s_errors']['password'])) {
-                            printf("<p class='mt-3' style='color:red'>{$_SESSION['s_errors']['password']}</p>");
-                        }
-                        ?>
+                        <?= isset($_SESSION['admin_errors']['password']) ? "<p class='mt-3' style='color:red'>{$_SESSION['admin_errors']['password']}</p>" : ''; ?>
                     </div>
 
-                    <div data-aos-delay="200" data-aos="zoom-out">
+                    <div>
                         <button type="submit"
-                            class="flex w-full justify-center rounded-md bg-[#231f20] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#414040] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">Sign
+                            class="flex w-full justify-center rounded-md bg-[#007bff] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#0162ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">Sign
                             in</button>
                     </div>
                 </form>
 
-                <p class="mt-10 text-center text-sm/6 text-gray-500">
-                    Not a member?
-                    <a href="create_user.php" class="font-semibold text-[#231f20] hover:text-[#757575]">Create your
-                        account</a>
-                </p>
             </div>
         </div>
     </main>
-    <!-- Footer -->
     <?= footer() ?>
 </body>
 

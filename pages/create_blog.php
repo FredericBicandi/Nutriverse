@@ -1,7 +1,7 @@
 <?php
 
 include("../php/components/material_nutriblog.php");
-include("../php/functions/nutriblog_functions.php");
+include("../php/functions/ft_functions.php");
 session_start();
 if (!$_SESSION['auth']) {
     abort(message: 'your are not authenticated');

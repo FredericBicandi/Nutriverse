@@ -4,7 +4,7 @@ session_start();
 
 function validate()
 {
-    require("../php/functions/nutriblog_functions.php");
+    require("../php/functions/ft_functions.php");
     require("../php/database/database.php");
 
     $_SESSION['errors'] = [];
