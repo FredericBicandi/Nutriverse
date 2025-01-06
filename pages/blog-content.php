@@ -1,4 +1,5 @@
 <?php
+$ispreview = false;
 include("../php/components/material_nutriblog.php");
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -20,6 +21,7 @@ if (isset($_GET['id'])) {
     $user = mysqli_fetch_assoc(mysqli_query($connection, $sql));
     $content['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
 } else if (isset($_GET['preview']) && $_GET['preview'] == "true") {
+    $ispreview = true;
     session_start();
     if (isset($_SESSION['POST'])) {
         $content['cover_url'] = $_SESSION['POST']['cover'];
@@ -106,8 +108,21 @@ if (isset($_GET['id'])) {
 </head>
 
 <body class="bg-gray-100 w-full h-screen overflow-x-hidden">
+
     <?php
-    blog_navbar(content: 'Daily Tips For Everyone'); ?>
+    if (!$ispreview) {
+        blog_navbar(content: 'Daily Tips For Everyone');
+    } else {
+        print ("
+            <script>
+                AOS.init();
+            </script>
+        <div data-aos='fade-right' data-aos-delay='400' class='absolute mt-32 text hidden md:block'>
+                <h1 class='lg:ml-32 text-white text-6xl font-bold'>
+                    <span>Daily Tips For Everyone</span>
+                </h1>
+        </div>");
+    } ?>
     <div class="bg-[url('<?= $content['cover_url'] ?>')] bg-no-repeat bg-cover w-screen h-1/2 hidden md:block">
     </div>
 
@@ -133,11 +148,10 @@ if (isset($_GET['id'])) {
                 <?= $content['blog_description'] ?>
             </p>
             <!-- content -->
-            <?= content(content: $content['blog_content']) ?>
-            <?= likes() ?>
-            <?= comments() ?>
-
-            <?= footer() ?>
+            <?= content(content: $content['blog_content'])?>
+            <?= !$ispreview? likes():'' ?>
+            <?= !$ispreview? comments():'' ?>
+            <?= !$ispreview?footer():'' ?>
         </div>
 </body>
 

@@ -1,3 +1,8 @@
+# [1/6/2025]
+//REMAINING::Comments and like with AJAX + Request consultation (nutriverse) + nutriAdmin
+// TODO::  send to session values to database 
+            add in column to blog called accepted and fix the sql query to fetch only accepted blogs
+done create blog with content preview and error display
 # [1/5/2025]
 //REMAINING::Comments and like with AJAX (GOOD JOB :P <3 love you)
 // TODO:: FIX the content blog form to have dynamic id instead os static ones
