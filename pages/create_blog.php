@@ -1,5 +1,7 @@
 <?php
+
 include("../php/components/material_nutriblog.php");
+include("../php/functions/nutriblog_functions.php");
 session_start();
 if (!$_SESSION['auth']) {
     abort(message: 'your are not authenticated');
@@ -7,29 +9,22 @@ if (!$_SESSION['auth']) {
 ?>
 
 <?php
-$_SESSION['error'] = "";
+/*
+    if POST Connection is received 
+    reset the SESSION POST content and errors
+    move and get all files names uploaded by the user 
+    extract all content from input POST to Session
+*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST)) {
+        unset($_SESSION['success']);
         unset($_SESSION['error']);
         unset($_SESSION['POST']);
-        $file_names = [];
-        $file_index = 0;
-        foreach ($_FILES as $label => $value) {
-            $labels[$file_index] = $label;
-            if (isset($_FILES[$label]) && explode("/", $_FILES[$label]['type'])[0] == "image") {
-                if (move_uploaded_file($_FILES[$label]['tmp_name'], "images/" . $_FILES[$label]['name'])) {
-                    $file_names[$file_index] = $_FILES[$label]['name'];
-                } else {
-                    $_SESSION['error'] = 'Error while uploading the image';
-                }
-            } else {
-                $_SESSION['error'] = 'Files should be only images';
-            }
-            $file_index++;
-        }
-        
+        $file_names = move_images($_FILES);
+
         $_SESSION['POST']['cover'] = explode("?", $_POST['cover'])[0] . "?w=1920&ssl=1";
         $_SESSION['POST']['img'] = explode("?", $_POST['cover'])[0] . "?resize=800%2C612&ssl=1";
+        $_SESSION['POST']['type'] = $_POST['type'];
         $_SESSION['POST']['title'] = $_POST['title'];
         $_SESSION['POST']['desc'] = $_POST['desc'];
         $_SESSION['POST']['content'] = '';
@@ -49,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "
                 <pre class='ml-12 mt-5 text'><a class='text_accent' href='{$value}'>{$value}</a></pre>
                 <br>";
-            } else if ($raw_label == "imgurl"  && !empty($value)) {
+            } else if ($raw_label == "imgurl" && !empty($value)) {
                 $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "<img align='center' src='{$value}' width='900' /><br>";
             } else if (!empty($file_names[$file_index])) {
                 $value = $file_names[$file_index++];
@@ -57,18 +52,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-    print ("SESSION <pre>");
-    print_r($_SESSION['POST']);
-    print ("</pre>");
 
 }
+/*
+    when user click on submit blog
+        check the GET request if its accept 
+            check if there was any error by parsing
+                and check all the session values
+        if no session errors 
+            import db file
+            prepare the data
+            Insert data
+            echo success or abort
 
-if (explode("?", $_GET['accept'])[0]) {
-    if (!empty($_SESSION['error'])) {
+*/
+if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
+
+    if (empty($_SESSION['error'])) {
         foreach ($_SESSION['POST'] as $label => $value) {
             if (empty($value)) {
                 $_SESSION['error'] = "{$label} cannot be empty";
             }
+        }
+    }
+    if (empty($_SESSION['error'])) {
+        include("../php/database/database.php");
+        $conn = sql_connect();
+        $type = mysqli_real_escape_string($conn, $_SESSION['POST']['type']);
+        $title = mysqli_real_escape_string($conn, $_SESSION['POST']['title']);
+        $desc = mysqli_real_escape_string($conn, $_SESSION['POST']['desc']);
+        $content = mysqli_real_escape_string($conn, $_SESSION['POST']['content']);
+        $img = mysqli_real_escape_string($conn, $_SESSION['POST']['img']);
+        $cover = mysqli_real_escape_string($conn, $_SESSION['POST']['cover']);
+        if (
+            !sql_create(
+                query: "INSERT INTO `Blogs` (`user_id`, `blog_type`, `blog_title`, `blog_description`, `blog_content`, `image_url`, `cover_url`) 
+                VALUES (
+                    '289', 
+                    '$type',
+                    '$title',
+                    '$desc',
+                    '$content',
+                    '$img',
+                    '$cover'
+                )"
+            )
+        )
+            abort(message: "Error When submitting the blog please try again");
+        else {
+            $_SESSION['success'] = "Blog Submitted Succesfully";
         }
     }
 }
@@ -128,7 +160,7 @@ if (explode("?", $_GET['accept'])[0]) {
         <div class="flex justify-center mt-6">
             <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data" id="blog-form"
                 class="space-y-6 text-center">
-                
+
                 <input class="block lg:w-96 p-2 border border-gray-300 rounded mt-6" type="url"
                     placeholder="Your blog cover picture url" id="cover" name="cover" required>
 
@@ -140,12 +172,17 @@ if (explode("?", $_GET['accept'])[0]) {
                 <?= isset($_SESSION['error']) ? "<p class='mt-5 text-red-600'>{$_SESSION['error']}</p>" : ""; ?>
 
                 <div class="flex flex-col items-center" id="form-elements-container"></div>
+                <select class="block lg:w-96 p-2 border border-gray-300 rounded mt-6" name="type" id="type" required>
+                    <option value="" disabled selected>Select blog type</option>
+                    <option value="nutritions">Nutrition</option>
+                    <option value="entrepreneur">Entrepreneur</option>
+                </select>
 
                 <button type="submit"
                     class="bg-[#231f20] text-white py-2 px-4 rounded hover:bg-[#414040] focus:ring focus:ring-[#231f20]">
                     Preview your blog
                 </button>
-
+                <?= isset($_SESSION['success']) ? "<p class='text-green-400'>{$_SESSION['success']}</p>" : "" ?>
             </form>
         </div>
 
