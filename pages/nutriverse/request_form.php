@@ -1,4 +1,46 @@
-<?php include("../../php/components/material_nutriverse.php"); ?>
+<?php include("../../php/components/material_nutriverse.php");
+
+function request_validation_rule()
+{
+    $user_info = [];
+    if (isset($_POST)) {
+
+        unset($_SESSION['request_success']);
+        unset($_SESSION['request_error']);
+
+        $user_info['name'] = htmlspecialchars(trim($_POST['name']));
+        $user_info['lastname'] = htmlspecialchars(trim($_POST['lastname']));
+        $user_info['age'] = filter_var($_POST['age'], FILTER_VALIDATE_INT);
+        $user_info['email'] = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+        $user_info['country'] = htmlspecialchars(trim($_POST['country']));
+        $user_info['objective'] = htmlspecialchars(trim($_POST['objective_desciption']));
+        $user_info['country_code'] = htmlspecialchars(trim($_POST['country_code']));
+        $user_info['telProp'] = htmlspecialchars(trim($_POST['tel']));
+        return $user_info;
+    }
+    return false;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_info = request_validation_rule();
+    if (!$user_info)
+        die("TEST");
+
+    include("../../php/database/database.php");
+    sql_create(query: "INSERT INTO `ConsultationRequests` (`name`, `last_name`, `age`,`email`,`country`,`country_code`,`mobile_phone`) 
+    VALUES ( 
+    '{$user_info['name']}', 
+    '{$user_info['lastname']}', 
+    {$user_info['age']}, 
+    '{$user_info['email']}', 
+    '{$user_info['country']}', 
+    '{$user_info['country_code']}', 
+    '{$user_info['telProp']}')
+    ");
+    unset($_POST);
+    header("location:request_form.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,17 +55,20 @@
         .button_color {
             background-color: #f7c761;
             border-color: #f7c761;
-            font-family: Geomanist Medium, sans-serif; 
+            font-family: Geomanist Medium, sans-serif;
         }
+
         .button_color:hover {
             background-color: transparent;
             border-color: #f7c761;
-            font-family: Geomanist Medium, sans-serif; 
+            font-family: Geomanist Medium, sans-serif;
         }
+
         .button_text {
             color: white;
             font-family: Geomanist Medium, sans-serif;
         }
+
         .button_text:hover {
             color: #222222;
             font-family: Geomanist Medium, sans-serif;
@@ -44,11 +89,13 @@
             color: #222222;
             font-family: Geomanist Medium, sans-serif;
         }
+
         .text {
             color: #222222;
             transition: color 0.1s ease;
             font-family: Geomanist Medium, sans-serif;
         }
+
         .text:hover {
             color: #f7c761;
             font-family: Geomanist Medium, sans-serif;
@@ -58,7 +105,7 @@
             color: #222222;
             font-family: Geomanist Medium, sans-serif;
         }
-       
+
         .bg_image {
             background-image: url('https://storage.googleapis.com/nutriverse/About_image.jpeg');
             background-size: 100%;
@@ -92,28 +139,28 @@
             </div>
             <!-- Welcome Image -->
             <div data-aos="fade-up" class="lg:w-1/2 lg:mt-32 min-h-fit">
-                <form class="max-w-md mx-auto space-y-4">
-                    <input required type="text" placeholder="Name*"
+                <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="max-w-md mx-auto space-y-4">
+                    <input required type="text" name="name" id="name" placeholder="Name*"
                         class="w-full px-5 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]">
-                    <input required type="text" placeholder="Last name*"
+                    <input required type="text" name="lastname" id="lastname" placeholder="Last name*"
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]">
-                    <input required type="number" placeholder="Age*"
+                    <input required type="number" name="age" id="age" placeholder="Age*"
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]">
-                    <input required type="email" placeholder="Email*"
+                    <input required type="email" name="email" id="email" placeholder="Email*"
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]">
-                    <select
+                    <select id="country" name="country"
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]">
                         <option value="" disabled selected>Country</option>
                         <option value="LB">Lebanon 🇱🇧</option>
                         <option value="QA">Qatar 🇶🇦</option>
                         <option value="AE">UAE 🇦🇪</option>
                     </select>
-                    <textarea placeholder="Objective (Optional)"
+                    <textarea id="objective_desciption" name="objective_desciption" placeholder="Objective (Optional)"
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"></textarea>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="number" placeholder="country code*"
+                        <input id="country_code" name="country_code" type="number" placeholder="country code*"
                             class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]">
-                        <input type="tel" placeholder="Mobile phone*"
+                        <input id="tel" name="tel" type="tel" placeholder="Mobile phone*"
                             class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]">
                     </div>
                     <button type="submit"
