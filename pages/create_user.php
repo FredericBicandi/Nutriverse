@@ -153,11 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 autocomplete="email" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base  text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
-                        <?php
-                        if (isset($_SESSION['errors']['email'])) {
-                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['email']}</p>");
-                        }
-                        ?>
+                        <?=isset($_SESSION['errors']['email'])? "<p class='mt-3' style='color:red'>{$_SESSION['errors']['email']}</p>":''?>
                     </div>
 
                     <div data-aos-delay="100" data-aos="zoom-out">

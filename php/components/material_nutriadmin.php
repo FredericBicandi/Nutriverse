@@ -11,7 +11,7 @@ function abort($message)
 function admin_navbar($enable_logout)
 {
     $nutriadmin_home = "/project/php/nutriAdmin/";
-    $nutriadmin_login = $nutriadmin_home."?logout";
+    $nutriadmin_login = $nutriadmin_home . "?logout";
     print ("
         <script>
             AOS.init();
@@ -32,11 +32,11 @@ function admin_navbar($enable_logout)
 
 }
 
-function admin_blogBox($id,$accepted, $image, $title, $describtion, $date)
+function admin_blogBox($id, $accepted, $image, $title, $describtion, $date)
 {
     $nutriblog_content = "../../pages/blog-content.php";
     print ("
-        <div class='border-2 h-fit w-11/12 mt-5 lg:w-3/12'>
+        <div id='blog_{$id}' class='border-2 h-fit w-11/12 mt-5 lg:w-3/12'>
             <!-- Col 1  -->
             <a href='{$nutriblog_content}?id={$id}'>
                 <img class='hover-steer-left' src='{$image}'>
@@ -46,10 +46,19 @@ function admin_blogBox($id,$accepted, $image, $title, $describtion, $date)
             <br>
             <div class='flex justify-between leading-6 mr-8'> 
                 <p class='text-xs mb-5 ml-5 text-[#4a4a4a] underline'>$date</p>
-                <a href='/project/php/nutriAdmin/?delBlog={$id}'><p class='bg-red-500 hover:bg-red-600 rounded-sm w-fit h-fit px-1 '><span class='hover:underline  text-white'>Delete</span>🗑</p></a>");
-        if(!$accepted)
-                echo "<a href='/project/php/nutriAdmin/?acceptBlog={$id}'><p class='bg-green-500 hover:bg-green-600 rounded-sm w-fit h-fit px-1 '><span class='hover:underline  text-white'>Accept</span>✅</p></a>";
-    print("</div>
+                <button onclick='ft_ajax(\"blog_{$id}\", \"index.php?delBlog={$id}\", true, \"Are you sure delete?\")'>
+                    <p class='bg-red-500 hover:bg-red-600 rounded-sm w-fit h-fit px-1'>
+                        <span class='hover:underline text-white'>Delete</span>🗑
+                    </p>
+                </button>");
+    if (!$accepted)
+        printf("
+    <button onclick='ft_ajax(\"\", \"index.php?acceptBlog={$id}\", false, \"Are you sure accept this blog?\")'>
+                    <p class='bg-green-500 hover:bg-green-600 rounded-sm w-fit h-fit px-1'>
+                        <span class='hover:underline text-white'>Accept</span>✅
+                    </p>
+                </button>");
+    print ("</div>
         </div>");
 }
 

@@ -57,7 +57,7 @@ function sql_delete($query)
     } else {
         return false;
     }
-    return $result;
+    return true;
 }
 
 function sql_update($query)
@@ -68,7 +68,7 @@ function sql_update($query)
     } else {
         return false;
     }
-    return $result;
+    return true;
 }
 
 ?>
