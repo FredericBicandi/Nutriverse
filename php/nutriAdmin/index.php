@@ -16,7 +16,6 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "delRequest") {
     $del = sql_delete(query: "DELETE FROM `ConsultationRequests` WHERE request_id='{$delRequest}'");
     if (!$del)
         abort(message: "error when deleting data with request id={$delRequest}");
-    header("location: /project/php/nutriAdmin/");
 }
 
 if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "delBlog") {
@@ -25,7 +24,6 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "delBlog") {
     $delB = sql_delete(query: "DELETE FROM `Blogs` WHERE blog_id='{$delBlogId}'");
     if (!$delB)
         abort(message: "error when deleting data with request id={$delBlogId}");
-    header("location: /project/php/nutriAdmin/");
 }
 
 if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
@@ -34,7 +32,6 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
     $acceptlB = sql_delete(query: "UPDATE `Blogs` SET `accepted` = 1 WHERE `blog_id`='{$acceptBlog}'");
     if (!$acceptlB)
         abort(message: "error when deleting data with request id={$acceptlB}");
-    header("location: /project/php/nutriAdmin/");
 }
 ?>
 
@@ -83,11 +80,28 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
             padding: 0;
         }
     </style>
+    <script>
+        function ft_ajax(comp, request, del, conf_message) {
+            if (confirm(conf_message)) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        if(del)
+                            document.getElementById(`${comp}`).remove();
+                        else 
+                            document.getElementById(`${comp}`).innerHTML='';
+                    }
+                };
+                xmlhttp.open("GET", request, true);
+                xmlhttp.send();
+            }
+        }
+
+    </script>
 </head>
 
 <body class="min-h-screen overflow-x-auto bg-gray-100">
     <?= admin_navbar(enable_logout: true) ?>
-
 
     <main class='overflow-x-auto flex flex-col antialiased text-gray-600  p-4'>
 
@@ -123,7 +137,7 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
                 abort("error when reading data of Consulation Requests");
             while ($client = mysqli_fetch_assoc($clients)) {
                 printf("
-                        <tr>
+                        <tr id='row_{$client['request_id']}'>
                             <td class='text text-center'>{$client['name']}</td>
                             <td class='text text-center'>{$client['last_name']}</td>
                             <td class='text text-center'>{$client['age']}</td>
@@ -135,9 +149,9 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
                                 </a>
                             </td>
                             <td class='text text-left'>
-                                <a class='text-[#007bff] font-semibold hover:underline' href='/project/php/nutriAdmin?delRequest={$client['request_id']}'>
+                                <button class='text-[#007bff] font-semibold hover:underline' onclick='delete_request({$client['request_id']})'>
                                     delete
-                                </a>
+                                </button>
                             </td>
                         </tr>");
             }
@@ -159,7 +173,7 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
             <!-- Table -->
             <div align='left' class='bg-white shadow-lg rounded-sm border border-gray-200'>
             <header class='px-5 py-4 border-b border-gray-100'>
-            <h2 class='text-center font-semibold'>Requested Consulations</h2>
+            <h2 class='text-center font-semibold text-3xl'>More info</h2>
             </header>
             <div class='p-3 '>
             <div class='overflow-x-auto'>
@@ -172,44 +186,44 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
                 abort(message: "error when reading more info of request id ={$request_id}");
             printf("
             <tr class='p-2 uppercase whitespace-nowrap bg-gray-50'>
-                <th class='font-semibold text-left'>First name:
-                        <td class='text-left'>{$client['name']}</td>
+                <th class='font-semibold text-left '>First name:
+                        <td class='text-left text'>{$client['name']}</td>
                 </th></tr>");
             printf("
                 <tr class='p-2 uppercase whitespace-nowra'>
                 <th class='font-semibold text-left'>last name:
-                <td class='text-left'>{$client['last_name']}</td>
+                <td class='text-left text'>{$client['last_name']}</td>
                 </th></tr>");
 
             printf("
                 <tr class='p-2 uppercase whitespace-nowrap bg-gray-50'>
                 <th class='font-semibold text-left'>age:
-                <td class='text-left'>{$client['age']}</td>
+                <td class='text-left text'>{$client['age']}</td>
                 </th></tr>");
             printf("
                 <tr class='p-2 uppercase whitespace-nowrap'>
-                <th class='font-semibold text-left'>age:
-                <td class='text-left'>{$client['email']}</td>
+                <th class='font-semibold text-left'>EMAIl:
+                <td class='text-left text'>{$client['email']}</td>
                 </th></tr>");
             printf("
                 <tr class='p-2 uppercase whitespace-nowrap bg-gray-50'>
-                <th class='font-semibold text-left'>age:
-                <td class='text-left'>{$client['country']}</td>
+                <th class='font-semibold text-left'>Country:
+                <td class='text-left text'>{$client['country']}</td>
                 </th></tr>");
             printf("
                 <tr class='p-2 uppercase whitespace-nowrap'>
                 <th class='font-semibold text-left'>Telprop:
-                <td class='text-left'>[{$client['country_code']}] {$client['mobile_phone']}</td>
+                <td class='text-left text'>[{$client['country_code']}] {$client['mobile_phone']}</td>
                 </th></tr>");
             printf("
                 <tr class='p-2 uppercase whitespace-nowrap bg-gray-50'>
                 <th class='font-semibold text-left'>objective:
-                <td class='text-left'>{$client['objective']}</td>
+                <td class='text-left text'>{$client['objective']}</td>
                 </th></tr>");
             printf("
                 <tr class='p-2 uppercase whitespace-nowrap'>
                 <th class='font-semibold text-left'>requested at:
-                <td class='text-left accent font-semibold'>{$client['created_at']}</td>
+                <td class='text-left accent font-semibold '>{$client['created_at']}</td>
                 </th></tr>");
             print ("</tbody> </table></div></div></div></div>");
             echo "<a href='/project/php/nutriAdmin' class='flex justify-center mt-12'><button class='flex w-12 justify-center rounded-md bg-[#007bff] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#0162ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'>back</button></a>";
@@ -220,7 +234,7 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
         if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] != "more_info") {
             printf("<div class='w-screen mt-32 h-full'>
             <!-- Table -->
-            <div align='left' class='bg-white shadow-lg rounded-sm border border-[#0162ff]'>
+            <div align='left'  class='bg-white shadow-lg rounded-sm border border-[#0162ff]'>
                 <header class='px-5 py-4 border-b border-[#0162ff]'>
                     <h2 class='text-3xl text-center font-semibold accent'>Recent Blogs Post</h2>
                 </header>
@@ -261,7 +275,7 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
                 }
                 admin_blogBox(
                     image: "{$blog['image_url']}",
-                    accepted:$blog['accepted'],
+                    accepted: $blog['accepted'],
                     id: "{$blog['blog_id']}",
                     title: "<b>{$blog['blog_title']}</b>",
                     describtion: substr($blog['blog_description'], 0, 80),

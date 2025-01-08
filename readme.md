@@ -1,3 +1,6 @@
+# [1/8/2025]
+//REMAINING::Comments and like with AJAX + Request consultation (nutriverse) + nutriAdmin
+DONE PROJECT WITH AJAX AND ALOT OF 💘🎉🎉
 # [1/7/2025]
 //REMAINING::Comments and like with AJAX + Request consultation (nutriverse) + nutriAdmin
 DONE PROJECT WITH ALOT OF 💘🎉🎉

@@ -88,7 +88,7 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
             !sql_create(
                 query: "INSERT INTO `Blogs` (`user_id`, `blog_type`, `blog_title`, `blog_description`, `blog_content`, `image_url`, `cover_url`) 
                 VALUES (
-                    '289', 
+                    '{$_SESSION['user']}', 
                     '$type',
                     '$title',
                     '$desc',
