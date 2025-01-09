@@ -64,7 +64,6 @@ function admin_blogBox($id, $accepted, $image, $title, $describtion, $date)
 
 function content($content)
 {
-    $raw_content = htmlspecialchars($content);
     $blog_content = explode("<br>", $content);
     $i = 0;
     while ($i < count($blog_content))
@@ -80,6 +79,7 @@ function footer()
             <p>&copy; <span class='accent font-semibold'>2024 NutriVerse</span> . All Rights Reserved.</p>
         </div>
     </footer>
+    
     <script>
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
