@@ -143,7 +143,6 @@ function blogBox($delay, $id, $image, $title, $describtion, $date)
 
 function content($content)
 {
-    $raw_content = htmlspecialchars($content);
     $blog_content = explode("<br>", $content);
     $i = 0;
     while ($i < count($blog_content))
@@ -236,7 +235,7 @@ function comments_box($comment_id, $date, $name, $comment, $own_comment)
                     </p>
                     <p class='text-sm text-gray-600'>{$date}</p>
                 </div>");
-    if ($own_comment)
+    if ($own_comment || $_SESSION['admin_auth'])
         echo "<button onclick=\"delete_comment('{$comment_id}')\" class='rounded-full text-sm text-red-500 hover:text-red-700 hover:underline'>delete</button>";
     print ("
             </div>
