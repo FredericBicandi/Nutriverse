@@ -37,24 +37,6 @@ function user_validation_rules($input, $type)
     }
     return (true);
 }
-
-function move_images($FILES)
-{
-    $file_names = [];
-    $file_index = 0;
-    foreach ($_FILES as $label => $value) {
-        if (isset($_FILES[$label])) {
-            if (explode("/", $_FILES[$label]['type'])[0] == "image") {
-                if (move_uploaded_file($_FILES[$label]['tmp_name'], "images/" . $_FILES[$label]['name'])) {
-                    $file_names[$file_index] = $_FILES[$label]['name'];
-                } else {
-                    $_SESSION['error'] = 'Error while uploading the image';
-                }
-            }
-        }
-        $file_index++;
-    }
-    return $file_names;
-}
+ 
 
 ?>
