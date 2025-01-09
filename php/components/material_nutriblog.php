@@ -98,7 +98,7 @@ function blog_navbar($content)
             print ("<a href='{$create_blog}' class='px-2 w-fit'><b>Write your blog</b></a><hr>");
     }
     print ("
-                </div>
+            </div>
             </div>
             <!-- Mobile Navbar Version -->
             <div id='mobile-menu' class='bg-primary hidden md:hidden mt-4'>
@@ -150,304 +150,100 @@ function content($content)
         print $blog_content[$i++];
 }
 
-function likes()
+function likes($count)
 {
-    print ('
-    <div class="mt-12 flex items-center space-x-2">
+    if (isset($_SESSION['blogid']))
+        unset($_SESSION['blogid']);
+    $_SESSION['blogid'] = explode("id=", $_SERVER['REQUEST_URI'])[1];
+    print ("
+    <div class='mt-12 flex items-center space-x-2'>
         <!-- Like Button -->
-        <button id="likeButton"
-            class="flex items-center space-x-2 px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700">
+        <button onclick='like({$count})' id='likeButton'
+            class='flex items-center space-x-2 px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700'>
             <!-- Heart Icon -->
-            <svg id="likeIcon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700"
-                viewBox="0 0 24 24" fill="none">
+            <svg id='likeIcon' xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 text-gray-700'
+                viewBox='0 0 24 24' fill='none'>
                 <path
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.42 3.42 5 5.5 5c1.74 0 3.41 1.01 4.13 2.44h1.74C15.09 6.01 16.76 5 18.5 5 20.58 5 22 6.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.42 3.42 5 5.5 5c1.74 0 3.41 1.01 4.13 2.44h1.74C15.09 6.01 16.76 5 18.5 5 20.58 5 22 6.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z' />
             </svg>
             <!-- Like Count -->
-            <span id="likeCount" class="text-sm font-medium">0</span>
+            <span id='likeCount' class='text-sm font-medium'>{$count}</span>
         </button>
-    </div>');
+    </div>
+    <script>
+        const likeButton = document.getElementById('likeButton');
+        const likeIcon = document.getElementById('likeIcon');
+        const likeCount = document.getElementById('likeCount');
+
+        let isLiked = false;
+        let count = {$count};
+
+        likeButton.addEventListener('click', () => {
+            isLiked = !isLiked; // Toggle like state
+            count += isLiked ? 1 : -1; // Increment or decrement the like count
+
+            // Update UI
+            likeCount.textContent = count;
+            likeIcon.setAttribute(
+                'fill',
+                isLiked ? 'red' : 'none' // Change heart color when liked
+            );
+            likeIcon.classList.toggle('text-red-500', isLiked); // Apply red color via Tailwind when liked
+        });
+    </script>
+    ");
 }
 
-function comments()
+function write_comment()
 {
-    print ('
-            <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
-                <div class=" mx-auto px-4">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">comments</h2>
-                    </div>
-                    <form class="mb-6">
-                        <div
-                            class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                            <label for="comment" class="sr-only">Your comment</label>
-                            <textarea id="comment" rows="6"
-                                class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                                placeholder="Write a comment..." required></textarea>
-                        </div>
-                        <button type="submit"
-                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                            Post comment
-                        </button>
-                    </form>
-                    <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
-                        <footer class="flex justify-between items-center mb-2">
-                            <div class="flex items-center">
-                                <p
-                                    class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                                    <img class="mr-2 w-6 h-6 rounded-full"
-                                        src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                                        alt="Michael Gough">Michael Gough
-                                </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
-                                        title="February 8th, 2022">Feb. 8, 2022</time></p>
-                            </div>
-                            <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
-                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button">
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 16 3">
-                                    <path
-                                        d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                                </svg>
-                                <span class="sr-only">Comment settings</span>
-                            </button>
-                            <!-- Dropdown menu -->
-                            <div id="dropdownComment1"
-                                class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdownMenuIconHorizontalButton">
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </footer>
-                        <p class="text-gray-500 dark:text-gray-400">Very straight-to-point article. Really worth time
-                            reading. Thank
-                            you! But tools are just the
-                            instruments for the UX designers. The knowledge of the design tools are as important as the
-                            creation of the design strategy.</p>
-                        <div class="flex items-center mt-4 space-x-4">
-                            <button type="button"
-                                class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
-                                <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 20 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
-                                </svg>
-                                Reply
-                            </button>
-                        </div>
-                    </article>
-                    <article class="p-6 mb-3 ml-6 lg:ml-12 text-base bg-white rounded-lg dark:bg-gray-900">
-                        <footer class="flex justify-between items-center mb-2">
-                            <div class="flex items-center">
-                                <p
-                                    class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                                    <img class="mr-2 w-6 h-6 rounded-full"
-                                        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                                        alt="Jese Leos">Jese
-                                    Leos
-                                </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-12"
-                                        title="February 12th, 2022">Feb. 12, 2022</time></p>
-                            </div>
-                            <button id="dropdownComment2Button" data-dropdown-toggle="dropdownComment2"
-                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-40 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button">
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 16 3">
-                                    <path
-                                        d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                                </svg>
-                                <span class="sr-only">Comment settings</span>
-                            </button>
-                            <!-- Dropdown menu -->
-                            <div id="dropdownComment2"
-                                class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdownMenuIconHorizontalButton">
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </footer>
-                        <p class="text-gray-500 dark:text-gray-400">Much appreciated! Glad you liked it ☺️</p>
-                        <div class="flex items-center mt-4 space-x-4">
-                            <button type="button"
-                                class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
-                                <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 20 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
-                                </svg>
-                                Reply
-                            </button>
-                        </div>
-                    </article>
-                    <article
-                        class="p-6 mb-3 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                        <footer class="flex justify-between items-center mb-2">
-                            <div class="flex items-center">
-                                <p
-                                    class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                                    <img class="mr-2 w-6 h-6 rounded-full"
-                                        src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-                                        alt="Bonnie Green">Bonnie Green
-                                </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-03-12"
-                                        title="March 12th, 2022">Mar. 12, 2022</time></p>
-                            </div>
-                            <button id="dropdownComment3Button" data-dropdown-toggle="dropdownComment3"
-                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-40 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button">
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 16 3">
-                                    <path
-                                        d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                                </svg>
-                                <span class="sr-only">Comment settings</span>
-                            </button>
-                            <!-- Dropdown menu -->
-                            <div id="dropdownComment3"
-                                class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdownMenuIconHorizontalButton">
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </footer>
-                        <p class="text-gray-500 dark:text-gray-400">The article covers the essentials, challenges, myths
-                            and stages
-                            the UX designer should consider while creating the design strategy.</p>
-                        <div class="flex items-center mt-4 space-x-4">
-                            <button type="button"
-                                class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
-                                <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 20 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
-                                </svg>
-                                Reply
-                            </button>
-                        </div>
-                    </article>
-                    <article
-                        class="p-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                        <footer class="flex justify-between items-center mb-2">
-                            <div class="flex items-center">
-                                <p
-                                    class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                                    <img class="mr-2 w-6 h-6 rounded-full"
-                                        src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
-                                        alt="Helene Engels">Helene Engels
-                                </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-06-23"
-                                        title="June 23rd, 2022">Jun. 23, 2022</time></p>
-                            </div>
-                            <button id="dropdownComment4Button" data-dropdown-toggle="dropdownComment4"
-                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-40 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button">
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 16 3">
-                                    <path
-                                        d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                                </svg>
-                            </button>
-                            <!-- Dropdown menu -->
-                            <div id="dropdownComment4"
-                                class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdownMenuIconHorizontalButton">
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </footer>
-                        <p class="text-gray-500 dark:text-gray-400">Thanks for sharing this. I do came from the Backend
-                            development
-                            and explored some of the tools to design my Side Projects.</p>
-                        <div class="flex items-center mt-4 space-x-4">
-                            <button type="button"
-                                class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
-                                <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 20 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
-                                </svg>
-                                Reply
-                            </button>
-                        </div>
-                    </article>
-                </div>
-            </section>
-            <script>
-                   // Like Button Logic
-                const likeButton = document.getElementById("likeButton");
-                const likeIcon = document.getElementById("likeIcon");
-                const likeCount = document.getElementById("likeCount");
+    if (isset($_SESSION['blogid']))
+        unset($_SESSION['blogid']);
+    $_SESSION['blogid'] = explode("id=", $_SERVER['REQUEST_URI'])[1];
+    printf("
+        <div class='mt-8 flex justify-between items-center mb-6'>
+            <h2
+                class='text-lg lg:text-2xl font-bold text-gray-900'>Write your comment</h2>
+        </div>
 
-                let isLiked = false;
-                let count = 0;
+        <form method='POST' action='{$_SERVER['PHP_SELF']}'>
+            <div class='py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200'>
+                <label
+                    for='comment'
+                    class='sr-only'>Your comment</label>
+                <textarea
+                    name='comment_text'
+                    rows='6'
+                    class='px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none'
+                    placeholder=''
+                    required></textarea>
+            </div>
+            <button
+                type='submit'
+                class='py-2.5 px-4 font-medium bg-[#1ab394] text-center text-white rounded-lg focus:ring-4 focus:ring-primary-200'>Post comment</button>
+        </form>
+");
+}
 
-                likeButton.addEventListener("click", () => {
-                    isLiked = !isLiked; // Toggle like state
-                    count += isLiked ? 1 : -1; // Increment or decrement the like count
-
-                    // Update UI
-                    likeCount.textContent = count;
-                    likeIcon.setAttribute(
-                        "fill",
-                        isLiked ? "red" : "none" // Change heart color when liked
-                    );
-                    likeIcon.classList.toggle("text-red-500", isLiked); // Apply red color via Tailwind when liked
-                });</script>
-            ');
+function comments_box($comment_id, $date, $name, $comment, $own_comment)
+{
+    printf("
+    <article id='comment_text_{$comment_id}' class='p-6 text-base  rounded-lg'>
+      <footer class='mb-2'>
+        <div class='flex items-center justify-between'>
+            <div class='flex items-center'>
+                    <p class='inline-flex items-center mr-3 text-sm font-semibold text_accent'>
+                        {$name}
+                    </p>
+                    <p class='text-sm text-gray-600'>{$date}</p>
+                </div>");
+    if ($own_comment)
+        echo "<button onclick=\"delete_comment('{$comment_id}')\" class='rounded-full text-sm text-red-500 hover:text-red-700 hover:underline'>delete</button>";
+    print ("
+            </div>
+        </footer>
+        <p  class='ml-8 text-gray-900'>{$comment}</p>
+    </article>
+");
 }
 
 function footer()
