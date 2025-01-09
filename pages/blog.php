@@ -26,55 +26,55 @@ if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/pr
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <style>
-        .hover-steer-left {
-            transition: transform 0.5s ease;
-        }
+    .hover-steer-left {
+        transition: transform 0.5s ease;
+    }
 
-        .hover-steer-left:hover {
-            transform: translateX(-20px);
-        }
+    .hover-steer-left:hover {
+        transform: translateX(-20px);
+    }
 
-        .bg_image {
-            background-image: url('https://storage.googleapis.com/nutriverse/blog-home.png');
-            background-size: 120%;
-            background-position: center;
-        }
+    .bg_image {
+        background-image: url('https://storage.googleapis.com/nutriverse/blog-home.png');
+        background-size: 120%;
+        background-position: center;
+    }
 
-        .text {
-            color: #4a4a4a;
-            font-family: Poppins;
-        }
+    .text {
+        color: #4a4a4a;
+        font-family: Poppins;
+    }
 
-        .title {
-            color: #4a4a4a;
-            transition: color 0.2s ease;
-            font-family: Poppins;
-        }
+    .title {
+        color: #4a4a4a;
+        transition: color 0.2s ease;
+        font-family: Poppins;
+    }
 
-        .title:hover {
-            color: #1ab394;
-            font-family: Poppins;
-        }
+    .title:hover {
+        color: #1ab394;
+        font-family: Poppins;
+    }
 
-        .text_accent {
-            color: #1ab394;
-            font-family: Poppins;
-        }
+    .text_accent {
+        color: #1ab394;
+        font-family: Poppins;
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
 
-        .primary {
-            color: #231f20;
-            transition: color 0.2s ease;
-            font-family: Poppins 100;
-        }
+    .primary {
+        color: #231f20;
+        transition: color 0.2s ease;
+        font-family: Poppins 100;
+    }
 
-        .primary:hover {
-            color: #3b3738;
-            font-family: Poppins 100;
-        }
+    .primary:hover {
+        color: #3b3738;
+        font-family: Poppins 100;
+    }
     </style>
 </head>
 
