@@ -86,10 +86,11 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
         $cover = mysqli_real_escape_string($conn, $_SESSION['POST']['cover']);
         if (
             !sql_create(
-                query: "INSERT INTO `Blogs` (`user_id`, `blog_type`, `blog_title`, `blog_description`, `blog_content`, `image_url`, `cover_url`) 
+                query: "INSERT INTO `Blogs` (`user_id`, `blog_type`, `Likes_count`, `blog_title`, `blog_description`, `blog_content`, `image_url`, `cover_url`) 
                 VALUES (
                     '{$_SESSION['user']}', 
                     '$type',
+                    0,
                     '$title',
                     '$desc',
                     '$content',
