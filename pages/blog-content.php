@@ -4,7 +4,7 @@ include("../php/components/material_nutriblog.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
     if (isset($_POST['action']) && $_POST['action'] === 'like') {
-        $currentCount = isset($_POST['currentCount']) ? (int)$_POST['currentCount'] : 0;
+        $currentCount = isset($_POST['currentCount']) ? (int) $_POST['currentCount'] : 0;
         $newCount = $currentCount + 1;
         require("../php/database/database.php");
         sql_update(query: "UPDATE `Blogs` SET `Likes_count`={$newCount} WHERE blog_id={$_SESSION['blogid']}");
@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
         $content['blog_description'] = $_SESSION['POST']['desc'];
         $content['blog_content'] = $_SESSION['POST']['content'];
     }
-} else {
+} else if (!isset($_POST) && !$_SERVER['REQUEST_METHOD'] == 'POST') {
     abort(message: "no content to display");
 }
 
@@ -164,7 +164,7 @@ if (isset($_GET['id'])) {
                     if (this.status === 200) {
                         var newCount = parseInt(this.responseText);
                         document.getElementById('likeCount').innerText = newCount;
-                    } 
+                    }
                 }
             };
 
@@ -225,8 +225,8 @@ if (isset($_GET['id'])) {
                     likes(count: intval($content['Likes_count']));
                     write_comment();
                 } else {
-                    if(!$_SESSION)
-                    print ("
+                    if (!$_SESSION)
+                        print ("
                     <div class='text-center mt-32 items-center mb-6'>
                         <h2 class='text-center text-lg lg:text-2xl  text-gray-400 '><i>sign in to like and comment</i> 🔒</h2>
                     </div>
