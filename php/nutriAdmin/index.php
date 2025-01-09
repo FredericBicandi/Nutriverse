@@ -149,7 +149,7 @@ if (explode("=", explode("?", $_SERVER['REQUEST_URI'])[1])[0] == "acceptBlog") {
                                 </a>
                             </td>
                             <td class='text text-left'>
-                                <button class='text-[#007bff] font-semibold hover:underline' onclick='delete_request({$client['request_id']})'>
+                                <button class='text-[#007bff] font-semibold hover:underline' onclick='ft_ajax(\"row_{$client['request_id']}\", \"index.php?delRequest={$client['request_id']}\", true, \"Are you sure you want to delete this request?\")'>
                                     delete
                                 </button>
                             </td>
