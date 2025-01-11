@@ -225,8 +225,7 @@ if (isset($_GET['id'])) {
                     likes(count: intval($content['Likes_count']));
                     write_comment();
                 } else {
-                    if (!$_SESSION)
-                        print ("
+                    print ("
                     <div class='text-center mt-32 items-center mb-6'>
                         <h2 class='text-center text-lg lg:text-2xl  text-gray-400 '><i>sign in to like and comment</i> 🔒</h2>
                     </div>
