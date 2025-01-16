@@ -1,19 +1,19 @@
 <?php
-
 include("../components/material_nutriadmin.php");
+
 session_start();
+
 if (isset($_SESSION['admin_auth'])) {
     abort(message: "Already logged in");
+
 }
 
-// if (explode("?",$_GET)[1]=='logout') {
-//     die("LOGOOUT");
-// }
 
 function validate()
 {
     require("../functions/ft_functions.php");
     require("../database/database.php");
+
     unset($_SESSION['admin_errors']);
     $_SESSION['admin_errors'] = [];
     if (isset($_POST['username'])) {

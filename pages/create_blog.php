@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($_SESSION['error']);
         unset($_SESSION['POST']);
         $file_names = move_images($_FILES);
+
         $_SESSION['POST']['cover'] = explode("?", $_POST['cover'])[0] . "?w=1920&ssl=1";
         $_SESSION['POST']['img'] = explode("?", $_POST['cover'])[0] . "?resize=800%2C612&ssl=1";
         $_SESSION['POST']['type'] = $_POST['type'];
@@ -247,9 +248,20 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
                     element.id = 'img-' + imgCounter;
                     element.name = 'img-' + imgCounter;
                     element.placeholder = 'Upload an image';
+                    // //NEW STUFF
+                    // element = document.createElement('input');
+                    // element.type = 'text';
+                    // element.id = 'imgText-' + imgCounter;
+                    // element.name = 'img-' + imgCounter;
+                    // element.style = 'hidden';
                     break;
                 case 'a':
                     urlCounter++;
+                    element = document.createElement('input');
+                    element.type = 'url';
+                    element.id = 'url-' + urlCounter;
+                    element.name = 'url-' + urlCounter;
+                    element.placeholder = 'Enter a URL';
                     element = document.createElement('input');
                     element.type = 'url';
                     element.id = 'url-' + urlCounter;
