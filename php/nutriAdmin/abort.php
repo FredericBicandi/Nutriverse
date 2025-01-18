@@ -1,5 +1,5 @@
 <?php
-include("../components/material_nutriadmin.php");
+include("nutriverse/php/components/material_nutriadmin.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -51,19 +51,29 @@ session_start();
 
 <body class="w-full h-screen overflow-x-hidden">
     <main class="sm:w-screen lg:w-fit">
+        <!-- 
+            this div contains:
+                title: 404
+                message: error message
+                button : return home
+        -->
         <div class="w-screen h-screen text-center mt-12 lg:mt-32">
             <h1 class='accent text-7xl font-semibold'>
                 <strong>404</strong>
             </h1>
+
             <h2 class='text mt-5 text-2xl font-semibold text-gray-700'>
                 <i><?= isset($_SESSION['error_message']) ? $_SESSION['error_message'] : 'Unknown error'; ?></i>
             </h2>
-            <strong>return <a href='/project/php/nutriAdmin/' class="mt-2"> <span
-                        class="accent hover:underline">home</span></strong></a>
-        </div>
 
+            <strong>return
+                <a href='/nutriadmin/' class="mt-2">
+                    <span class="accent hover:underline">home</span>
+                </a>
+            </strong>
+        </div>
     </main>
-    <!-- Footer -->
+
     <?= footer() ?>
 </body>
 

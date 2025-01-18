@@ -1,3 +1,10 @@
+Suggestion and fixes
+    fix the like button
+    fix the images in write your blog make a hidden input for that
+    make a comment for user and admin
+    make button to block user as admin
+# [1/19/2025]
+hosting project DONE
 # [1/8/2025]
 Congrats Project is DoneoNE 💘🎉🎉
 # [1/8/2025]

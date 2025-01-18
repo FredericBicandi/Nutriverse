@@ -1,12 +1,12 @@
 <?php
-include("../php/components/material_nutriblog.php");
+require("nutriverse/php/functions/ft_functions.php");
+require("nutriverse/php/database/database.php");
+include("nutriverse/php/components/material_nutriblog.php");
 session_start();
+
 
 function validate()
 {
-    require("../php/functions/ft_functions.php");
-    require("../php/database/database.php");
-
     $_SESSION['errors'] = [];
     $data = [];
 
@@ -17,7 +17,10 @@ function validate()
         $password = strip_tags($_POST['password']);
         $email = strtolower(strip_tags($_POST['email']));
 
-        if (!user_validation_rules($firstname, 'username') || !user_validation_rules($lastname, 'username')) {
+        if (
+            !user_validation_rules($firstname, 'username') ||
+            !user_validation_rules($lastname, 'username')
+        ) {
             $_SESSION['errors']['fullName'] = 'Please enter both first and last name.';
             return false;
         }
@@ -52,20 +55,25 @@ function validate()
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = [];
     if (!$data = validate()) {
-        header("Location: create_user.php");
+        header("Location: /nutriblog/create.php");
     } else {
         session_unset();
         session_destroy();
         if (
             sql_create(
                 query: "INSERT INTO Users (first_name, last_name, email, password_hash) 
-                        VALUES ('{$data['firstname']}', '{$data['lastname']}', '{$data['email']}', '{$data['password']}')"
+                        VALUES 
+                        (
+                        '{$data['firstname']}',
+                        '{$data['lastname']}',
+                        '{$data['email']}',
+                        '{$data['password']}'
+                        )"
             )
         ) {
-
             session_start();
             $_SESSION['success']['creation_account'] = 'Account Created Succesfully';
-            header("Location: create_user.php");
+            header("Location: /nutriblog/create");
         } else {
             abort(message: "error while creating new account");
         }
@@ -124,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body class="w-full h-screen overflow-x-hidden">
-    <!-- navbar -->
+
     <section>
         <?= blog_navbar(content: false) ?>
     </section>
@@ -137,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </h2>
             </div>
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form class="space-y-6" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
+                <form class="space-y-6" action="/nutriblog/create" method="POST">
                     <div data-aos="zoom-out">
                         <label for="text" class="block text-sm/6 font-medium text-gray-900">Full Name</label>
                         <div class="mt-2">
@@ -153,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 autocomplete="email" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base  text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
-                        <?=isset($_SESSION['errors']['email'])? "<p class='mt-3' style='color:red'>{$_SESSION['errors']['email']}</p>":''?>
+                        <?= isset($_SESSION['errors']['email']) ? "<p class='mt-3' style='color:red'>{$_SESSION['errors']['email']}</p>" : '' ?>
                     </div>
 
                     <div data-aos-delay="100" data-aos="zoom-out">
@@ -166,11 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 autocomplete="current-password" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
-                        <?php
-                        if (isset($_SESSION['errors']['password'])) {
-                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['password']}</p>");
-                        }
-                        ?>
+                        <?= isset($_SESSION['errors']['password']) ? printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['password']}</p>") : ''; ?>
                     </div>
 
                     <div data-aos-delay="100" data-aos="zoom-out">
@@ -183,11 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 autocomplete="current-password" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#231f20] sm:text-sm/6">
                         </div>
-                        <?php
-                        if (isset($_SESSION['errors']['confirm_password'])) {
-                            printf("<p class='mt-3' style='color:red'>{$_SESSION['errors']['confirm_password']}</p>");
-                        }
-                        ?>
+                        <?= isset($_SESSION['errors']['confirm_password']) ? "<p class='mt-3' style='color:red'>{$_SESSION['errors']['confirm_password']}</p>" : '' ?>
                     </div>
 
                     <div data-aos-delay="200" data-aos="zoom-out">
@@ -199,12 +199,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
                 <p class="mt-10 text-center text-sm/6 text-gray-500">
                     Already a member?
-                    <a href="sign_in.php" class="font-semibold text-[#231f20] hover:text-[#757575]">Sign in to your
+                    <a href="/nutriblog/login" class="font-semibold text-[#231f20] hover:text-[#757575]">Sign in to your
                         account</a>
-                    <?php
-                    if (isset($_SESSION['success']['creation_account'])) {
-                        printf("<p class='mt-3 text-center' style='color:green'>{$_SESSION['success']['creation_account']}</p>");
-                    } ?>
+
+                    <?= isset($_SESSION['success']['creation_account']) ? "<p class='mt-3 text-center' style='color:green'>{$_SESSION['success']['creation_account']}</p>" : '' ?>
                 </p>
             </div>
         </div>
