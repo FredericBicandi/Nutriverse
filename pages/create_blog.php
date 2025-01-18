@@ -1,14 +1,13 @@
 <?php
 
-include("../php/components/material_nutriblog.php");
-include("../php/functions/ft_functions.php");
+require("nutriverse/php/database/database.php");
+include("nutriverse/php/components/material_nutriblog.php");
+include("nutriverse/php/functions/ft_functions.php");
 session_start();
 if (!$_SESSION['auth']) {
     abort(message: 'your are not authenticated');
 }
-?>
 
-<?php
 /*
     if POST Connection is received 
     reset the SESSION POST content and errors
@@ -22,33 +21,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($_SESSION['POST']);
         $file_names = move_images($_FILES);
 
-        $_SESSION['POST']['cover'] = explode("?", $_POST['cover'])[0] . "?w=1920&ssl=1";
-        $_SESSION['POST']['img'] = explode("?", $_POST['cover'])[0] . "?resize=800%2C612&ssl=1";
+        $_SESSION['POST']['cover'] = explode("?", $_POST['cover'])[0];
+        $_SESSION['POST']['img'] = explode("?", $_POST['cover'])[0];
         $_SESSION['POST']['type'] = $_POST['type'];
         $_SESSION['POST']['title'] = $_POST['title'];
         $_SESSION['POST']['desc'] = $_POST['desc'];
         $_SESSION['POST']['content'] = '';
+
         $file_index = 0;
         foreach ($_POST as $label => $value) {
             $raw_label = explode("-", $label)[0];
+
             if ($raw_label == "h2") {
-                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "
-                <h2 class='mt-5 text-black text-3xl'>
-                <strong>{$value}</strong>
-                </h2>
-                <br>";
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] .
+                    "
+                        <h2 class='mt-5 text-black text-3xl'>
+                            <strong>{$value}</strong>
+                        </h2>
+                        <br>
+                    ";
             } else if ($raw_label == "pre") {
-                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "<pre class='ml-12 mt-5 text'>{$value}</pre>
-                <br>";
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] .
+                    "
+                        <pre class='ml-12 mt-5 text'>{$value}</pre>
+                        <br>
+                    ";
             } else if ($raw_label == "url") {
-                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "
-                <pre class='ml-12 mt-5 text'><a class='text_accent' href='{$value}'>{$value}</a></pre>
-                <br>";
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] .
+                    "
+                        <pre class='ml-12 mt-5 text'><a class='text_accent' href='{$value}'>{$value}</a></pre>
+                        <br>
+                    ";
             } else if ($raw_label == "imgurl" && !empty($value)) {
-                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "<img align='center' src='{$value}' width='900' /><br>";
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] .
+                    "
+                        <img 
+                            align='center'
+                            src='{$value}'
+                            width='900' />
+                        <br>
+                    ";
             } else if (!empty($file_names[$file_index])) {
                 $value = $file_names[$file_index++];
-                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] . "<img align='center' src='images/{$value}' width='900' /><br>";
+                $_SESSION['POST']['content'] = $_SESSION['POST']['content'] .
+                    "
+                        <img
+                            align='center'
+                            src='https://bicandy-new.42web.io/nutriverse/pages/images/{$value}'
+                            width='900'/>
+                        <br>
+                    ";
             }
         }
     }
@@ -66,8 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo success or abort
 
 */
-if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
-
+if (
+    isset($_GET['accept']) &&
+    $_GET['accept'] == "true" &&
+    !empty($_SESSION['POST'])
+) {
     if (empty($_SESSION['error'])) {
         foreach ($_SESSION['POST'] as $label => $value) {
             if (empty($value)) {
@@ -76,7 +101,6 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
         }
     }
     if (empty($_SESSION['error'])) {
-        include("../php/database/database.php");
         $conn = sql_connect();
         $type = mysqli_real_escape_string($conn, $_SESSION['POST']['type']);
         $title = mysqli_real_escape_string($conn, $_SESSION['POST']['title']);
@@ -84,9 +108,19 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
         $content = mysqli_real_escape_string($conn, $_SESSION['POST']['content']);
         $img = mysqli_real_escape_string($conn, $_SESSION['POST']['img']);
         $cover = mysqli_real_escape_string($conn, $_SESSION['POST']['cover']);
+
         if (
             !sql_create(
-                query: "INSERT INTO `Blogs` (`user_id`, `blog_type`, `Likes_count`, `blog_title`, `blog_description`, `blog_content`, `image_url`, `cover_url`) 
+                query: "INSERT INTO `Blogs` 
+                    (
+                    `user_id`, 
+                    `blog_type`,
+                    `Likes_count`,
+                    `blog_title`,
+                    `blog_description`,
+                    `blog_content`,
+                    `image_url`,
+                    `cover_url`)
                 VALUES (
                     '{$_SESSION['user']}', 
                     '$type',
@@ -101,7 +135,11 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
         )
             abort(message: "Error When submitting the blog please try again");
         else {
+            unset($_SESSION['error']);
+            unset($_SESSION['success']);
+            unset($_SESSION['POST']);
             $_SESSION['success'] = "Blog Submitted Succesfully";
+            header("location: /nutriblog/write");
         }
     }
 }
@@ -159,7 +197,7 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
 
         <!-- Blog Form -->
         <div class="flex justify-center mt-6">
-            <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data" id="blog-form"
+            <form method="POST" action="/nutriblog/write" enctype="multipart/form-data" id="blog-form"
                 class="space-y-6 text-center">
 
                 <input class="block lg:w-96 p-2 border border-gray-300 rounded mt-6" type="url"
@@ -191,14 +229,15 @@ if (explode("?", $_GET['accept'])[0] && !empty($_SESSION['POST'])) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST)) {
                 print ("
-                    <iframe class='mt-12' height='800' width='100%' src='http://100.127.90.108/project/pages/blog-content.php?preview=true'></iframe>
+                    <iframe class='mt-12' height='800' width='100%' src='https://bicandy-new.42web.io/nutriblog/content/?preview=true'></iframe>
                     <div class='flex justify-center mt-6'>
-                        <form method='GET'action='{$_SERVER['PHP_SELF']}' class='mt-8'>
-                            <input type='text' class='hidden' name='accept' value='true'>
-                                <button type='submit' class='bg-[#231f20] text-white py-2 px-4 rounded hover:bg-[#414040] focus:ring focus:ring-[#231f20]'>
+                        <a href='/nutriblog/write/?accept=true' class='mt-8'>
+                            <button 
+                                type='submit'
+                                class='bg-[#231f20] text-white py-2 px-4 rounded hover:bg-[#414040] focus:ring focus:ring-[#231f20]'>
                                     Submit Blog
-                                </button>
-                        </form>
+                            </button>
+                        </a>
                     </div>
                 ");
             }

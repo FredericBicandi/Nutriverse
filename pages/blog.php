@@ -1,12 +1,22 @@
 <?php
+require("nutriverse/php/database/database.php");
+include("nutriverse/php/components/material_nutriblog.php");
 session_start();
-include("../php/components/material_nutriblog.php");
+unset($_SESSION["success"]);
+unset($_SESSION['errors']);
+unset($_SESSION['s_errors']);
 
-if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/project/pages/blog") {
+
+$req = explode("?", $_SERVER["REQUEST_URI"]);
+if (
+    isset($_SESSION['auth']) &&
+    $request[1] == "nutriblog" &&
+    $req[0] != "/nutriblog/member"
+) {
     if (isset($_GET['filter']))
-        header("Location: member.php?filter={$_GET['filter']}");
+        header("Location: /nutriblog/member?filter={$_GET['filter']}");
     else
-        header("Location: member.php");
+        header("Location: /nutriblog/member");
     exit();
 }
 ?>
@@ -80,8 +90,14 @@ if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/pr
 
 <body class="w-full h-screen overflow-x-hidden">
     <section>
-        <?= blog_navbar(content: "Daily Tips For Everyone") ?>
-        <div class="bg_image bg-no-repeat bg-cover h-96 hidden md:block">
+        <?php
+        if ($_GET["filter"] != 'ownBlogs') {
+            blog_navbar(content: "Daily Tips For Everyone");
+            print ('<div class="bg_image bg-no-repeat bg-cover h-96 hidden md:block"></div>');
+        } else {
+            blog_navbar(content: "");
+        }
+        ?>
     </section>
 
     <main class="w-full sm:w-screen ">
@@ -89,7 +105,9 @@ if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/pr
             <h3 class="text_accent text-5xl mt-12 lg:mt-32 ml-8 lg:ml-32">
                 <b>
                     <?php
-                    if ($_GET["filter"] == "nutritions") {
+                    if ($_GET["filter"] == "ownBlogs") {
+                        print ("Your Blogs");
+                    } else if ($_GET["filter"] == "nutritions") {
                         print ("Nutrition Blogs");
                     } else if ($_GET["filter"] == "entrepreneur") {
                         print ("Entrepreneur Blogs");
@@ -101,13 +119,28 @@ if (isset($_SESSION['auth']) && explode(".php", $_SERVER["PHP_SELF"])[0] == "/pr
             </h3>
 
             <?php
-            require("../php/database/database.php");
-            if (isset($_GET["filter"])) {
-                $result = sql_read(query: "SELECT * from Blogs WHERE blog_type='{$_GET['filter']}' AND accepted=true ");
+            if (isset($_GET["filter"]) && $_GET['filter'] == "ownBlogs") {
+                $result = sql_read(
+                    query: "SELECT * 
+                            FROM Blogs
+                            WHERE user_id='{$_SESSION['user']}'"
+                );
+                if (!$result)
+                    abort(message: "error connecting to database please try again later");
+            } else if (isset($_GET["filter"])) {
+                $result = sql_read(
+                    query: "SELECT * 
+                            FROM Blogs
+                            WHERE blog_type='{$_GET['filter']}' AND accepted=true "
+                );
                 if (!$result)
                     abort(message: "error connecting to database please try again later");
             } else {
-                $result = sql_read(query: "SELECT * from Blogs WHERE accepted=1");
+                $result = sql_read(
+                    query: "SELECT *
+                                FROM Blogs
+                                WHERE accepted=1"
+                );
                 if (!$result)
                     abort(message: "error connecting to database please try again later");
             }

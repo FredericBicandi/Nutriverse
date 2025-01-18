@@ -1,10 +1,11 @@
 <?php
-
 /*
+
  * Summary of user_validation_rules
  * @param mixed $input
  * @param mixed $type
  * @return bool
+
     here i will take the user input and the input type and then i will check the following 
         if the input is empty or have less then 2 characters
         if the input is a name and have numbers
@@ -15,6 +16,7 @@
                 if the user is signing in we have to find the given email
             upon the return value we can specify the outcome
  */
+
 function user_validation_rules($input, $type)
 {
     if (empty($input) || strlen($input) < 2) {
@@ -26,6 +28,7 @@ function user_validation_rules($input, $type)
     if ($type == 'password' && strlen($input) < 8) {
         return (false);
     }
+
     if ($type == 'email') {
         $emails = sql_read(query: "SELECT email FROM Users");
         if ($emails) {
@@ -37,15 +40,16 @@ function user_validation_rules($input, $type)
     }
     return (true);
 }
+
 function move_images($FILES)
 {
     $file_names = [];
     $file_index = 0;
-    foreach ($_FILES as $label => $value) {
-        if (isset($_FILES[$label])) {
-            if (explode("/", $_FILES[$label]['type'])[0] == "image") {
-                if (move_uploaded_file($_FILES[$label]['tmp_name'], "images/" . $_FILES[$label]['name'])) {
-                    $file_names[$file_index] = $_FILES[$label]['name'];
+    foreach ($FILES as $label => $value) {
+        if (isset($FILES[$label])) {
+            if (explode("/", $FILES[$label]['type'])[0] == "image") {
+                if (move_uploaded_file($FILES[$label]['tmp_name'], "nutriverse/pages/images/" . $FILES[$label]['name'])) {
+                    $file_names[$file_index] = $FILES[$label]['name'];
                 } else {
                     $_SESSION['error'] = 'Error while uploading the image';
                 }
@@ -53,7 +57,7 @@ function move_images($FILES)
         }
         $file_index++;
     }
+
     return $file_names;
 }
-
 ?>
