@@ -19,9 +19,7 @@ Step into the NutriVerse, where technology meets nutrition for a healthier futur
 
 | **NutriBlog**                                                                                                                    | **NutriTracker** | **NutriMS** |
 |:-------------------------------------------------------------------------------------------------------------------------------:|:----------------:|:-----------:|
-| NutriBlog is a blog web app embedded as one of our solutions to deliver daily tips for everyone.
-  NutriBlog offers users the ability to like and comment on their favorite daily tips, as well as create and share their own blogs in an easy and unified way. Additionally, NutriBlog includes an Admin page with elevated privileges to monitor all  
-  requested consultations and blogs, and take necessary actions such as reviewing and deleting or accepting blogs, removing comments, reviewing users who submitted consultation requests, and more. | 301              | 283         |
+| NutriBlog is a blog web app embedded as one of our solutions to deliver daily tips for everyone. NutriBlog offers users the ability to like and comment on their favorite daily tips, as well as create and share their own blogs in an easy and unified way. Additionally, NutriBlog includes an Admin page with elevated privileges to monitor all requested consultations and blogs, and take necessary actions such as reviewing and deleting or accepting blogs, removing comments, reviewing users who submitted consultation requests, and more. | 301              | 283         |
 
 
 ### Product link
