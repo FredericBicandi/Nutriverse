@@ -24,11 +24,8 @@ Step into the NutriVerse, where technology meets nutrition for a healthier futur
 
 
 ## Tech Stack
-
-<img align="center" width="3%" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png"/> 
-<img align="center" width="3%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/2560px-Tailwind_CSS_Logo.svg.png"/>
-<img align="center" width="6%" src="https://www.andreafiori.net/img/software-development/posts/php8-features.gif"/> 
-<img align="center" width="6%" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/mysql.png"/>
+ ### Nutriblog
+<img align="center" width="3%" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png"/> <img align="center" width="3%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/2560px-Tailwind_CSS_Logo.svg.png"/> <img align="center" width="6%" src="https://www.andreafiori.net/img/software-development/posts/php8-features.gif"/> <img align="center" width="6%" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/mysql.png"/> <img align="center" width="5%" src="https://infinityfree-forum-uploads.s3.dualstack.eu-central-1.amazonaws.com/original/3X/a/a/aa031572455185b8e9ad7c1bc79f3816a1eb2a1b.png"/>
 
 
 
