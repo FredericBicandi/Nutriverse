@@ -1,7 +1,7 @@
 # Nutriverse 
 
 <p align="center">
-    <img src="https://bicandy-new.42web.io/nutriverse/pages/images/welcomepage.png" title="Nutriverse webview"></iframe>
+    <img src="https://bicandy-new.42web.io/nutriverse/pages/images/welcomepage.png" title="Nutriverse webview"/>
 </p>
 
 ## Status
