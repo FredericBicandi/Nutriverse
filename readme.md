@@ -15,7 +15,7 @@ Level : Senior
 ## Project idea
 Step into the NutriVerse, where technology meets nutrition for a healthier future. Designed for dieticians and their clients, NutriVerse leverages advanced machine learning to analyze meals and provide accurate recipes and calorie insights. Clients can effortlessly track their eating habits, while dieticians benefit from comprehensive dashboards, progress reports, and tailored recommendations. NutriVerse isn’t just a tool—it’s a universe of smarter, healthier living, built to connect and empower individuals and professionals alike
 
-## Project 
+## Project sub Projects
 
 | Attempt | #1    | #2    |
 | :---:   | :---: | :---: |
