@@ -17,8 +17,7 @@ Step into the NutriVerse, where technology meets nutrition for a healthier futur
 
 ### Product link
 
-https://medium.com/@alaricsaltzman913/fdf-42-a-detailed-walkthrough-7184cca317fc
-
+https://bicandy-new.42web.io/nutriverse
 
 ---
 62410031@students.liu.edu.lb | LinkedIn: [fbicandy](https://www.linkedin.com/in/freddy-bicandy/)
