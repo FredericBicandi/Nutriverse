@@ -17,10 +17,10 @@ Step into the NutriVerse, where technology meets nutrition for a healthier futur
 
 ## Project Solutions
 
-| **NutriBlog**  | **NutriTracker** | **NutriMS** |
-|:-----------------------------------------------------:|:----------------:|:-----------:|
-| NutriBlog is a blog web app embedded as one of our solutions to deliver daily tips for everyone.| In    Progress | In Progress
-  NutriBlog offers users the ability to like and comment on their favorite daily tips, as well as create   and share their own blogs in an easy and unified way. Additionally,<br>NutriBlog includes an Admin      page with elevated privileges to monitor all requested consultations and blogs, and take necessary      actions such as reviewing and deleting or accepting blogs, removing comments, reviewing users who       submitted consultation requests, and more.|               |          |
+| **NutriBlog** | **NutriTracker** | **NutriMS**  | **NutriAdmin**|
+|:-------------------------------------------------------------------------------------------------------------------------------:|:----------------:|:------------:|:-------------------------------------------------------------------------------------------------------------------------:|
+| NutriBlog is a blog web app embedded as one of our solutions to deliver daily tips for everyone. | -- | -- |  NutriAdmin is a centralized administration platform for monitoring and managing all aspects of NutriVerse
+NutriBlog offers users the ability to like and comment on their favorite daily tips, as well as create and share their own blogs in an easy and unified way.| In Progress | In Progress  | NutriAdmin includes blog reviews, user comments, consultation requests, and elevated privileges for taking necessary actions such as approving or rejecting blogs, moderating comments, and reviewing consultation submissions. |
 
 
 ## Tech Stack
