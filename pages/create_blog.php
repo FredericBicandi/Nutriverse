@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             width='900' />
                         <br>
                     ";
-            } else if (!empty($file_names[$file_index])) {
+            } else if ($raw_label == "img" && !empty($file_names[$file_index])) {
                 $value = $file_names[$file_index++];
                 $_SESSION['POST']['content'] = $_SESSION['POST']['content'] .
                     "
@@ -149,36 +149,31 @@ if (
 <html lang="en">
 
 <head>
+    <!-- Meta tags for proper rendering and mobile optimization -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutriblog</title>
+    <meta name="theme-color" content="#EEF1F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- AOS (Animate on Scroll) CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- External resources: Fonts, Styles, and Icons -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/blogstyle.css">
+    <link rel="icon" type="image/png" href="https://bicandy-new.42web.io/nutriverse/pages/images/nutriblog_logo.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
+    <!-- Page title -->
+    <title>
+        Nutriblog
+    </title>
 
-        .hidden {
-            display: none;
-        }
-
-        .relative {
-            position: relative;
-        }
-    </style>
+    <!-- JavaScript dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </head>
 
 <body class="w-full h-screen overflow-x-hidden">
@@ -287,12 +282,6 @@ if (
                     element.id = 'img-' + imgCounter;
                     element.name = 'img-' + imgCounter;
                     element.placeholder = 'Upload an image';
-                    // //NEW STUFF
-                    // element = document.createElement('input');
-                    // element.type = 'text';
-                    // element.id = 'imgText-' + imgCounter;
-                    // element.name = 'img-' + imgCounter;
-                    // element.style = 'hidden';
                     break;
                 case 'a':
                     urlCounter++;
@@ -356,8 +345,16 @@ if (
                 urlInput.placeholder = 'Or enter image URL';
                 urlInput.className = element.className;
                 wrapper.appendChild(urlInput);
-            }
 
+                // NEW STUFF
+                imageIdentifier = document.createElement('input');
+                imageIdentifier.type = 'text';
+                imageIdentifier.id = 'img-' + imgCounter;
+                imageIdentifier.name = 'img-' + imgCounter;
+                imageIdentifier.value = 'img-' + imgCounter;
+                imageIdentifier.className = 'hidden';
+                wrapper.appendChild(imageIdentifier);
+            }
             container.appendChild(wrapper);
         }
     </script>

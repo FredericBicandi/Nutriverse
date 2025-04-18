@@ -58,51 +58,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
+    <!-- Meta tags for proper rendering and mobile optimization -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutriblog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="theme-color" content="#EEF1F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- External resources: Fonts, Styles, and Icons -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/blogstyle.css">
+    <link rel="icon" type="image/png" href="https://bicandy-new.42web.io/nutriverse/pages/images/nutriblog_logo.png">
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-    <style>
-        .bg_image {
-            background-image: url('https://storage.googleapis.com/nutriverse/blog-home.png');
-            background-size: 120%;
-            background-position: center;
-        }
 
-        .primary {
-            color: #231f20;
-            transition: color 0.2s ease;
-            font-family: Poppins 100;
-        }
+    <!-- Page title -->
+    <title>
+        Nutriblog
+    </title>
 
-        .primary:hover {
-            color: #3b3738;
-            font-family: Poppins 100;
-        }
-
-        .text {
-            color: #4a4a4a;
-            font-family: Poppins 100;
-        }
-
-        .hover-steer-left {
-            transition: transform 0.5s ease;
-            /* Smooth animation effect */
-        }
-
-        .hover-steer-left:hover {
-            transform: translateX(-20px);
-            /* Moves the image 20px to the left */
-        }
-    </style>
+    <!-- JavaScript dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </head>
+
 
 <body class="w-full h-screen overflow-x-hidden">
 

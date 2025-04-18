@@ -86,7 +86,7 @@ function blog_navbar($content)
         AOS.init();
     </script>
 
-        <nav class='px-6 py-2'>
+        <nav class='px-6 py-2 bg-white'>
             <div class='container mx-auto flex items-center justify-start'>
                 <div class='md:hidden lg:hidden'>
                     <button
@@ -102,7 +102,7 @@ function blog_navbar($content)
                 </div>
 
                 <h1
-                    class='lg:ml-32 sm:ml-4 primary text-4xl font-semibold leading-normal'>
+                    class='lg:ml-32 sm:ml-4 text-4xl leading-normal primary'>
                     <a href='{$nutriblog_home}'>
                             <strong>NutriBlog</strong>
                     </a>
@@ -113,17 +113,15 @@ function blog_navbar($content)
                     data-aos-delay='400'
                     class='absolute mt-96 transform -translate-y-1/2 text hidden md:block'>
                     <h1 class='lg:ml-32 text-white text-6xl font-bold'>
-                        <span>
-                            {$content} 
-                        </span>
+                            {$content}
                     </h1>
                 </div>
 
-                <div class='primary hidden md:flex space-x-6 items-center ml-6 mt-2'>
+                <div class='body_text hidden md:flex space-x-6 items-center ml-6 mt-2'>
                     <a 
                         data-aos='zoom-out'
                         href='{$nutriblog_nutriverse}'
-                        class='px-2 w-fit hover:underline'>
+                        class='px-2 w-fit hover:underline  '>
                             <b>Home</b>
                     </a>
 
@@ -143,18 +141,18 @@ function blog_navbar($content)
                             <b>Entrepreneur</b>
                     </a>
                 </div>
-                <div class='md:flex mt-3 ml-auto hidden '>");
+                <div class='md:flex mt-3 ml-auto hidden'>");
 
     if (!isset($_SESSION['auth'])) {
         print ("
                 <a 
                     href='{$nutriblog_create_user}'
-                    class='px-2 w-fit'>
+                    class='px-2 w-fit title'>
                         <b>Create</b>
                 </a>
                 <a
                     href='{$nutriblog_sign_in}'
-                    class='px-2 w-fit'>
+                    class='px-2 w-fit title'>
                         <b>Sign in</b>
                 </a>
             ");
@@ -163,11 +161,11 @@ function blog_navbar($content)
         print ("
             <a 
                 href='{$create_blog}'
-                class='hover:underline px-2 w-fit'>
+                class='hover:underline px-2 w-fit title'>
                     <b>Write your blog</b>
             </a>
             <a href='/nutriblog/member/?filter=ownBlogs'>
-                <svg class='hover:text-[#4a4a4a]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='25' height='25' fill='currentColor'>
+                <svg class='title' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='25' height='25' fill='currentColor'>
                 <path d='M12 2a10 10 0 0 0-10 10h2a8 8 0 1 1 8 8 8.1 8.1 0 0 1-7.37-4.74h2.17L4.5 13.5 2 15.26V13a10 10 0 1 0 10-11zm0 5a1 1 0 0 0-1 1v4a1 1 0 0 0 .29.71l3 3 1.42-1.42L13 11.59V8a1 1 0 0 0-1-1z'/>
                 </svg>
             </a>
@@ -182,7 +180,7 @@ function blog_navbar($content)
                 <a 
                     data-aos='zoom-out'
                     href='{$nutriblog_nutriverse}'
-                    class='px-2 text-lg w-fit'>
+                    class='px-2 w-fit text-xl'>
                         <b>Home</b>
                 </a>
                 <br>
@@ -190,7 +188,7 @@ function blog_navbar($content)
                     data-aos-delay='100'
                     data-aos='zoom-out'
                     href='{$nutriblog_nutritions}'
-                    class='px-2 text-lg w-fit'>
+                    class='px-2 text-lg w-fit '>
                         <b>Nutritions</b>
                 </a>
                 <br>
@@ -220,7 +218,7 @@ function blog_navbar($content)
     } else {
         if ($_SERVER['PHP_SELF'] != '/project/pages/create_blog.php')
             print ("
-        <div class='flex'>
+        <div class='flex title'>
             <a href='{$create_blog}' class='px-2 w-fit'>
                 <b>Write your blog</b>
             </a>
@@ -260,11 +258,31 @@ function blogBox($delay, $id, $image, $title, $describtion, $date)
             </p>
             <br>
 
-            <p class='text-xs mb-5 ml-5 text-[#4a4a4a] underline'>
-                $date
-            </p>
+            <div class='flex justify-between items-center'>
+                <p class='text-xs mb-5 ml-5 text-[#4a4a4a] underline'>
+                    $date
+                </p>
+            ");
+    if (isset($_GET["filter"]) && $_GET['filter'] == "ownBlogs") {
+        printf("
+            <button onclick='ft_ajax(
+                            \"blog_{$id}\",
+                            \"/nutriblog/?delBlog={$id}\",
+                            true,
+                            \"Are you sure delete?\")'>
+                    <p class='bg-[#231f20] hover:bg-red-600 rounded-sm w-fit h-fit px-3 mb-2 mr-5'>
+                        <span class='text-white'>Delete</span>
+                    </p>
+                </button>
+            </div>
+            </div>");
+    } else {
+        printf("
+            </div>
         </div>
-    ");
+        ");
+    }
+
 
 }
 
@@ -377,7 +395,7 @@ function comments_box($comment_id, $date, $name, $comment, $own_comment)
       <footer class='mb-2'>
         <div class='flex items-center justify-between'>
             <div class='flex items-center'>
-                    <p class='inline-flex items-center mr-3 text-sm font-semibold text_accent'>
+                    <p class='inline-flex items-center mr-3 text-sm font-semibold text-[#1ab394]'>
                         {$name}
                     </p>
 

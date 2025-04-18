@@ -8,6 +8,13 @@ unset($_SESSION['s_errors']);
 
 
 $req = explode("?", $_SERVER["REQUEST_URI"]);
+
+if (isset($_SESSION['auth']) && isset($_GET["delBlog"])) {
+    $delBlogId = $_GET["delBlog"];
+    $delB = sql_delete(query: "DELETE FROM `Blogs` WHERE blog_id='{$delBlogId}' AND user_id='{$_SESSION['user']}'");
+    if (!$delB)
+        abort(message: "error when deleting data with request id={$delBlogId}");
+}
 if (
     isset($_SESSION['auth']) &&
     $request[1] == "nutriblog" &&
@@ -24,68 +31,51 @@ if (
 <html lang="en">
 
 <head>
+    <!-- Meta tags for proper rendering and mobile optimization -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutriblog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="theme-color" content="#EEF1F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- External resources: Fonts, Styles, and Icons -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/blogstyle.css">
+    <link rel="icon" type="image/png" href="https://bicandy-new.42web.io/nutriverse/pages/images/nutriblog_logo.png">
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-    <style>
-        .hover-steer-left {
-            transition: transform 0.5s ease;
+
+    <!-- Page title -->
+    <title>
+        Nutriblog
+    </title>
+
+    <!-- JavaScript dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        function ft_ajax(comp, request, del, conf_message) {
+            if (confirm(conf_message)) {
+                var xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        if (del)
+                            document.getElementById(`${comp}`).remove();
+                        else
+                            document.getElementById(`${comp}`).innerHTML = '';
+                    }
+                };
+
+                xmlhttp.open("GET", request, true);
+                xmlhttp.send();
+            }
         }
 
-        .hover-steer-left:hover {
-            transform: translateX(-20px);
-        }
-
-        .bg_image {
-            background-image: url('https://storage.googleapis.com/nutriverse/blog-home.png');
-            background-size: 120%;
-            background-position: center;
-        }
-
-        .text {
-            color: #4a4a4a;
-            font-family: Poppins;
-        }
-
-        .title {
-            color: #4a4a4a;
-            transition: color 0.2s ease;
-            font-family: Poppins;
-        }
-
-        .title:hover {
-            color: #1ab394;
-            font-family: Poppins;
-        }
-
-        .text_accent {
-            color: #1ab394;
-            font-family: Poppins;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .primary {
-            color: #231f20;
-            transition: color 0.2s ease;
-            font-family: Poppins 100;
-        }
-
-        .primary:hover {
-            color: #3b3738;
-            font-family: Poppins 100;
-        }
-    </style>
+    </script>
 </head>
 
 <body class="w-full h-screen overflow-x-hidden">
@@ -99,6 +89,7 @@ if (
         }
         ?>
     </section>
+
 
     <main class="w-full sm:w-screen ">
         <div class="container mx-auto px-4">

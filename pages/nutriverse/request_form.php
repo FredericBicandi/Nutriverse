@@ -70,72 +70,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriVerse</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="theme-color" content="#EEF1F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/style.css">
+    <link rel="icon" type="image/png" href="https://bicandy-new.42web.io/nutriverse/pages/images/nutriverse_logo.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <title>
+        NutriVerse
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <style>
-        .button_color {
-            background-color: #f7c761;
-            border-color: #f7c761;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .button_color:hover {
-            background-color: transparent;
-            border-color: #f7c761;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .button_text {
-            color: white;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .button_text:hover {
-            color: #222222;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .primary {
-            color: #f7c761;
-            transition: color 0.2s ease;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .primary:hover {
-            color: #222222;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .text_mobile {
-            color: #222222;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .text {
-            color: #222222;
-            transition: color 0.1s ease;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .text:hover {
-            color: #f7c761;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .body_text {
-            color: #222222;
-            font-family: Geomanist Medium, sans-serif;
-        }
-
-        .bg_image {
-            background-image: url('https://storage.googleapis.com/nutriverse/About_image.jpeg');
-            background-size: 100%;
-            background-position: center;
-        }
-    </style>
 </head>
+
 
 <body class="bg-gradient-to-r from-[#eaedf3] to-[#fafcff] min-h-screen">
 
@@ -157,14 +109,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <section name="Tilte and form"
             class="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between">
             <div class="lg:w-1/2 lg:mb-32 text-center lg:text-left" data-aos="fade-up">
-                <h1 class="body_text text-4xl md:text-6xl font-semibold leading-tight">
-                    Ready to elevate your
-                    <span class="text-white bg-[#f7c761] px-2">well-being?</span>
+                <h1 class="body_text text-6xl leading-tight lg:leading-normal text-[#343a45] font-extrabold lg:font-semibold ">
+                    Ready to elevate your <br>
+                    <span class="text-white body_text bg-[#f7c761] py-0 px-1">well-being?</span>
                 </h1>
 
-                <p class="mt-6 text-lg mb-12">
-                    Just one step is enough to find out more about <br>
-                    <b> how you can change the yout live </b> with healthy<br>eating habits.
+                <p class="mt-6 text-lg mb-12 text">
+                    Just one step is enough to find out more about <?= Mobile($Device) ? "" : "<br>" ?>
+                    <b> how you can change the way you live </b> with healthy <?= Mobile($Device) ? "" : "<br>" ?>eating
+                    habits.
                 </p>
             </div>
 
@@ -180,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <input
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"
-                        required type="number" name="age" id="age" placeholder="Age*">
+                        required type="number" name="age" id="age" placeholder="Age*" min="12">
 
                     <input
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"
@@ -197,8 +150,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <textarea
                         class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"
-                        id="objective_desciption" name="objective_desciption" placeholder="Objective (Optional)">
-                    </textarea>
+                        id="objective_desciption" name="objective_desciption"
+                        placeholder="Objective (Optional)"></textarea>
 
                     <div class="grid grid-cols-2 gap-4">
                         <input
@@ -208,10 +161,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"
                             id="tel" name="tel" type="tel" placeholder="Mobile phone*">
                     </div>
-                    <button
-                        class="ml-16 bg-[#f7c761] text-white px-32 py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-[#363c48] hover:border-[#f7c761] border duration-300"
-                        type="submit">
-                            Send Request
+                    <button algin="center"
+                        class="bg-[#f7c761] text-white ml-16 <?= Mobile($Device) ? 'px-16' : 'px-32' ?> py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-[#363c48] hover:border-[#f7c761] border duration-300"
+                        type="submit">Send Request
                     </button>
                 </form>
             </div>
@@ -220,4 +172,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?= footer() ?>
 </body>
+
 </html>

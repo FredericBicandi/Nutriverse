@@ -7,10 +7,17 @@
  */
 function sql_connect()
 {
-    $host = "sql310.infinityfree.com";
-    $username = "if0_35693876";
-    $password = "b1tVbXNmF9rYT";
-    $database = "if0_35693876_nutriverse";
+    if($_SERVER['HTTP_HOST']=="umbrel.tail4bb6a.ts.net:8081" || $_SERVER['HTTP_HOST']=="192.168.0.121:8081"){
+        $host = "192.168.0.121";
+        $username = "root";
+        $password = "@1120338#7";
+        $database = "NutriVerse";
+    }else{
+        $host = "sql310.infinityfree.com";
+        $username = "if0_35693876";
+        $password = "b1tVbXNmF9rYT";
+        $database = "if0_35693876_nutriverse";
+    }
     $connection = mysqli_connect($host, $username, $password, $database);
     if (!$connection) {
         die("Connection failed: " . mysqli_connect_error());
