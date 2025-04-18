@@ -70,7 +70,7 @@
       class="container mx-auto px-6 md:px-12 py-12 flex flex-col items-center lg:justify-between">
 
       <!-- Features section heading with highlighted text -->
-      <h2 name="features" class="body_text text-center text-3xl font-semibold ">
+      <h2 name="features" class="mt-32 body_text text-center text-3xl font-semibold ">
         A new way to <?= Mobile($Device) ? "<br>" : "" ?>
         <span class="text-white text bg-[#f7c761] py-0 px-1 font-normal leading-normal">
           <b data-aos="fade-up">
