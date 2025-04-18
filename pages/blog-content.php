@@ -123,68 +123,33 @@ if (isset($_GET['id'])) {
 <html lang="en">
 
 <head>
+
+<head>
+    <!-- Meta tags for proper rendering and mobile optimization -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutriblog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="theme-color" content="#EEF1F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- External resources: Fonts, Styles, and Icons -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/blogstyle.css">
+    <link rel="icon" type="image/png" href="https://bicandy-new.42web.io/nutriverse/pages/images/nutriblog_logo.png">
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-    <style>
-        pre {
-            white-space: pre-wrap;
-            /* Preserves whitespace but allows wrapping */
-            word-wrap: break-word;
-            /* Allows breaking long words */
-            overflow-wrap: break-word;
-            /* Ensures word-breaking */
-            max-width: 100%;
-            /* Prevents the <pre> from exceeding container width */
-            overflow-x: auto;
-            /* Adds horizontal scroll if content still overflows */
-        }
 
-        .primary {
-            color: #231f20;
-            transition: color 0.2s ease;
-            font-family: Poppins 100;
-        }
+    <!-- Page title -->
+    <title>
+        Nutriblog
+    </title>
 
-        .primary:hover {
-            color: #3b3738;
-            font-family: Poppins 100;
-        }
-
-        pre.text {
-            font-family: "Poppins", sans-serif;
-            font-size: 18px;
-            color: #4a4a4a;
-        }
-
-        .text {
-            color: #4a4a4a;
-            font-family: Poppins 100;
-        }
-
-        .title {
-            color: #4a4a4a;
-            font-family: Poppins 100;
-        }
-
-        .title:hover {
-            color: #1ab394;
-            font-family: Poppins 100;
-        }
-
-        .text_accent {
-            color: #1ab394;
-            font-family: Poppins 100;
-        }
-    </style>
+    <!-- JavaScript dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         function delete_comment(comment_id) {
             if (confirm("Are you sure you want to delete your comment?")) {

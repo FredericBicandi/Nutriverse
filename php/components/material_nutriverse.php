@@ -2,32 +2,51 @@
 
 function nutrinavbar($style)
 {
-
+    $uri = explode("?=", $_SERVER['REQUEST_URI']);
+    $text_white = " hover:text-[#f7c761] ";
+    $title_white = "";
+    $text_title = "Nutriverse";
+    $mobile_menu = "";
+    if ($uri[0] == "/nutriverse/about") {
+        $text_white = "text-white hover:text-[#f7c761]";
+    }
+    if ($uri[0] == "/nutriverse/products") {
+        $text_title = "Nutriproducts";
+        $title_white = "text-white hover:text-[#FFFFFF]";
+        $mobile_menu = "text-white hover:text-[#FFFFFF]";
+        $text_white = "text-white hover:text-[#FFFFFF]";
+    }
     $nutriverse_home = "/nutriverse/";
     $nutriverse_about = "/nutriverse/about";
     $nutriverse_blog = "/nutriblog";
+    $nutriverse_products = "/nutriverse/products";
     $nutriverse_request = "/nutriverse/request_form";
     print (" 
     <script>
         AOS.init();
     </script>
-
     <nav class='{$style} px-6 py-4 md:px-12'>
 
         <div class='container mx-auto flex items-center justify-between'>
-            <h1 data-aos='fade-up' class='sm:block hidden ml-32 text-5xl font-semibold leading-normal'>
-                <a href='{$nutriverse_home}' class='primary'><strong>NutriVerse</strong></a>
+            <h1 class='lg:block hidden ml-32 text-6xl font-semibold leading-normal'>
+                <a href='{$nutriverse_home}' class='primary $title_white'><strong>$text_title</strong></a>
             </h1>
 
-            <div class='hidden md:flex space-x-6 items-center'>
-                <a href='{$nutriverse_about}' class='no-underline text px-2 hover:text-[#f7c761]'><b>About</b></a>
-                <a href='{$nutriverse_blog}' class='no-underline text px-2 hover:text-[#f7c761]'><b>Blog</b> </a>
-                <a href='{$nutriverse_request}' class='button_color button_text px-4 py-2 rounded-full text-sm font-medium border duration-300'><b>Request Consultation</b></a>
-            </div>
+            <div class='hidden lg:flex space-x-6 items-center'>
+                <a href='{$nutriverse_blog}' class='no-underline text px-2 text-xl $text_white'><b>Blogs</b> </a>
+                <a href='{$nutriverse_products}' class='no-underline text px-2 text-xl $text_white '><b>Products</b> </a>
+                <a href='{$nutriverse_about}' class='no-underline text px-2 text-xl $text_white'><b>About</b></a>
+               ");
+    if ($uri[0] != "/nutriverse/products")
+        printf("<a href='{$nutriverse_request}' class='button_color button_text px-4 py-2 rounded-full text-sm font-medium border duration-300 hover:$text_white'><b>Request Consultation</b></a>
+                </div>");
+    else
+        printf("</div>");
 
-            <div class='md:hidden'>
+    printf("
+            <div class='lg:hidden'>
                 <button id='menu-toggle' class='focus:outline-none'>
-                    <svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'
+                    <svg class='w-6 h-6 $mobile_menu' fill='none' stroke='currentColor' viewBox='0 0 24 24'
                         xmlns='http://www.w3.org/2000/svg'>
                         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2'
                             d='M4 6h16M4 12h16m-7 6h7'></path>
@@ -37,18 +56,28 @@ function nutrinavbar($style)
         </div>
 
         <!-- Mobile Navbar Version -->
-        <div id='mobile-menu' class='hidden md:hidden mt-4'>
-            <a href='{$nutriverse_home}' class='block no-underline text_mobile px-2'><b>Home</b></a>
+        <div id='mobile-menu' class='hidden lg:hidden mt-4'>
+            <a href='{$nutriverse_home}' class='block no-underline text px-2 $mobile_menu text-lg'><b>Home</b></a>
+            <hr> 
+            <a href='{$nutriverse_about}' class='mt-5 block no-underline text px-2 $mobile_menu text-lg'><b>About</b></a>
             <hr>
-            <a href='{$nutriverse_about}' class='mt-5 block no-underline text_mobile px-2'><b>About</b></a>
+            <a href='{$nutriverse_blog}' class='mt-5 block no-underline text px-2 $mobile_menu text-lg'><b>Blog</b></a>
             <hr>
-            <a href='{$nutriverse_blog}' class='mt-5 block no-underline text_mobile px-2'><b>Blog</b></a>
+            ");
+    if ($uri[0] != "/nutriverse/products")
+        printf("
+           <a href='{$nutriverse_products}' class='mt-5 block no-underline text px-2 $mobile_menu text-lg'><b>Products</b></a>
             <hr>
-            <a href='{$nutriverse_request}' class='mt-5 block bg-[#f7c761] text-white px-4 py-2 rounded-full'><b>Request Consultation</b></a>
-            <hr>
+         <a href='{$nutriverse_request}' class='mt-5 block bg-[#f7c761] text-white px-4 py-2 rounded-full'>
+                <b>Request Consultation</b></a>
+                <hr> 
+            </div>
+        </nav>");
+    else
+        printf("
         </div>
-    </nav>
-    ");
+    </nav>");
+
 
 }
 
@@ -57,11 +86,11 @@ function nutrinavbar($style)
 function features_card($delay, $title, $highlited, $describe)
 {
 
-    print ("<div data-aos='zoom-in' data-aos-delay='{$delay}' class='bg-white rounded-xl shadow-lg p-8 max-w-80 py-11 mx-auto inline-block mr-5 mt-7'>
+    print ("<div data-aos='zoom-in' data-aos-delay='{$delay}' class='bg-white body_text rounded-xl shadow-lg p-8 max-w-80 py-11 mx-auto inline-block mr-5 mt-7'>
 
                     <h2 class='text-2xl text-gray-800 font-bold'>
                         {$title}
-                        <span class='bg-[#F2E8CF] text-gray-800 px-2'>
+                        <span class='bg-[#F2E8CF] text text-gray-800 px-2'>
                             {$highlited}
                         </span>
                     </h2>
@@ -86,6 +115,17 @@ function side_image($image)
 
 }
 
+function side_image2($image)
+{
+    print (
+        "
+        <div data-aos='fade-up'  class='w-10/12 mt-8 lg:mt-0 justify-center'>
+            <img src='{$image}'class='w-full max-w-lg mx-auto'>
+        </div>
+    ");
+
+}
+
 
 
 function feedback_card($delay, $image, $feedback, $name)
@@ -93,7 +133,7 @@ function feedback_card($delay, $image, $feedback, $name)
     print (
         "<div data-aos='zoom-in' data-aos-delay='{$delay}' class='p-4 shadow-lg rounded-xl'>
             <img src='{$image}' class='mx-auto'>
-                <p class='text-center mt-4 text-sm md:text-base'>
+                <p class='text-center body_text mt-4 text-sm md:text-base'>
                     <span class='bg-[#f0ffff] px-2'>
                         $feedback<br>
                         <strong>$name</strong>
@@ -112,7 +152,7 @@ function footer()
     print (
         '
         <footer class="bg-gray-800 py-6">
-            <div class="container mx-auto px-6 md:px-12 text-center text-gray-300">
+            <div class="container mx-auto px-6 text leading-tight md:px-12 text-center text-gray-300">
                 <p>
                     &copy; 2025 NutriVerse. All Rights Reserved.
                 </p>
@@ -154,35 +194,15 @@ function FAQ()
             </h2>
 
             <p data-aos="zoom-in" class="mt-5 px-2 text-gray-700">
-                You can access Nutrium Care in three ways: if you have a Gympass subscription,
-                if your company enjoys the Nutrium Care benefit,
-                <br> or if you visit a dietitian who uses this platform.
-                <br> <br> <br>
-                
-                
-                To access nutritional monitoring through Gympass,
-                you must have an active subscription at the
-                following levels:
+            You can access Nutriverse Care in three ways: you can request consultions with a dietitian through this page,
+                <br> if you do no have a dietiation yet working with you we can help you find one that fits your needs,
+                <br> once your request for consultation our team will redirect you to the nearest dietation in your area.
                 <br> <br>
-
-
-            <ul align="left" class="ml-12">
-                <li class="list-disc">
-                    Silver subscription or higher - Brazil,
-                    Mexico and the United States;
-                </li>
-
-                <li class="list-disc">
-                    Gold subscription or higher - Argentina,
-                    Chile, Spain, Italy,
-                    Ireland and the United Kingdom;
-                </li>
-
-                <li class="list-disc">
-                    Premium subscription or higher - Germany.
-                </li>
-
-            </ul>
+                
+                You can also access Nutriverse Care through our phone app,
+                <br>
+            if your are and individual you benefit from our app,
+                <br> or if you visit a dietitian who uses this platform.
             </p>
         </div>
 

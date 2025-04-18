@@ -1,0 +1,78 @@
+pre {
+    white-space: pre-wrap;
+    /* Preserves whitespace but allows wrapping */
+    word-wrap: break-word;
+    /* Allows breaking long words */
+    overflow-wrap: break-word;
+    /* Ensures word-breaking */
+    max-width: 100%;
+    /* Prevents the <pre> from exceeding container width */
+    overflow-x: auto;
+    /* Adds horizontal scroll if content still overflows */
+}
+
+pre.text {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    color: #4a4a4a;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.primary {
+    color: #231f20;
+    transition: color 0.2s ease;
+    font-family: Poppins 100;
+}
+
+.primary:hover {
+    color: #3b3738;
+    font-family: Poppins 100;
+}
+
+
+.text {
+    color: #4a4a4a;
+    font-family: Poppins 100;
+}
+
+.title {
+    color: #4a4a4a;
+    transition: color 0.2s ease;
+    font-family: Poppins 100;
+}
+
+.title:hover {
+    color: #1ab394;
+    font-family: Poppins 100;
+}
+
+.text_accent {
+    color: #1ab394;
+    font-family: Poppins 100;
+}
+
+.hover-steer-left {
+    transition: transform 0.5s ease;
+}
+
+.hover-steer-left:hover {
+    transform: translateX(-20px);
+}
+
+.bg_image {
+    background-image: url("https://bicandy-new.42web.io/nutriverse/pages/images/blog-home.png");
+    background-size: 120%;
+    background-position: center;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.relative {
+    position: relative;
+}
