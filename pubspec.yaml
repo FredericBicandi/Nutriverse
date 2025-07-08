@@ -1,0 +1,75 @@
+name: nutritracker
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0' # Broadened slightly for better compatibility, but ensure your code supports it. '^3.6.2' is also fine.
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  http: ^1.2.0
+  # Cupertino Icons - Good to keep near the top with flutter sdk
+  cupertino_icons: ^1.0.8 # Specific version is good
+
+  # Supabase - Official Flutter client for Supabase
+  supabase_flutter: ^2.9.0
+
+  # PocketBase - Dart client for PocketBase (if you are using both Supabase and PocketBase, ensure this is intentional)
+  pocketbase: ^0.21.0
+
+  # URL Launcher - For opening URLs
+  url_launcher: ^6.1.14
+
+  # SVG rendering
+  flutter_svg: ^2.0.7 # Using a specific version is generally better than 'any' for predictability. Check for the latest.
+
+  # Video Player
+  video_player: ^2.7.2
+
+  # Footer - This seems to be missing a version.
+  # If 'footer' is a specific package from pub.dev, you need to add its version.
+  # Example: footer: ^1.0.0
+  # If it's a local package or part of your project, this entry might not be needed here.
+  # For now, I'll comment it out. If it's a real package, find its version on pub.dev.
+  # footer:
+
+  # Internationalization
+  intl: ^0.18.1 # For date/number formatting, etc.
+
+  # Image Picker - For selecting images from gallery or camera
+  image_picker: ^1.1.2
+
+  # Phone Number Input Field
+  intl_phone_field: ^3.2.0
+
+  # Encryption
+  encrypt: ^5.0.3
+
+  # Shared Preferences - For simple key-value storage
+  shared_preferences: ^2.2.3 # Updated to a more recent stable version (check pub.dev for latest)
+
+
+  # Cupertino Modal Sheet - For native-looking iOS modal sheets
+  cupertino_modal_sheet: ^1.1.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0 # Updated to a more recent version (check pub.dev for latest)
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+     - family: Avenir
+       fonts:
+         - asset: assets/fonts/AvenirNext.otf
