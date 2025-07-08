@@ -1,9 +1,7 @@
-import 'package:nutritracker/Model/Storage/find_media.dart';
-import 'package:nutritracker/Model/Storage/upload_media.dart';
-
+import '../../Model/Storage/upload_media.dart';
+import '../../Model/Storage/find_media.dart';
 import '../../includes.dart';
 
-// Method To Creates A New User Account
 Future<int?> createUserAccount(
   final File? imageFile,
   final String email,
@@ -49,7 +47,6 @@ Future<int?> createUserAccount(
       "gender": userInfo["Gender"] == "Female" ? false : true,
       "goal": userInfo["Goal"],
     });
-
     return 200;
   } catch (e) {
     printDebugMsg("$e");

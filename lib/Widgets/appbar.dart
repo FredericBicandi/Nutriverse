@@ -49,7 +49,7 @@ class ExtendedAppBar extends StatelessWidget {
         const Appbar(),
         ImageButton(
           onClick: () => navigateTo(context, const ProfileScreen()),
-          imagePath: "Avatar_male.png",
+          imagePath: imageUrl?? "Avatar_male.png" ,//TODO:: update this to include the feminisim shit
         )
       ],
     );
