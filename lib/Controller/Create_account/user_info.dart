@@ -1,7 +1,7 @@
 import '../../Model/authentication_table/create_account.dart';
+import 'package:intl/intl.dart';
 import '../../includes.dart';
 import '.create_account.dart';
-import 'package:intl/intl.dart';
 
 String updateUserBmi(
   final String age,
