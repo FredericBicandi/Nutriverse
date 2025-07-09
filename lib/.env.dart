@@ -17,7 +17,8 @@ TextEditingController confirmPasswordController = TextEditingController();
 
 // User Data
 File? imageFile;
-String? imageUrl=null;
+String? imageUrl="https://xidmzwoldcsmkxbkzibz.supabase.co/storage/v1/object/public/userphotos/fredos112033@gmail.com.jpg";
+
 Map<String, String?> userInfo = {};
 
 late final Session? session;

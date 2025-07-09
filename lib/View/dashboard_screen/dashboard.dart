@@ -16,6 +16,8 @@ class _DashboardState extends State<Dashboard> {
     return material.Scaffold(
       appBar: material.AppBar(title: const ExtendedAppBar()),
       bottomNavigationBar: material.NavigationBar(
+        elevation: 0,
+        height: 60,
         onDestinationSelected: (int value) {
           setState(() => selectedNavigation = value);
         },

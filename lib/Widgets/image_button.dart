@@ -4,11 +4,13 @@ import '../includes.dart';
 class ImageButton extends StatefulWidget {
   const ImageButton({
     super.key,
+    this.urlImage = true,
     this.setText,
     this.imagePath,
     required this.onClick,
   });
 
+  final bool urlImage;
   final String? setText;
   final String? imagePath;
   final Function()? onClick;
@@ -24,7 +26,9 @@ class _ImageButtonState extends State<ImageButton> {
       onPressed: widget.onClick,
       child: material.CircleAvatar(
         radius: 20,
-        backgroundImage: AssetImage("assets/images/${widget.imagePath}"),
+        backgroundImage: widget.urlImage
+            ? NetworkImage("${widget.imagePath}")
+            : AssetImage("assets/images/${widget.imagePath}") as ImageProvider,
       ),
     );
   }

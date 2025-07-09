@@ -21,15 +21,12 @@ class Appbar extends StatelessWidget {
             height: 30,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 14, 60, 0),
-          child: Text(
-            "nutriTracker",
-            style: TextStyle(
-              fontSize: 15,
-              color: Color(primaryColor),
-              letterSpacing: 1.4,
-            ),
+        Text(
+          "nutriTracker",
+          style: TextStyle(
+            fontSize: 15,
+            color: Color(primaryColor),
+            letterSpacing: 1.4,
           ),
         ),
       ],
@@ -43,12 +40,14 @@ class ExtendedAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Appbar(),
+        SizedBox(
+            width: sizeOf(context, 0.60), child: const Center(child: Appbar())),
         ImageButton(
           onClick: () => navigateTo(context, const ProfileScreen()),
-          imagePath: imageUrl?? "Avatar_male.png" ,//TODO:: update this to include the feminisim shit
+          urlImage: imageUrl != null ? true : false,
+          imagePath: imageUrl ?? "Avatar_male.png",
         )
       ],
     );

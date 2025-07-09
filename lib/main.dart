@@ -46,7 +46,7 @@ class _NutriTrackerState extends State<NutriTracker> {
         ),
       ),
       //TODO:: test the image thing
-      home: const WelcomeScreen(),
+      home: const Dashboard(),
     );
   }
 }
