@@ -11,7 +11,8 @@ Future<String?> findBucketMedia(
     printDebugMsg("Image Found =>$imagePath");
     return imagePath;
   } catch (e) {
-    printDebugMsg("Storage upload error: $e");
+    errorMessage = "Failed to find media ";
+    printDebugMsg("$errorMessage => $e");
     return null;
   }
 }

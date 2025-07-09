@@ -13,7 +13,8 @@ Future<int?> uploadBucketMedia(
     printDebugMsg("Image Profile Uploaded Successfully");
     return 200;
   } catch (e) {
-    printDebugMsg("Storage upload error: $e");
+    errorMessage = "Failed while uploading media";
+    printDebugMsg("$errorMessage => $e");
     return 500;
   }
 }

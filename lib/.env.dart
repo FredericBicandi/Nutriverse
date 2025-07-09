@@ -5,6 +5,7 @@ import 'includes.dart';
 *   @this file contain sensitive information and authentication keys avoid pushing it to the public
 * */
 
+late String? errorMessage;
 bool isLoading = false;
 bool showPassword = true;
 bool isValidEmail = true;
@@ -16,7 +17,7 @@ TextEditingController confirmPasswordController = TextEditingController();
 
 // User Data
 File? imageFile;
-late String? imageUrl;
+String? imageUrl=null;
 Map<String, String?> userInfo = {};
 
 late final Session? session;

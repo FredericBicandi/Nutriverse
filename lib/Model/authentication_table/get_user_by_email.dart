@@ -22,7 +22,8 @@ Future<int> findUser(String email) async {
       return 404;
     }
   } catch (e) {
-    printDebugMsg("Unknown error while searching for user change err =>$e");
+    errorMessage = "failed to find user";
+    printDebugMsg("$errorMessage=>$e");
     return 500;
   }
 }

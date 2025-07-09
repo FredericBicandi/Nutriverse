@@ -75,7 +75,7 @@ void nextPageHandler(
       // ignore: use_build_context_synchronously
       context,
       "Unknown Error!",
-      "Check Your Internet Connection And Try Again",
+      "$errorMessage",
     );
     updateLoadingButton(false);
     return;

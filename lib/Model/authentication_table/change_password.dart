@@ -21,8 +21,9 @@ Future<int> updateUserPassword(String email, String newPassword) async {
       return 404;
     }
   } catch (e) {
-    printDebugMsg(
-        "Unknown error while finding user to request password change err =>$e");
+    errorMessage =
+        "Unknown error while finding user to request password change";
+    printDebugMsg(" $errorMessage=>$e");
     return 500;
   }
 }

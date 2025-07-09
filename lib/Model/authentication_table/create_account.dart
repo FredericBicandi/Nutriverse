@@ -2,11 +2,9 @@ import '../../Model/Storage/upload_media.dart';
 import '../../Model/Storage/find_media.dart';
 import '../../includes.dart';
 
-Future<int?> createUserAccount(
-  final File? imageFile,
-  final String email,
-  final String password,
-) async {
+Future<int?> createUserAccount(final File? imageFile,
+    final String email,
+    final String password,) async {
   try {
     final response = await supabase.auth.signUp(
       email: email,
@@ -16,29 +14,31 @@ Future<int?> createUserAccount(
       },
     );
     if (response.user == null) {
+      errorMessage = "Error While Creating User!";
       return 400;
     }
     if (imageFile != null) {
       printDebugMsg("Uploading user photo!");
-
       try {
-        int? res = await uploadBucketMedia(email, 'userphotos', imageFile);
+        await uploadBucketMedia(email, 'userphotos', imageFile);
 
-        if (res == 200) {
-          imageUrl = await findBucketMedia(
-            "$email.${imageFile.path.split('.').last}",
-            "userphotos",
-          );
-        }
+        imageUrl = await findBucketMedia(
+          "$email.${imageFile.path
+              .split('.')
+              .last}",
+          "userphotos",
+        );
+        if (imageUrl == null) return 301;
       } catch (e) {
-        printDebugMsg("error image processing => $e");
-        return 500;
+        errorMessage = "Error while uploading user photo!";
+        printDebugMsg("$errorMessage => $e");
+        return 301;
       }
     }
 
     await supabase.from('users').insert({
       "email": email,
-      "photo": imageUrl == '' ? null : imageUrl,
+      "photo": imageUrl,
       "height": userInfo["Height"],
       "weight": userInfo["Weight"],
       "bmi": userInfo["BMI"],
@@ -49,7 +49,8 @@ Future<int?> createUserAccount(
     });
     return 200;
   } catch (e) {
-    printDebugMsg("$e");
+    errorMessage = "Error while creating user account";
+    printDebugMsg("$errorMessage => $e");
     return 500;
   }
 }

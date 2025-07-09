@@ -76,7 +76,7 @@ void createAccountHandler(
       await iosAlert(
         // ignore: use_build_context_synchronously
         context,
-        "Error While Uploading Profile Image!",
+        "$errorMessage",
         "Make sure the image does not exceed 5(MB)",
       );
       updateLoadingButton(false);
@@ -86,7 +86,7 @@ void createAccountHandler(
       await iosAlert(
         // ignore: use_build_context_synchronously
         context,
-        "Error While Creating User!",
+        "$errorMessage",
         "email might be already taken please restart the app and try again",
       );
       updateLoadingButton(false);
@@ -96,8 +96,8 @@ void createAccountHandler(
       await iosAlert(
         // ignore: use_build_context_synchronously
         context,
-        "Unknown Error!",
-        "Fatal error please check your internet and try again",
+        "Unexpected Error!",
+        "$errorMessage",
       );
       updateLoadingButton(false);
       return;

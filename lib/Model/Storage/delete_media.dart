@@ -9,7 +9,8 @@ Future<int?> deleteBucketMedia(
     printDebugMsg('Deleted successfully');
     return 200;
   } catch (e) {
-    printDebugMsg("$e");
+    errorMessage = "Failed to delete media";
+    printDebugMsg("Failed to delete media => $e");
     return 500;
   }
 }
