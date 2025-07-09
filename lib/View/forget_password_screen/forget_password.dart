@@ -1,5 +1,5 @@
 import '../../Controller/forget_password_controller/forget_password.dart';
-import '../../Controller/forget_password_controller/verify_otp.dart';
+import '../../Controller/otp_controller/verify_otp.dart';
 import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
 

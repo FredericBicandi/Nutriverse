@@ -1,6 +1,6 @@
 import '../../Model/edge_functions/send_emails.dart';
 import '../../includes.dart';
-import 'forget_password.dart';
+import '../forget_password_controller/forget_password.dart';
 
 Future<void> generateOTP(final String email) async {
   otp = List.generate(4, (_) => Random().nextInt(10)).join();
