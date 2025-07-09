@@ -1,37 +1,183 @@
-# Nutriverse 
+/*
+*   Main
+*   @PARAM context,Password,ConfirmPassword
+*   Description:
+*       Exits if already the button pressed
+*       Checks the fields whether valid or empty
+*   RETURN (void);
+* */
+//TODO::
+* find a fucking formula to adjust right reserved dynamically
+* fix when edditing password the confirm password does not automatically notice
+[21/6/2025] v2.3
+    
+    [General]
+        BLoc files sturcture
+    [ForgetPassword]
+        bug fixes in UI and logic 
 
-<p align="center">
-    <img src="welcomepage.png" title="Nutriverse webview"/>
-</p>
+[21/6/2025] v2.3
+    
+    [General]
+        files sturcture
+        file names
+    [ForgetPassword]
+        bug fixes in 
+                forget password screen
+                OTP screen
+                password reset screen
+    
+[21/6/2025] v2.3
+    
+    [Forget Password]
+        fixed the logic for reseting password emails
+        added an OTP via email with a resend timer
+        implemented password reset with functionality (remainig validations)
 
-## Project issued
+[10/6/2025] v2.3
 
-<b>Date Started :</b> 14/Nov/2024
+    moving to a new level of architect
+        all libraries/packages now shall be exported inside -> includes file
+        Moving Slowly from Material apps => CupertinoApp
+        Fixing UI Small bugs/some enhancements
+        Moving from PocketBase to SupaBase(PostgreSql)
+        enhancing the usage of Public functions/variables
+        components will be now each a file
+        adding const where it should be for improving performance
 
-<b>Date Presented :</b> [Pending graduation year]
+[4/9/2025] v2.1
+    
+    done user profile screen
 
-<b>Level :</b> Senior
+[3/9/2025] v2.1
+    
+    added Forget password reset with functionality
+    made a more convenient way for invalid email
 
-## Project idea
-Step into the NutriVerse, where technology meets nutrition for a healthier future. Designed for dieticians and their clients, NutriVerse leverages advanced machine learning to analyze meals and provide accurate recipes and calorie insights. Clients can effortlessly track their eating habits, while dieticians benefit from comprehensive dashboards, progress reports, and tailored recommendations. NutriVerse isn’t just a tool—it’s a universe of smarter, healthier living, built to connect and empower individuals and professionals alike
+[3/8/2025] v2.1
+    
+    Finished Surveys with all functionallities and testings and savings to database
 
-## Project Solutions
+[3/1/2025] v2.1
 
-| **NutriBlog** | **NutriTracker** | **Nutrium**  | **NutriAdmin**|
-|:-------------------------------------------------------------------------------------------------------------------------------:|:----------------:|:------------:|:-------------------------------------------------------------------------------------------------------------------------:|
-| NutriBlog is a blog web app embedded as one of our solutions to deliver daily tips for everyone. | -- | -- |  NutriAdmin is a centralized administration platform for monitoring and managing all aspects of NutriVerse
-NutriBlog offers users the ability to like and comment on their favorite daily tips, as well as create and share their own blogs in an easy and unified way.| In Progress | In Progress  | NutriAdmin includes blog reviews, user comments, consultation requests, and elevated privileges for taking necessary actions such as approving or rejecting blogs, moderating comments, and reviewing consultation submissions. |
+    Added Surveys UI buttons and Quesitons
+
+[2/26/2025] v2.0
+
+    Components.dart => 
+        Display error dialog message change from Internal Server error to Server Couldn't be reached
+        Select Date Component changed the selected date color from teal to white-ish
+    Create Account.dart => 
+        Revert the UI to its original shape
+        changed the SVG picutre
+        added a responsive color for the password show/hide
+    EmailVerification.dart =>
+        added an openGmail Method
+    EmailVerificationScreen.dart =>
+        Fixed The Whole UI and Logic
+        now it will check automaticly for user verification
+    SignInScreen.dart =>
+        Title is now bigger
+        added circular progress loading on login
+        added a responsive color for the password show/hide
+
+[2/22/2025] v2.0
+
+    added onTap Color for all TextButtons
+    create a isKeyboardUp method in components
+    Fixed the loading Button Size
+    added loading button in createAccountScreen1
+    fixed the card views display
+    Footer Display on the bottom of screen
+    Fixed some ui bugs(textSizes,Expanded, SafeAreas,button sizes, Title, Edit Icon size, Animation Duration, )
+    
+
+[2/22/2025] v2.0
+
+    new UI implementation
 
 
-## Tech Stack
- ### Nutriblog
-<img align="center" width="3%" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png"/> <img align="center" width="3%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/2560px-Tailwind_CSS_Logo.svg.png"/> <img align="center" width="6%" src="https://www.andreafiori.net/img/software-development/posts/php8-features.gif"/> <img align="center" width="6%" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/mysql.png"/> <img align="center" width="5%" src="https://infinityfree-forum-uploads.s3.dualstack.eu-central-1.amazonaws.com/original/3X/a/a/aa031572455185b8e9ad7c1bc79f3816a1eb2a1b.png"/>
+[2/22/2025] v1.9
 
+    email convert to lowecase
+    Capitlize first and last name
+    fixed bmi recalculation on weight change
 
+[2/19/2025] v1.9
+        
+    cleared the authData values when user logsOut <Auth>
+    More clear logs in  <authScreen> 
+    All logical code shifted from Screen.Dart to Screenname.dart
+    Fixed some validation display and footer display and display forget password <LogInUser>
+    more features in EmailVerficationScreen and Fixed ResendVerification Button
+     text buttons Color now is Primary
 
-### Solution link
+[2/18/2025] v1.8
 
-https://bicandy-new.42web.io/nutriverse
+    added auth key clear in login for safet
+    added some usefully debugging prints
+    isEmailVerified Method now works
+    added DisplayError Function in component
+    shifted EmailVerificationScreen and SignInScreen logic to name.dart files
+    Fixed HomeScreen Avatar Image
+    fix Gender section overflow
+    fixed auth user reIdentification and validation
 
----
-62410031@students.liu.edu.lb | LinkedIn: [fbicandy](https://www.linkedin.com/in/freddy-bicandy/)
+[2/17/2025] v1.7
+
+    added user id to authData[] <.env>
+    replace=> Regex Variables
+    Replace=>Display Dialog Component
+    Fix CreateAccountScreen Email Already Taken Validation
+    Log In user After account Creation to save Credentials
+
+[2/16/2025]
+
+    did CreateAccountScreen Norm and Validation Fixes
+    did CreateAccountScreen2 Validation Fixes
+    CreateAccount logic file has now Select date function
+    Display Dialog now is a component
+    regex ,database url , and more variables for user data now is public <.env>
+
+[2/14/2025]
+
+    did home screen 
+    profile screen 
+    fixed default avatar image
+    Made a new record table gender
+    did email verification
+    did logout and auto login after creation
+
+[2/13/2025]
+
+    did logout user and saving login credentials
+
+[2/12/2025]
+
+    done Login
+    fixed some validations 
+    UI fixes made the TextFields and Icons + SVG smaller
+    fixed next button without validation
+    fixed createAccount added a loading icon and a DialogBox for statusCode
+    created account with encrypted passwords
+    Account photo upload implementation 
+    fixed goals font size
+
+[2/11/2025]
+
+    done create user account with PocketDb Connections 
+
+[2/8/2025]
+
+    done validations
+
+[2/8/2025]
+
+    done Create Account Screens
+
+[2/8/2025]
+
+    done user profile selector
+    Appbad/Footer Components
+    Fixed icons and create/signin Text Button overlay Color
+    fixed java jdk shit

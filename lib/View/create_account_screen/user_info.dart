@@ -243,7 +243,7 @@ class _UserInfoState extends State<UserInfo> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsGeometry.fromLTRB(10, 35, 10, 0),
+                padding: const EdgeInsets.fromLTRB(10, 35, 10, 0),
                 child: Row(
                   spacing: 10,
                   children: [
