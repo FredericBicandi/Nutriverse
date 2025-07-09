@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../includes.dart';
 
 // ignore: must_be_immutable
@@ -8,13 +7,14 @@ class DynamicTextButton extends StatelessWidget {
     super.key,
     this.iconSize = 20,
     this.iconColor = 0xF4C2C2C2,
+    this.textColor = 0xFF1AB394,
     this.image,
     this.buttonText,
     this.buttonIcon,
     required this.onClick,
   });
 
-  int iconColor;
+  int iconColor,textColor;
   final double iconSize;
 
   final dynamic image;
@@ -33,7 +33,7 @@ class DynamicTextButton extends StatelessWidget {
               buttonText,
               style: TextStyle(
                 fontFamily: "Avenir",
-                color: Color(primaryColor),
+                color: Color(textColor),
                 decoration: TextDecoration.none,
               ),
             )

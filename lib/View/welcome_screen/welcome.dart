@@ -1,8 +1,7 @@
+import '../login_screen/login_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:nutritracker/View/login_screen/login_sheet.dart';
-
-import '../../includes.dart';
 import 'background_video.dart';
+import '../../includes.dart';
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override

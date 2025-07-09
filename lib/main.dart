@@ -26,6 +26,7 @@ class _NutriTrackerState extends State<NutriTracker> {
         primaryColor: Color(primaryColor),
         scaffoldBackgroundColor: CupertinoColors.white,
         appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.transparent,
           backgroundColor: CupertinoColors.white,
           elevation: 0,
           toolbarHeight: 80,
@@ -45,7 +46,7 @@ class _NutriTrackerState extends State<NutriTracker> {
         ),
       ),
       //TODO:: test the image thing
-      home: const CreateAccount(),
+      home: const WelcomeScreen(),
     );
   }
 }

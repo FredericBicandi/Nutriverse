@@ -1,6 +1,7 @@
-import '../../Controller/otp_controller/verify_otp.dart';
-import '../../Controller/otp_controller/generate.otp.dart';
 import '../../Controller/forget_password_controller/forget_password.dart';
+import '../../Controller/otp_controller/.otp.dart';
+import '../../Controller/otp_controller/generate.otp.dart';
+import '../../Controller/otp_controller/verify_otp.dart';
 import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
 
@@ -8,7 +9,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
   @override
   void initState() {
     super.initState();
-    resetFields();
+    resetOtpFields();
 
     if (remainingSeconds > 0 && timer?.isActive != true) {
       startTimer((int secondsLeft) {
@@ -163,11 +164,17 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 children: [
                   DynamicTextButton(
                       buttonText: "Resend OTP",
+                      textColor: color,
                       onClick: () {
-                        (remainingSeconds / 60) == 0.00
-                            ? resendOTP(context)
-                            : null;
-                      }),
+                        if(remainingSeconds / 60 == 0.00)
+                          {
+                            setState(() => color=primaryColor);
+                            resendOTP(context);
+                          }else{
+                          setState(() => color=fade);
+                        }
+                      },
+                  ),
                   Text(
                     "in ${(currentSeconds / 60).toStringAsFixed(2)}",
                     style: TextStyle(

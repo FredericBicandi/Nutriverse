@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart' as material;
 import '../../Controller/forget_password_controller/change_password.dart';
+import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
 
 class _PasswordResetState extends State<PasswordReset> {

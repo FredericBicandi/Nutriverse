@@ -1,7 +1,7 @@
 import '../../Model/authentication_table/get_user_by_email.dart';
 import '../../includes.dart';
-import '../forget_password_controller/forget_password.dart';
 import 'generate.otp.dart';
+import '.otp.dart';
 
 void verifyOtpNumbers(String value, bool valid) =>
     !validateOtp(value) ? valid = false : valid = true;

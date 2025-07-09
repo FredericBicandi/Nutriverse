@@ -1,5 +1,4 @@
-import 'package:nutritracker/View/profile_screen/profile.dart';
-
+import '../View/profile_screen/profile.dart';
 import '../includes.dart';
 
 class Appbar extends StatelessWidget {

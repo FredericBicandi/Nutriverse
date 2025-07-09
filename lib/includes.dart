@@ -33,10 +33,10 @@ export 'Widgets/profile_selector.dart';
 export 'Widgets/dynamic_text_button.dart';
 
 // Screen
+export 'View/otp_screen/verify_otp.dart';
 export 'View/welcome_screen/welcome.dart';
 export 'View/dashboard_screen/dashboard.dart';
 export 'View/create_account_screen/user_info.dart';
-export 'View/otp_screen/verify_otp.dart';
 export 'View/create_account_screen/create_account.dart';
 export 'View/forget_password_screen/password_reset.dart';
 export 'View/forget_password_screen/forget_password.dart';
