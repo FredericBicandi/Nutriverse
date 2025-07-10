@@ -36,6 +36,7 @@ export 'Widgets/dynamic_text_button.dart';
 export 'View/otp_screen/verify_otp.dart';
 export 'View/welcome_screen/welcome.dart';
 export 'View/dashboard_screen/dashboard.dart';
+export 'View/email_verification/edit_email.dart';
 export 'View/create_account_screen/user_info.dart';
 export 'View/create_account_screen/create_account.dart';
 export 'View/forget_password_screen/password_reset.dart';

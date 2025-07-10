@@ -5,6 +5,10 @@ import '../includes.dart';
 class DynamicTextButton extends StatelessWidget {
   DynamicTextButton({
     super.key,
+    this.left = 0,
+    this.top = 0,
+    this.bottom = 0,
+    this.right = 0,
     this.iconSize = 20,
     this.iconColor = 0xF4C2C2C2,
     this.textColor = 0xFF1AB394,
@@ -14,7 +18,8 @@ class DynamicTextButton extends StatelessWidget {
     required this.onClick,
   });
 
-  int iconColor,textColor;
+  int iconColor, textColor;
+  final double left, top, bottom, right;
   final double iconSize;
 
   final dynamic image;
@@ -28,38 +33,59 @@ class DynamicTextButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onClick,
       sizeStyle: CupertinoButtonSize.small,
-      child: buttonText != null
-          ? Text(
-              buttonText,
-              style: TextStyle(
-                fontFamily: "Avenir",
-                color: Color(textColor),
-                decoration: TextDecoration.none,
-              ),
-            )
-          : buttonIcon != null
-              ? Icon(
+      child: buttonText != null && buttonIcon != null
+          ? Row(
+              children: [
+                Icon(
                   buttonIcon,
                   color: Color(iconColor),
                   size: iconSize,
-                )
-              : CircleAvatar(
-                  radius: 100,
-                  backgroundColor: Color(outline),
-                  backgroundImage: image,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Color(primaryColor),
-                      child: const Icon(
-                        Icons.edit,
-                        color: CupertinoColors.white,
-                        size: 18,
-                      ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(left, top, right, bottom),
+                  child: Text(
+                    buttonText,
+                    style: TextStyle(
+                      fontFamily: "Avenir",
+                      color: Color(textColor),
+                      decoration: TextDecoration.none,
                     ),
                   ),
-                ),
+                )
+              ],
+            )
+          : buttonText != null
+              ? Text(
+                  buttonText,
+                  style: TextStyle(
+                    fontFamily: "Avenir",
+                    color: Color(textColor),
+                    decoration: TextDecoration.none,
+                  ),
+                )
+              : buttonIcon != null
+                  ? Icon(
+                      buttonIcon,
+                      color: Color(iconColor),
+                      size: iconSize,
+                    )
+                  : CircleAvatar(
+                      radius: 100,
+                      backgroundColor: Color(outline),
+                      backgroundImage: image,
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: Color(primaryColor),
+                          child: const Icon(
+                            Icons.edit,
+                            color: CupertinoColors.white,
+                            size: 18,
+                          ),
+                        ),
+                      ),
+                    ),
     );
   }
 }
