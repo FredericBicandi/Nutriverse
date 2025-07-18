@@ -5,6 +5,12 @@ import '../../includes.dart';
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   @override
+  void initState() {
+    super.initState();
+    emailVerification = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return material.Scaffold(
         appBar: material.AppBar(
@@ -37,7 +43,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           },
                           maxLen: 80,
                           labelText: "Email",
-                          errorText: "invalid email!",
+                          errorText: errMessage,
                           isValidInput: isValidEmail,
                           controllerName: emailController,
                           iconName: CupertinoIcons.mail_solid,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nutritracker/View/email_verification/email_verification.dart';
 import 'includes.dart';
 
 void main() async {
@@ -15,7 +14,6 @@ class _NutriTrackerState extends State<NutriTracker> {
   @override
   void initState() {
     super.initState();
-    emailController.text="fredybicandy085@gmail.com";
   }
 
   @override
@@ -48,7 +46,7 @@ class _NutriTrackerState extends State<NutriTracker> {
         ),
       ),
       //TODO:: test the image thing
-      home: const EmailVerification(),
+      home: const WelcomeScreen(),
     );
   }
 }

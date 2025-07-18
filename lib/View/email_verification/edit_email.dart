@@ -1,9 +1,14 @@
-import '../../Controller/forget_password_controller/forget_password.dart';
-import '../../Controller/otp_controller/verify_otp.dart';
+import '../../Controller/email_verification/email_verification.dart';
 import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
 
 class _EditEmailState extends State<EditEmail> {
+  @override
+  void initState() {
+    super.initState();
+    oldEmail = emailController.text;
+  }
+
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
@@ -58,24 +63,18 @@ class _EditEmailState extends State<EditEmail> {
                             DynamicButton(
                               onClick: () async {
                                 if (isLoading) return;
-                                validateEmail(emailController.text)
-                                    ? verification(
-                                        context,
-                                        (String value) => setState(
-                                          () => errMessage = value,
-                                        ),
-                                        (bool value) => setState(
-                                          () => isLoading = value,
-                                        ),
-                                        (bool value) => setState(
-                                          () => isValidEmail = value,
-                                        ),
-                                      )
-                                    : setState(() => isValidEmail = false);
+                                changeEmail(
+                                  context,
+                                  (bool value) =>
+                                      setState(() => isValidEmail = value),
+                                  (bool value) =>
+                                      setState(() => isLoading = value),
+                                );
                               },
-                              setText: "Send Email Verification",
+                              setSize: 300,
                               isLoading: isLoading,
                               setIcon: CupertinoIcons.mail,
+                              setText: "Update & Send code",
                             ),
                             SizedBox(height: sizeOf(context, 0.70)),
                             const Footer(),

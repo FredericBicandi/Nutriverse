@@ -10,6 +10,7 @@ bool isLoading = false;
 bool showPassword = true;
 bool isValidEmail = true;
 bool isValidPassword = true;
+bool emailVerification = false;
 bool isValidPasswordMatch = true;
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
@@ -17,8 +18,8 @@ TextEditingController confirmPasswordController = TextEditingController();
 
 // User Data
 File? imageFile;
-String? imageUrl="https://xidmzwoldcsmkxbkzibz.supabase.co/storage/v1/object/public/userphotos/fredos112033@gmail.com.jpg";
-
+String oldEmail = '';
+String? imageUrl;
 Map<String, String?> userInfo = {};
 
 late final Session? session;

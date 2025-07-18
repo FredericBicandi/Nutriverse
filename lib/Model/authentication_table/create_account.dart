@@ -1,10 +1,14 @@
+import '../../Model/verified_users/unverified_user.dart';
 import '../../Model/Storage/upload_media.dart';
 import '../../Model/Storage/find_media.dart';
+import '../../Model/users/user.dart';
 import '../../includes.dart';
 
-Future<int?> createUserAccount(final File? imageFile,
-    final String email,
-    final String password,) async {
+Future<int?> createUserAccount(
+  final File? imageFile,
+  final String email,
+  final String password,
+) async {
   try {
     final response = await supabase.auth.signUp(
       email: email,
@@ -23,9 +27,7 @@ Future<int?> createUserAccount(final File? imageFile,
         await uploadBucketMedia(email, 'userphotos', imageFile);
 
         imageUrl = await findBucketMedia(
-          "$email.${imageFile.path
-              .split('.')
-              .last}",
+          "$email.${imageFile.path.split('.').last}",
           "userphotos",
         );
         if (imageUrl == null) return 301;
@@ -35,18 +37,10 @@ Future<int?> createUserAccount(final File? imageFile,
         return 301;
       }
     }
-
-    await supabase.from('users').insert({
-      "email": email,
-      "photo": imageUrl,
-      "height": userInfo["Height"],
-      "weight": userInfo["Weight"],
-      "bmi": userInfo["BMI"],
-      "age": userInfo["Age"],
-      "birthdate": userInfo["DOB"],
-      "gender": userInfo["Gender"] == "Female" ? false : true,
-      "goal": userInfo["Goal"],
-    });
+    if (await saveUserInfo(email) == 500 ||
+        await unverifiedUserCreate(email) == 500) {
+      return 500;
+    }
     return 200;
   } catch (e) {
     errorMessage = "Error while creating user account";

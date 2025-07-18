@@ -1,7 +1,7 @@
 import '../../Model/authentication_table/create_account.dart';
 import 'package:intl/intl.dart';
-import '../../includes.dart';
 import '.create_account.dart';
+import '../../includes.dart';
 
 String updateUserBmi(
   final String age,
@@ -69,7 +69,7 @@ void createAccountHandler(
       );
       updateLoadingButton(false);
       // ignore: use_build_context_synchronously
-      navigateTo(context, const WelcomeScreen());
+      navigateTo(context, const EmailVerification());
       return;
     }
     if (response == 301) {

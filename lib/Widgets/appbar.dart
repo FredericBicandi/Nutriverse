@@ -46,7 +46,7 @@ class ExtendedAppBar extends StatelessWidget {
             width: sizeOf(context, 0.60), child: const Center(child: Appbar())),
         ImageButton(
           onClick: () => navigateTo(context, const ProfileScreen()),
-          urlImage: imageUrl != null ? true : false,
+          urlImage: imageUrl == null ? false : true,
           imagePath: imageUrl ?? "Avatar_male.png",
         )
       ],

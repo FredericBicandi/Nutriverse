@@ -1,6 +1,14 @@
-import '../../Controller/login_controller/login.dart';
 import 'package:flutter/material.dart' as material;
+
+import '../../Controller/login_controller/login.dart';
 import '../../includes.dart';
+
+class LoginSheet extends StatefulWidget {
+  const LoginSheet({super.key});
+
+  @override
+  State<LoginSheet> createState() => _LoginSheetState();
+}
 
 class _LoginSheetState extends State<LoginSheet> {
   @override
@@ -146,11 +154,4 @@ class _LoginSheetState extends State<LoginSheet> {
       ),
     );
   }
-}
-
-class LoginSheet extends StatefulWidget {
-  const LoginSheet({super.key});
-
-  @override
-  State<LoginSheet> createState() => _LoginSheetState();
 }

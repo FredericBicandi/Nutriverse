@@ -74,7 +74,7 @@ class SmartTextField extends StatefulWidget {
   SmartTextField({
     super.key,
     this.width = 350,
-    this.maxLen = 30,
+    this.maxLen = 80,
     this.readOnly = false,
     this.autoCorrect = true,
     this.obscureText = false,

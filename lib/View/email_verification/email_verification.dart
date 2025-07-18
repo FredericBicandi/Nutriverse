@@ -1,8 +1,15 @@
-import 'package:flutter/material.dart';
 import '../../Controller/otp_controller/verify_otp.dart';
+import 'package:flutter/material.dart';
 import '../../includes.dart';
 
 class _EmailVerificationState extends State<EmailVerification> {
+  @override
+  void initState() {
+    super.initState();
+    emailVerification = true;
+    isLoading = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +43,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     padding: const EdgeInsets.fromLTRB(320, 10, 0, 0),
                     child: DynamicTextButton(
                       top: 5,
-                      onClick: () => navigateTo(context, const EditEmail()),
+                      onClick: () => newStackScreen(context, const EditEmail()),
                       buttonText: "edit",
                       iconColor: primaryColor,
                       buttonIcon: CupertinoIcons.pencil_ellipsis_rectangle,

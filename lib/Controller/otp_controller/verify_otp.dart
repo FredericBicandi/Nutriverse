@@ -1,3 +1,4 @@
+import '../../Model/verified_users/update_verification.dart';
 import '../../Model/authentication_table/get_user_by_email.dart';
 import '../../includes.dart';
 import 'generate.otp.dart';
@@ -5,6 +6,7 @@ import '.otp.dart';
 
 void verifyOtpNumbers(String value, bool valid) =>
     !validateOtp(value) ? valid = false : valid = true;
+
 void verify(
   BuildContext context,
   Function(bool) updateOtp1Validity,
@@ -21,7 +23,12 @@ void verify(
     loadingState(true);
     printDebugMsg("Verified");
     // ignore: use_build_context_synchronously
-    return newStackScreen(context, const PasswordReset());
+    if (emailVerification) await verifyUser(emailController.text);
+    return newStackScreen(
+      // ignore: use_build_context_synchronously
+      context,
+      emailVerification ? const Dashboard() : const PasswordReset(),
+    );
   } else {
     updateOtp1Validity(false);
     updateOtp2Validity(false);
@@ -73,4 +80,3 @@ void verification(
   // ignore: use_build_context_synchronously
   return navigateTo(context, const VerifyOtp());
 }
-

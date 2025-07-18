@@ -49,12 +49,14 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           width: 75,
                           maxLen: 1,
                           labelText: "  #",
-                          errorText: "",
+                          errorText: "invalid",
                           focusNode: focusNode1,
                           isValidInput: otp1Valid,
                           controllerName: otpController1,
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
+                          filterTextInput:
+                              FilteringTextInputFormatter.allow(otpRegex),
                         ),
                         const SizedBox(width: 10),
                         SmartTextField(
@@ -70,12 +72,14 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           width: 75,
                           maxLen: 1,
                           labelText: "  #",
-                          errorText: "",
+                          errorText: "invalid",
                           focusNode: focusNode2,
                           isValidInput: otp2Valid,
                           controllerName: otpController2,
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
+                          filterTextInput:
+                              FilteringTextInputFormatter.allow(otpRegex),
                         ),
                         const SizedBox(width: 10),
                         SmartTextField(
@@ -91,12 +95,14 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           width: 75,
                           maxLen: 1,
                           labelText: "  #",
-                          errorText: "",
+                          errorText: "invalid",
                           focusNode: focusNode3,
                           isValidInput: otp3Valid,
                           controllerName: otpController3,
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
+                          filterTextInput:
+                              FilteringTextInputFormatter.allow(otpRegex),
                         ),
                         const SizedBox(width: 10),
                         SmartTextField(
@@ -112,12 +118,14 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           width: 75,
                           maxLen: 1,
                           labelText: "  #",
-                          errorText: "",
+                          errorText: "invalid",
                           focusNode: focusNode4,
                           isValidInput: otp4Valid,
                           controllerName: otpController4,
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
+                          filterTextInput:
+                              FilteringTextInputFormatter.allow(otpRegex),
                         ),
                       ],
                     ),
@@ -162,17 +170,16 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   DynamicTextButton(
-                      buttonText: "Resend OTP",
-                      textColor: color,
-                      onClick: () {
-                        if(remainingSeconds / 60 == 0.00)
-                          {
-                            setState(() => color=primaryColor);
-                            resendOTP(context);
-                          }else{
-                          setState(() => color=fade);
-                        }
-                      },
+                    buttonText: "Resend OTP",
+                    textColor: color,
+                    onClick: () {
+                      if (remainingSeconds / 60 == 0.00) {
+                        setState(() => color = primaryColor);
+                        resendOTP(context);
+                      } else {
+                        setState(() => color = fade);
+                      }
+                    },
                   ),
                   Text(
                     "in ${(currentSeconds / 60).toStringAsFixed(2)}",

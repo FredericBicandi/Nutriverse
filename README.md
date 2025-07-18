@@ -16,6 +16,22 @@
     [ForgetPassword]
         bug fixes in UI and logic 
 
+
+[19/7/2025] v2.3
+    
+    [verify otp]
+        added regex filetering for digits only
+    [smart input]
+        increase the max len from 30 to 80
+    [dynamic button]
+        decresead the size of buttons to 180
+    [email verification]
+        fixed the edit user email now it will change email acrros user tables
+    [extended appBar]
+        fixed alwayse rendering static photo
+    [login]
+        check email verification on user Auth
+
 [21/6/2025] v2.3
     
     [General]

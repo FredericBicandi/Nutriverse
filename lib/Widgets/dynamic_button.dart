@@ -5,7 +5,7 @@ class DynamicButton extends StatefulWidget {
   DynamicButton({
     super.key,
     this.setIcon,
-    this.setSize = 200,
+    this.setSize = 160,
     this.isLoading = false,
     this.bgColor = 0xFF1AB394,
     this.textColor = 0xFFFFFFFF,

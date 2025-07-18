@@ -1,4 +1,5 @@
 import '../../Model/authentication_table/auth_login.dart';
+import '../../Model/verified_users/check_verification.dart';
 import '../../includes.dart';
 
 Future<void> loginController(
@@ -28,6 +29,15 @@ Future<void> loginController(
     if (success == 200) {
       printDebugMsg("Authentication Success");
       updatePasswordValidity(true);
+      // ignore: use_build_context_synchronously
+      final int? response = await checkVerification(emailController.text);
+      if (response == 404) {
+        // ignore: use_build_context_synchronously
+        return newStackScreen(context, const EmailVerification());
+      } else if (response == 500) {
+        // ignore: use_build_context_synchronously
+        await iosAlert(context, "Error", errorMessage!);
+      }
       // ignore: use_build_context_synchronously
       return newStackScreen(context, const Dashboard());
     } else if (success == 500) {
