@@ -1,5 +1,5 @@
-import '../../Controller/Create_account/.create_account.dart';
-import '../../Controller/Create_account/account_info.dart';
+import '../../Controller/create_account/.create_account.dart';
+import '../../Controller/create_account/account_info.dart';
 import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
 

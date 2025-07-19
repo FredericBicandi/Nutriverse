@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutritracker/View/surveys/survey1.dart';
 import 'includes.dart';
 
 void main() async {
@@ -46,7 +47,7 @@ class _NutriTrackerState extends State<NutriTracker> {
         ),
       ),
       //TODO:: test the image thing
-      home: const WelcomeScreen(),
+      home: const Survey1(),
     );
   }
 }

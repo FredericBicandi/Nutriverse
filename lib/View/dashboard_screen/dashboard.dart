@@ -1,4 +1,6 @@
+import '../../Controller/dashboard/dashboard.dart';
 import 'package:flutter/material.dart' as material;
+
 import '../../includes.dart';
 
 class Dashboard extends StatefulWidget {
@@ -10,6 +12,15 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int selectedNavigation = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    checkUserInfo(context);
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

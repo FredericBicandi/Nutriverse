@@ -31,12 +31,23 @@ export 'Widgets/dynamic_button.dart';
 export 'Widgets/smart_text_field.dart';
 export 'Widgets/profile_selector.dart';
 export 'Widgets/dynamic_text_button.dart';
+export 'Widgets/survey_progress_indicator.dart';
 
 // Screen
+export 'View/surveys/survey1.dart';
+export 'View/surveys/survey2.dart';
+export 'View/surveys/survey3.dart';
+export 'View/surveys/survey4.dart';
+export 'View/surveys/survey5.dart';
+export 'View/surveys/survey6.dart';
+export 'View/surveys/survey7.dart';
+export 'View/surveys/survey8.dart';
+export 'View/surveys/survey9.dart';
 export 'View/otp_screen/verify_otp.dart';
 export 'View/welcome_screen/welcome.dart';
 export 'View/dashboard_screen/dashboard.dart';
 export 'View/email_verification/edit_email.dart';
+export 'View/loading_screen/loading_screen.dart';
 export 'View/create_account_screen/user_info.dart';
 export 'View/create_account_screen/create_account.dart';
 export 'View/email_verification/email_verification.dart';

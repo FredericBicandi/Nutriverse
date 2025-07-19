@@ -38,7 +38,7 @@ class _DynamicButtonState extends State<DynamicButton> {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: Color(widget.borderColor),
-          width: 2, // adjust width if needed
+          width: 0.5, // adjust width if needed
         ),
       ),
       child: widget.isLoading

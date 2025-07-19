@@ -1,7 +1,7 @@
 import '../../Model/verified_users/unverified_user.dart';
-import '../../Model/Storage/upload_media.dart';
-import '../../Model/Storage/find_media.dart';
-import '../../Model/users/user.dart';
+import '../../Model/storage/upload_media.dart';
+import '../../Model/storage/find_media.dart';
+import '../../Model/users/save_user_info.dart';
 import '../../includes.dart';
 
 Future<int?> createUserAccount(
