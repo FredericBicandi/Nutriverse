@@ -6,17 +6,18 @@ import '../../includes.dart';
 Future<bool> checkUserInfo(BuildContext context) async {
   final response = await getUserInfo();
   if (response != null &&
-      response['additional_goals'] == null &&
+      response['avoid'] == null &&
+      response['fast_food'] == null &&
       response['diet_plan'] == null &&
       response['allergies'] == null &&
-      response['avoid'] == null &&
       response['meals_number'] == null &&
-      response['fast_food'] == null &&
       response['macronutrient'] == null &&
-      response['daily_protein_consume'] == null &&
       response['home_meal_often'] == null &&
+      response['additional_goals'] == null &&
       response['kitchen_appliances'] == null &&
-      response['medical_conditions'] == null) {
+      response['medical_conditions'] == null &&
+      response['daily_protein_consume'] == null
+  ) {
     // ignore: use_build_context_synchronously
     newStackScreen(context, const Survey1());
     // All values are null

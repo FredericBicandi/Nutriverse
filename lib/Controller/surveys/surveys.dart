@@ -1,3 +1,4 @@
+import 'package:nutritracker/Model/users/save_user_info.dart';
 import '../../includes.dart';
 
 TextEditingController othersFoodAvoidController = TextEditingController();
@@ -254,7 +255,6 @@ void survey6ChoiceUpdate(String fastFoodMeals) {
 
   surveyAnswers['FastFood'] = fastFoodMeals;
   printDebugMsg("$surveyAnswers");
-
 }
 
 bool survey6NextButton() {
@@ -271,13 +271,11 @@ void survey7ChoiceUpdate(String macroNutrient) {
   surveyAnswers['Macronutrient'] = macroNutrient;
 
   printDebugMsg("$surveyAnswers");
-
 }
 
 void survey7Choice2Update(String proteinConsume) {
   surveyAnswers['DailyProteinConsume'] = proteinConsume;
   printDebugMsg("$surveyAnswers");
-
 }
 
 void survey8ChoiceUpdate(String homeMealOften) {
@@ -288,7 +286,6 @@ void survey8ChoiceUpdate(String homeMealOften) {
 
   surveyAnswers['HomeMealOften'] = homeMealOften;
   printDebugMsg("$surveyAnswers");
-
 }
 
 bool survey8NextButton() {
@@ -374,9 +371,7 @@ Future<int?> survey9NextButton() async {
     surveyAnswers["MedicalConditions"] = '';
   }
 
-    printDebugMsg("$surveyAnswers");
-    printDebugMsg("DATA RECEIVED:\n");
-  // final Auth saveData = Auth();
-  // int? response = await saveData.saveUserSurveyData(surveyAnswers);
-  return null;
+  printDebugMsg("$surveyAnswers");
+  printDebugMsg("DATA RECEIVED:\n");
+  return saveSurveyInfo(surveyAnswers);
 }

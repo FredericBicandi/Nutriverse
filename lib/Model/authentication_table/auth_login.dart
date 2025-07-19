@@ -6,6 +6,8 @@ Future<int> userAuth(final String email, final String password) async {
       email: email,
       password: password,
     );
+    session = supabase.auth.currentSession;
+    user = supabase.auth.currentUser;
     return 200;
   } on AuthException catch (e) {
     errorMessage = "Failed to authenticate user";

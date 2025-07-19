@@ -6,8 +6,6 @@ class _Survey9State extends State<Survey9> {
   double animationProgress = 0.0;
   bool finished = false;
 
-  void _dismissKeyboard() => FocusScope.of(context).unfocus();
-
   void checkSelection() async {
     setState(() => finished = true);
     int? response = await survey9NextButton();
@@ -49,7 +47,7 @@ class _Survey9State extends State<Survey9> {
         ),
       ),
       body: GestureDetector(
-        onTap: _dismissKeyboard,
+        onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(25),

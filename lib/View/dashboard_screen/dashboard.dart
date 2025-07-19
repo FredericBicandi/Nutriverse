@@ -19,9 +19,6 @@ class _DashboardState extends State<Dashboard> {
     checkUserInfo(context);
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
