@@ -5,6 +5,7 @@ import '../../Controller/otp_controller/.otp.dart';
 import '../../includes.dart';
 
 class _VerifyOtpState extends State<VerifyOtp> {
+
   @override
   void initState() {
     super.initState();
@@ -12,7 +13,15 @@ class _VerifyOtpState extends State<VerifyOtp> {
 
     if (remainingSeconds > 0 && timer?.isActive != true) {
       startTimer((int secondsLeft) {
-        setState(() => currentSeconds = secondsLeft);
+        setState(() {
+          currentSeconds = secondsLeft;
+
+          if (secondsLeft / 60 == 0.00) {
+            color = primaryColor;
+          } else {
+            color = fade;
+          }
+        });
       });
     }
   }
@@ -183,9 +192,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                   ),
                   Text(
                     "in ${(currentSeconds / 60).toStringAsFixed(2)}",
-                    style: TextStyle(
-                      color: Color(fade),
-                    ),
+                    style: TextStyle(color: Color(fade)),
                   ),
                 ],
               ),

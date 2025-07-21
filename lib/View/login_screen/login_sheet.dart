@@ -70,18 +70,14 @@ class _LoginSheetState extends State<LoginSheet> {
                               obscureText: showPassword,
                               isValidInput: isValidPassword,
                               controllerName: passwordController,
-                              iconName: CupertinoIcons.padlock_solid,
-                              filterTextInput:
-                                  FilteringTextInputFormatter.allow(
-                                passwordRegex,
-                              ),
+                              iconName: material.Icons.password_outlined,
+                              filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(300, 12, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(280, 4, 0, 0),
                               child: CupertinoButton(
                                 onPressed: () => setState(
                                     () => showPassword = !showPassword),
-                                sizeStyle: CupertinoButtonSize.small,
                                 child: Icon(
                                   color: Color(fade),
                                   showPassword
@@ -102,47 +98,53 @@ class _LoginSheetState extends State<LoginSheet> {
                             buttonText: "Forget Password",
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        DynamicButton(
-                          onClick: () async {
-                            !isLoading
-                                ? setState(() {
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Column(
+                            children: [
+                              DynamicButton(
+                                onClick: () async {
+                                  !isLoading
+                                      ? setState(() {
                                     dismissKeyboard(context);
                                     loginController(
                                       context,
-                                      (bool value) => isValidEmail = value,
-                                      (bool value) => isValidPassword = value,
-                                      (bool value) => setState(() {
+                                          (bool value) => isValidEmail = value,
+                                          (bool value) => isValidPassword = value,
+                                          (bool value) => setState(() {
                                         isLoading = value;
                                       }),
                                     );
                                   })
-                                : null;
-                          },
-                          setText: "Login",
-                          isLoading: isLoading,
-                          setIcon: CupertinoIcons.arrow_right_square_fill,
-                        ),
-                        SizedBox(
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Don't have an account?",
-                                style: TextStyle(
-                                  color: CupertinoColors.inactiveGray,
+                                      : null;
+                                },
+                                setText: "Login",
+                                isLoading: isLoading,
+                                setIcon: material.Icons.keyboard_arrow_right_sharp,
+                              ),
+                              SizedBox(
+                                height: 50,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Don't have an account?",
+                                      style: TextStyle(
+                                        color: CupertinoColors.inactiveGray,
+                                      ),
+                                    ),
+                                    DynamicTextButton(
+                                      buttonText: "Create one",
+                                      onClick: () =>
+                                          navigateTo(context, const CreateAccount()),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              DynamicTextButton(
-                                buttonText: "Create one",
-                                onClick: () =>
-                                    navigateTo(context, const CreateAccount()),
-                              ),
+                              const Footer()
                             ],
                           ),
                         ),
-                        const Footer()
                       ],
                     ),
                   ),

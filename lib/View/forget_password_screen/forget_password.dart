@@ -61,30 +61,39 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            DynamicButton(
-                              onClick: () async {
-                                if (isLoading) return;
-                                validateEmail(emailController.text)
-                                    ? verification(
-                                        context,
-                                        (String value) => setState(
-                                          () => errMessage = value,
-                                        ),
-                                        (bool value) => setState(
-                                          () => isLoading = value,
-                                        ),
-                                        (bool value) => setState(
-                                          () => isValidEmail = value,
-                                        ),
-                                      )
-                                    : setState(() => isValidEmail = false);
-                              },
-                              setText: "Reset Password",
-                              isLoading: isLoading,
-                              setIcon: CupertinoIcons.refresh_circled_solid,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Column(
+                                children: [
+                                  DynamicButton(
+                                    onClick: () async {
+                                      if (isLoading) return;
+                                      validateEmail(emailController.text)
+                                          ? verification(
+                                              context,
+                                              (String value) => setState(
+                                                () => errMessage = value,
+                                              ),
+                                              (bool value) => setState(
+                                                () => isLoading = value,
+                                              ),
+                                              (bool value) => setState(
+                                                () => isValidEmail = value,
+                                              ),
+                                            )
+                                          : setState(
+                                              () => isValidEmail = false);
+                                    },
+                                    setText: "Reset Password",
+                                    isLoading: isLoading,
+                                    setIcon:
+                                        CupertinoIcons.refresh_circled_solid,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Footer()
+                                ],
+                              ),
                             ),
-                            SizedBox(height: sizeOf(context, 0.70)),
-                            const Footer(),
                           ],
                         ),
                       ),

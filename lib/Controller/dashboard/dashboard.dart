@@ -1,5 +1,3 @@
-import 'package:nutritracker/View/surveys/survey1.dart';
-
 import '../../Model/users/get_user_info.dart';
 import '../../includes.dart';
 

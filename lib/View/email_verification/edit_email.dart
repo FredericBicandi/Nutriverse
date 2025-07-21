@@ -12,10 +12,7 @@ class _EditEmailState extends State<EditEmail> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-        appBar: material.AppBar(
-          elevation: 0,
-          title: const Appbar(),
-        ),
+        appBar: material.AppBar(title: const Appbar(left: 120)),
         body: GestureDetector(
           onTap: () => dismissKeyboard(context),
           child: SingleChildScrollView(
@@ -24,8 +21,8 @@ class _EditEmailState extends State<EditEmail> {
                 Stack(
                   children: [
                     Center(
-                      child: SvgPicture.asset(
-                        "assets/images/EditEmail.svg",
+                      child: Image.asset(
+                        "assets/images/EditEmail.jpg",
                         width: 350,
                       ),
                     ),
@@ -35,9 +32,7 @@ class _EditEmailState extends State<EditEmail> {
                         child: SmartTextField(
                           onChangeFunction: (value) {
                             !isValidEmail
-                                ? setState(
-                                    () => isValidEmail = validateEmail(value),
-                                  )
+                                ? setState(() => isValidEmail = validateEmail(value))
                                 : null;
                           },
                           maxLen: 80,
@@ -51,7 +46,7 @@ class _EditEmailState extends State<EditEmail> {
                         ),
                       ),
                     ),
-                    Center(
+                    material.Center(
                       child: material.Padding(
                         padding:
                             EdgeInsets.fromLTRB(0, sizeOf(context, 1.04), 0, 0),
@@ -65,15 +60,13 @@ class _EditEmailState extends State<EditEmail> {
                                 if (isLoading) return;
                                 changeEmail(
                                   context,
-                                  (bool value) =>
-                                      setState(() => isValidEmail = value),
-                                  (bool value) =>
-                                      setState(() => isLoading = value),
+                                  (bool value) => setState(() => isValidEmail = value),
+                                  (bool value) => setState(() => isLoading = value),
                                 );
                               },
-                              setSize: 300,
+                              setSize: 200,
                               isLoading: isLoading,
-                              setIcon: CupertinoIcons.mail,
+                              setIcon: material.Icons.send_and_archive_outlined,
                               setText: "Update & Send code",
                             ),
                             SizedBox(height: sizeOf(context, 0.70)),

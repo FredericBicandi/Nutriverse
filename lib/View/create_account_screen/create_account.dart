@@ -7,7 +7,10 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const Appbar()),
+      appBar: material.AppBar(
+        elevation: 0,
+        title: const Appbar(),
+      ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -32,7 +35,8 @@ class _CreateAccountState extends State<CreateAccount> {
                         if (!isValidEmail) {
                           emailHandler(
                             value,
-                            (bool value) => setState(() => isValidEmail = value),
+                            (bool value) =>
+                                setState(() => isValidEmail = value),
                           );
                         }
                       },
@@ -108,7 +112,8 @@ class _CreateAccountState extends State<CreateAccount> {
                       isValidInput: isValidPasswordMatch,
                       controllerName: confirmPasswordController,
                       iconName: CupertinoIcons.padlock_solid,
-                      filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+                      filterTextInput:
+                          FilteringTextInputFormatter.allow(passwordRegex),
                     ),
                   ),
                 ),
@@ -139,9 +144,10 @@ class _CreateAccountState extends State<CreateAccount> {
                 );
               },
               setText: "Next",
+              setIcon: material.Icons.keyboard_arrow_right,
               isLoading: isLoading,
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             const Footer()
           ],
         )),

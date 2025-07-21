@@ -44,14 +44,14 @@ class _PasswordResetState extends State<PasswordReset> {
                         isValidInput: isValidPassword,
                         controllerName: passwordController,
                         textInputAction: TextInputAction.next,
-                        iconName: CupertinoIcons.padlock_solid,
+                        iconName: material.Icons.password_outlined,
                         filterTextInput:
                             FilteringTextInputFormatter.allow(passwordRegex),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 360,
+                    top: 365,
                     left: 300,
                     child: DynamicTextButton(
                       onClick: () {
@@ -81,14 +81,13 @@ class _PasswordResetState extends State<PasswordReset> {
                         obscureText: showPassword,
                         isValidInput: isValidPasswordMatch,
                         controllerName: confirmPasswordController,
-                        iconName: CupertinoIcons.padlock_solid,
-                        filterTextInput:
-                            FilteringTextInputFormatter.allow(passwordRegex),
+                        iconName: material.Icons.password_outlined,
+                        filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 460,
+                    top: 465,
                     left: 300,
                     child: DynamicTextButton(
                       onClick: () {
@@ -114,7 +113,9 @@ class _PasswordResetState extends State<PasswordReset> {
                 },
                 setText: "Change Password",
                 isLoading: isLoading,
-              )
+              ),
+              const SizedBox(height: 10),
+              const Footer()
             ],
           ),
         ),
