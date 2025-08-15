@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutritracker/Controller/otp_controller/.otp.dart';
 import '../includes.dart';
 
 class _SmartTextFieldState extends State<SmartTextField> {
@@ -34,20 +35,33 @@ class _SmartTextFieldState extends State<SmartTextField> {
           errorStyle: const TextStyle(
             color: CupertinoColors.destructiveRed,
             fontSize: 13,
-            wordSpacing: 1.2,
+            wordSpacing: 1.5,
           ),
           labelStyle: TextStyle(
             color: widget.isValidInput
                 ? CupertinoColors.inactiveGray
                 : CupertinoColors.destructiveRed,
-            fontSize: 16,
-            letterSpacing: 2.5,
+            fontSize: 13,
+            letterSpacing: 1.5,
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+            color:Colors.redAccent
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+            color:CupertinoColors.destructiveRed
+            ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
+              width: 0.5,
               color: widget.isValidInput
-                  ? CupertinoColors.white
+                  ? Color(accentColor)
                   : CupertinoColors.destructiveRed,
             ),
           ),
@@ -57,7 +71,6 @@ class _SmartTextFieldState extends State<SmartTextField> {
               color: widget.isValidInput
                   ? Color(accentColor)
                   : CupertinoColors.destructiveRed,
-              width: 1,
             ),
           ),
           prefixIcon: widget.iconName != null

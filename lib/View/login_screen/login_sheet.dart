@@ -55,7 +55,7 @@ class _LoginSheetState extends State<LoginSheet> {
                           textInputAction: TextInputAction.next,
                           keyboardType: material.TextInputType.emailAddress,
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 15),
                         Stack(
                           children: [
                             SmartTextField(
@@ -74,7 +74,7 @@ class _LoginSheetState extends State<LoginSheet> {
                               filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(280, 0, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
                               child: CupertinoButton(
                                 onPressed: () => setState(
                                     () => showPassword = !showPassword),
@@ -99,7 +99,7 @@ class _LoginSheetState extends State<LoginSheet> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
+                          padding: const EdgeInsets.only(bottom: 10),
                           child: Column(
                             children: [
                               DynamicButton(
@@ -118,9 +118,8 @@ class _LoginSheetState extends State<LoginSheet> {
                                   })
                                       : null;
                                 },
-                                setText: "Login",
+                                setText: "Log in",
                                 isLoading: isLoading,
-                                setIcon: material.Icons.keyboard_arrow_right_sharp,
                               ),
                               SizedBox(
                                 height: 50,
