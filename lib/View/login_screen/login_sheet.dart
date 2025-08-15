@@ -27,7 +27,7 @@ class _LoginSheetState extends State<LoginSheet> {
             child: Stack(
               children: [
                 Align(
-                  alignment: Alignment.topRight,
+                  alignment: Alignment.center,
                   child: SvgPicture.asset(
                     "assets/images/MobileLogin.svg",
                     width: 350,
@@ -71,7 +71,8 @@ class _LoginSheetState extends State<LoginSheet> {
                               isValidInput: isValidPassword,
                               controllerName: passwordController,
                               iconName: material.Icons.password_outlined,
-                              filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+                              filterTextInput:
+                                  FilteringTextInputFormatter.allow(passwordRegex),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
@@ -88,61 +89,61 @@ class _LoginSheetState extends State<LoginSheet> {
                             )
                           ],
                         ),
+                        SizedBox(height: 10),
                         Align(
-                          alignment: Alignment.centerRight,
+                          alignment: Alignment.center,
                           child: DynamicTextButton(
                             onClick: () => navigateTo(
                               context,
                               const ForgetPassword(),
                             ),
-                            buttonText: "Forget Password",
+                            buttonText: "Forget password?",
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Column(
-                            children: [
-                              DynamicButton(
-                                onClick: () async {
-                                  !isLoading
-                                      ? setState(() {
-                                    dismissKeyboard(context);
-                                    loginController(
-                                      context,
+                        SizedBox(height: 100),
+                        Column(
+                          children: [
+                            DynamicButton(
+                              onClick: () async {
+                                !isLoading
+                                    ? setState(() {
+                                        dismissKeyboard(context);
+                                        loginController(
+                                          context,
                                           (bool value) => isValidEmail = value,
-                                          (bool value) => isValidPassword = value,
+                                          (bool value) =>
+                                              isValidPassword = value,
                                           (bool value) => setState(() {
-                                        isLoading = value;
-                                      }),
-                                    );
-                                  })
-                                      : null;
-                                },
-                                setText: "Log in",
-                                isLoading: isLoading,
-                              ),
-                              SizedBox(
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Don't have an account?",
-                                      style: TextStyle(
-                                        color: CupertinoColors.inactiveGray,
-                                      ),
+                                            isLoading = value;
+                                          }),
+                                        );
+                                      })
+                                    : null;
+                              },
+                              setText: "Log in",
+                              isLoading: isLoading,
+                            ),
+                            SizedBox(
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "Don't have an account?",
+                                    style: TextStyle(
+                                      color: CupertinoColors.inactiveGray,
                                     ),
-                                    DynamicTextButton(
-                                      buttonText: "Create one",
-                                      onClick: () =>
-                                          navigateTo(context, const CreateAccount()),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  DynamicTextButton(
+                                    buttonText: "Create one",
+                                    onClick: () => navigateTo(
+                                        context, const CreateAccount()),
+                                  ),
+                                ],
                               ),
-                              const Footer()
-                            ],
-                          ),
+                            ),
+                            Footer()
+                          ],
                         ),
                       ],
                     ),

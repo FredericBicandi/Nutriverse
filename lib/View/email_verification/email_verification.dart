@@ -81,8 +81,7 @@ class _EmailVerificationState extends State<EmailVerification> {
               setText: "Next",
               setIcon: Icons.keyboard_arrow_right_sharp,
             ),
-            const SizedBox(height: 20),
-            const Footer()
+             Footer()
           ],
         ),
       ),

@@ -71,8 +71,7 @@ class _AuthScreenState extends State<AuthScreen> {
               "Powered by the holy spirit.",
               style: TextStyle(color: Colors.blueGrey),
             ),
-            const SizedBox(height: 10),
-            const Footer()
+             Footer()
           ],
         ),
       ),

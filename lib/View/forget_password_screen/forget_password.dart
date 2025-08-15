@@ -89,8 +89,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                     setIcon:
                                         CupertinoIcons.refresh_circled_solid,
                                   ),
-                                  const SizedBox(height: 10),
-                                  const Footer()
+                                   Footer()
                                 ],
                               ),
                             ),

@@ -196,8 +196,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                   ),
                 ],
               ),
-              SizedBox(height: sizeOf(context, 0.500)),
-              const Footer()
+               Footer()
             ],
           ),
         ),

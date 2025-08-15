@@ -30,7 +30,22 @@ class _SmartTextFieldState extends State<SmartTextField> {
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          labelText: widget.labelText,
+
+          // ↓ Push label down by 5px
+          label: Transform.translate(
+            offset: const Offset(0, 3),
+            child: Text(
+              widget.labelText,
+              style: TextStyle(
+                color: widget.isValidInput
+                    ? CupertinoColors.inactiveGray
+                    : CupertinoColors.destructiveRed,
+                fontSize: 13,
+                letterSpacing: 1.5,
+              ),
+            ),
+          ),
+
           errorText: widget.isValidInput ? null : widget.errorText,
           errorStyle: const TextStyle(
             color: CupertinoColors.destructiveRed,
@@ -46,15 +61,11 @@ class _SmartTextFieldState extends State<SmartTextField> {
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-            color:Colors.redAccent
-            ),
+            borderSide: const BorderSide(color: Colors.redAccent),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-            color:CupertinoColors.destructiveRed
-            ),
+            borderSide: const BorderSide(color: CupertinoColors.destructiveRed),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -104,7 +115,6 @@ class SmartTextField extends StatefulWidget {
     required this.isValidInput,
     required this.controllerName,
   });
-
 
   double width;
   int maxLen;

@@ -114,8 +114,7 @@ class _PasswordResetState extends State<PasswordReset> {
                 setText: "Change Password",
                 isLoading: isLoading,
               ),
-              const SizedBox(height: 10),
-              const Footer()
+               Footer()
             ],
           ),
         ),

@@ -397,8 +397,7 @@ class _UserInfoState extends State<UserInfo> {
                   setText: "Create Account",
                 ),
               ),
-              const Footer(),
-              const SizedBox(height: 35)
+               Footer(),
             ],
           ),
         ),

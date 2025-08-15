@@ -52,7 +52,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
               ],
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 15),
             // Password Field
             Stack(
               children: [
@@ -73,63 +73,48 @@ class _CreateAccountState extends State<CreateAccount> {
                     isValidInput: isValidPassword,
                     controllerName: passwordController,
                     textInputAction: TextInputAction.next,
-                    iconName: CupertinoIcons.padlock_solid,
+                    iconName: material.Icons.password_outlined,
                     filterTextInput:
                         FilteringTextInputFormatter.allow(passwordRegex),
                   ),
                 ),
-                Positioned(
-                  top: 12,
-                  left: 300,
-                  child: DynamicTextButton(
-                    onClick: () {
-                      setState(() => showPassword = !showPassword);
-                    },
-                    buttonIcon: showPassword
-                        ? CupertinoIcons.eye_fill
-                        : CupertinoIcons.eye_slash_fill,
-                  ),
-                ),
-                material.Center(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 95, 0, 0),
-                    child: SmartTextField(
-                      onChangeFunction: (value) {
-                        if (!isValidPasswordMatch) {
-                          setState(
-                            () => !validatePasswordMatch(
-                              value,
-                              passwordController.text,
-                            )
-                                ? isValidPasswordMatch = false
-                                : isValidPasswordMatch = true,
-                          );
-                        }
-                      },
-                      labelText: 'Confirm Password',
-                      errorText: 'password does not match',
-                      obscureText: showPassword,
-                      isValidInput: isValidPasswordMatch,
-                      controllerName: confirmPasswordController,
-                      iconName: CupertinoIcons.padlock_solid,
-                      filterTextInput:
-                          FilteringTextInputFormatter.allow(passwordRegex),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(350, 0, 0, 0),
+                  child: CupertinoButton(
+                    onPressed: () => setState(
+                            () => showPassword = !showPassword),
+                    child: Icon(
+                      color: Color(fade),
+                      showPassword
+                          ? CupertinoIcons.eye_fill
+                          : CupertinoIcons.eye_slash_fill,
                     ),
                   ),
                 ),
-                Positioned(
-                  top: 105,
-                  left: 300,
-                  child: DynamicTextButton(
-                    onClick: () {
-                      setState(() => showPassword = !showPassword);
-                    },
-                    buttonIcon: showPassword
-                        ? CupertinoIcons.eye_fill
-                        : CupertinoIcons.eye_slash_fill,
-                  ),
-                ),
               ],
+            ),
+            const SizedBox(height: 15),
+            SmartTextField(
+              onChangeFunction: (value) {
+                if (!isValidPasswordMatch) {
+                  setState(
+                        () => !validatePasswordMatch(
+                      value,
+                      passwordController.text,
+                    )
+                        ? isValidPasswordMatch = false
+                        : isValidPasswordMatch = true,
+                  );
+                }
+              },
+              labelText: 'Confirm Password',
+              errorText: 'password does not match',
+              obscureText: showPassword,
+              isValidInput: isValidPasswordMatch,
+              controllerName: confirmPasswordController,
+              iconName: material.Icons.password_outlined,
+              filterTextInput:
+              FilteringTextInputFormatter.allow(passwordRegex),
             ),
             const SizedBox(height: 50),
             DynamicButton(
@@ -147,8 +132,7 @@ class _CreateAccountState extends State<CreateAccount> {
               setIcon: material.Icons.keyboard_arrow_right,
               isLoading: isLoading,
             ),
-            const SizedBox(height: 10),
-            const Footer()
+            Footer(setHeight: 180)
           ],
         )),
       ),
