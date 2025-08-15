@@ -1,29 +1,27 @@
-import '../../Model/users/get_user_info.dart';
 import '../../includes.dart';
 
 Future<bool> checkUserInfo(BuildContext context) async {
-  final response = await getUserInfo();
-  if (response != null &&
-      response['avoid'] == null &&
-      response['fast_food'] == null &&
-      response['diet_plan'] == null &&
-      response['allergies'] == null &&
-      response['meals_number'] == null &&
-      response['macronutrient'] == null &&
-      response['home_meal_often'] == null &&
-      response['additional_goals'] == null &&
-      response['kitchen_appliances'] == null &&
-      response['medical_conditions'] == null &&
-      response['daily_protein_consume'] == null
+  if (userInfo['avoid'] == null &&
+      userInfo['fast_food'] == null &&
+      userInfo['diet_plan'] == null &&
+      userInfo['allergies'] == null &&
+      userInfo['meals_number'] == null &&
+      userInfo['macronutrient'] == null &&
+      userInfo['home_meal_often'] == null &&
+      userInfo['additional_goals'] == null &&
+      userInfo['kitchen_appliances'] == null &&
+      userInfo['medical_conditions'] == null &&
+      userInfo['daily_protein_consume'] == null
   ) {
     // ignore: use_build_context_synchronously
     newStackScreen(context, const Survey1());
     // All values are null
     printDebugMsg("All optional fields are null throwing surveys");
     return true;
-  } else if (response == null) {
+  } else if (userInfo == null) {
     // ignore: use_build_context_synchronously
     await iosAlert(context, "error", errorMessage!);
   }
+
   return false;
 }

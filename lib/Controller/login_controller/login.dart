@@ -1,3 +1,5 @@
+import 'package:nutritracker/Model/users/get_user_info.dart';
+
 import '../../Model/authentication_table/auth_login.dart';
 import '../../Model/verified_users/check_verification.dart';
 import '../../includes.dart';
@@ -29,6 +31,13 @@ Future<void> loginController(
     if (success == 200) {
       printDebugMsg("Authentication Success");
       updatePasswordValidity(true);
+      final info=await getUserInfo()!;
+      if(info==null) {
+        return iosAlert(context, "Unexcepted Error", errorMessage!);
+      }
+      userInfo=info!;
+      imageUrl=userInfo['photo'];
+      printDebugMsg("Got user data =>$userInfo");
       // ignore: use_build_context_synchronously
       final int? response = await checkVerification(emailController.text);
       if (response == 404) {

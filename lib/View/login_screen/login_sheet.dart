@@ -74,7 +74,7 @@ class _LoginSheetState extends State<LoginSheet> {
                               filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(280, 4, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(280, 0, 0, 0),
                               child: CupertinoButton(
                                 onPressed: () => setState(
                                     () => showPassword = !showPassword),

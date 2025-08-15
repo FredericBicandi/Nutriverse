@@ -13,6 +13,8 @@ void main() async {
 class _NutriTrackerState extends State<NutriTracker> {
   @override
   void initState() {
+    emailController.text="fredos112033@gmail.com";
+    passwordController.text="@1120338#7";
     super.initState();
   }
 

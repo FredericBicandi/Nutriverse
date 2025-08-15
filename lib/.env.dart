@@ -20,7 +20,7 @@ TextEditingController confirmPasswordController = TextEditingController();
 File? imageFile;
 String oldEmail = '';
 String? imageUrl;
-Map<String, String?> userInfo = {};
+Map<String, dynamic> userInfo = {};
 
 late final Session? session;
 late final User? user;
