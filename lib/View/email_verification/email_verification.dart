@@ -25,10 +25,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                   fit: BoxFit.cover,
                 ),
                 const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 316, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, 320, 0, 0),
                   child: Center(
                     child: Text(
-                      "Thanks!\nNow Check your email.",
+                      "Verify Your Email!\n",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -39,31 +39,19 @@ class _EmailVerificationState extends State<EmailVerification> {
               padding: const EdgeInsets.fromLTRB(25, 16, 0, 0),
               child: Stack(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(300, 10, 0, 0),
-                    child: DynamicTextButton(
-                      top: 5,
-                      onClick: () => newStackScreen(context, const EditEmail()),
-                      buttonText: "edit",
-                      iconColor: primaryColor,
-                      buttonIcon: CupertinoIcons.pencil_ellipsis_rectangle,
-                    ),
-                  ),
                   Wrap(
                     children: [
                       const Text(
-                        "We sent you an email to ",
+                        "We Will send you an email to ",
                         style: TextStyle(
                           fontSize: 15,
                           color: CupertinoColors.black,
                         ),
                       ),
-                      Text(
-                        emailController.text,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: CupertinoColors.black,
-                        ),
+
+                      DynamicTextButton(
+                        onClick: () => navigateTo(context, const EditEmail()),
+                        buttonText: emailController.text,
                       ),
                       const Text(
                         "to verify your account",
@@ -91,7 +79,7 @@ class _EmailVerificationState extends State<EmailVerification> {
               },
               isLoading: isLoading,
               setText: "Next",
-              setIcon: CupertinoIcons.arrow_right_square,
+              setIcon: Icons.keyboard_arrow_right_sharp,
             ),
             const SizedBox(height: 20),
             const Footer()
