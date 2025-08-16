@@ -13,7 +13,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    userAuth(context);
+    checkUserAuth(context);
   }
 
   @override

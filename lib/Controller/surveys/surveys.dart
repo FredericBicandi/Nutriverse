@@ -1,5 +1,5 @@
-import 'package:nutritracker/Model/users/get_user_info.dart';
-import 'package:nutritracker/Model/users/save_user_info.dart';
+import '../../Model/authentication_table/auth_login.dart';
+import '../../Model/users/save_user_info.dart';
 import '../../includes.dart';
 
 TextEditingController othersFoodAvoidController = TextEditingController();
@@ -335,50 +335,20 @@ bool survey8NextButton() {
 }
 
 Future<int?> survey9NextButton() async {
-  String medicalConditions = '';
+  final parts = <String>[];
 
-  if (s9DiabetesMedicalConditionOption) {
-    medicalConditions == ''
-        ? medicalConditions = "Diabetes,"
-        : medicalConditions = "Diabetes,$medicalConditions";
-  }
-  if (s9HighBloodPressureMedicalConditionOption) {
-    medicalConditions == ''
-        ? medicalConditions = "High Blood Pressure,"
-        : medicalConditions = "High Blood Pressure,$medicalConditions";
-  }
-  if (s9HighCholesterolMedicalConditionOption) {
-    medicalConditions == ''
-        ? medicalConditions = "High Cholesterol,"
-        : medicalConditions = "High Cholesterol,$medicalConditions";
-  }
-  if (s9ThyroidDisorderMedicalConditionOption) {
-    medicalConditions == ''
-        ? medicalConditions = "Thyroid Disorder,"
-        : medicalConditions = "Thyroid Disorder,$medicalConditions";
-  }
+  if (s9DiabetesMedicalConditionOption) parts.add('Diabetes');
+  if (s9HighBloodPressureMedicalConditionOption)
+    parts.add('High Blood Pressure');
+  if (s9HighCholesterolMedicalConditionOption) parts.add('High Cholesterol');
+  if (s9ThyroidDisorderMedicalConditionOption) parts.add('Thyroid Disorder');
 
-  if (othersMedicalConditionsController.text.isNotEmpty) {
-    // TODO::Check if valid allergies using gpt api
-    medicalConditions =
-        "$medicalConditions,(${othersMedicalConditionsController.text})";
-  } else {
-    medicalConditions =
-        "$medicalConditions${othersMedicalConditionsController.text}";
-  }
-  if (medicalConditions.isNotEmpty || medicalConditions != '') {
-    surveyAnswers["MedicalConditions"] = medicalConditions;
-  } else {
-    surveyAnswers["MedicalConditions"] = '';
-  }
+  final other = othersMedicalConditionsController.text.trim();
+  if (other.isNotEmpty) parts.add(other);
 
-  printDebugMsg("DATA RECEIVED:\n");
-  printDebugMsg("$surveyAnswers");
-  saveSurveyInfo(surveyAnswers);
-  final newUserInfo = await getUserInfo();
-  if (newUserInfo == null) {
-    return 500;
-  }
-  userInfo = newUserInfo;
-  return 200;
+  final medicalConditions = parts.join(', ');
+
+  surveyAnswers['MedicalConditions'] = medicalConditions;
+  printDebugMsg("DATA RECEIVED:\n$surveyAnswers");
+  return await saveSurveyInfo(surveyAnswers);
 }

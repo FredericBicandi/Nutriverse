@@ -1,6 +1,6 @@
 import '../../includes.dart';
 
-Future<void> userAuth(BuildContext context) async {
+Future<void> checkUserAuth(BuildContext context) async {
   session = supabase.auth.currentSession;
   user = supabase.auth.currentUser;
   if (session != null && user != null) {

@@ -31,7 +31,7 @@ class _UserInfoState extends State<UserInfo> {
                           String firstname;
 
                           setState(() {
-                            if (!(value[0] == value[0].toUpperCase())) {
+                            if (firstNameController.text.isNotEmpty && !(value[0] == value[0].toUpperCase())) {
                               firstname =
                                   "${value[0].toUpperCase()}${value.substring(1)}";
                               firstNameController.text = firstname;
@@ -59,7 +59,7 @@ class _UserInfoState extends State<UserInfo> {
                           String lastname;
 
                           setState(() {
-                            if (!(value[0] == value[0].toUpperCase())) {
+                            if (lastNameController.text.isNotEmpty && !(value[0] == value[0].toUpperCase())) {
                               lastname =
                                   "${value[0].toUpperCase()}${value.substring(1)}";
                               lastNameController.text = lastname;
@@ -393,8 +393,7 @@ class _UserInfoState extends State<UserInfo> {
                           );
                         },
                   isLoading: isLoading,
-                  setIcon: Icons.create,
-                  setText: "Create Account",
+                  setText: "Create account",
                 ),
               ),
                Footer(),
