@@ -1,5 +1,3 @@
-import 'package:nutritracker/Model/users/get_user_info.dart';
-
 import '../../includes.dart';
 
 Future<bool> checkUserInfo() async {

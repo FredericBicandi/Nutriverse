@@ -11,7 +11,7 @@ void routeTo(BuildContext context, Widget screen) => Future.delayed(
 
 
 Future<void> checkUserAuth(BuildContext context) async {
-  if (emailController.text != null && passwordController.text != null) {
+  if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
     final response = await userAuth(
       emailController.text.trim().toLowerCase(),
       passwordController.text,
@@ -20,12 +20,15 @@ Future<void> checkUserAuth(BuildContext context) async {
       printDebugMsg("user Authenticated successfully");
       final  res = await getUserInfo(emailController.text.trim());
       if (res == null) {
+        // ignore: use_build_context_synchronously
         return await iosAlert(context, "Error", errorMessage!);
       }
-      userInfo = res!;
+      userInfo = res;
+      // ignore: use_build_context_synchronously
       return routeTo(context, const Dashboard());
     }
     printDebugMsg("not existing authentication found!");
+    // ignore: use_build_context_synchronously
     return routeTo(context, const WelcomeScreen());
   } else {
     session = supabase.auth.currentSession;

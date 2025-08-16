@@ -9,7 +9,7 @@ class _CreateAccountState extends State<CreateAccount> {
     return material.Scaffold(
       appBar: material.AppBar(
         elevation: 0,
-        title: const Appbar(),
+        title: const Appbar(left: 120),
       ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
@@ -83,7 +83,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(360, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(301, 0, 0, 0),
                   child: CupertinoButton(
                     onPressed: () => setState(
                             () => showPassword = !showPassword),
@@ -136,7 +136,6 @@ class _CreateAccountState extends State<CreateAccount> {
               setIcon: material.Icons.keyboard_arrow_right,
               isLoading: isLoading,
             ),
-            Footer(setHeight: 60)
           ],
         )),
       ),

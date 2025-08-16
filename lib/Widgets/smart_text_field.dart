@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nutritracker/Controller/otp_controller/.otp.dart';
 import '../includes.dart';
 
 class _SmartTextFieldState extends State<SmartTextField> {

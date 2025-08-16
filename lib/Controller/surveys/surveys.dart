@@ -1,4 +1,3 @@
-import '../../Model/authentication_table/auth_login.dart';
 import '../../Model/users/save_user_info.dart';
 import '../../includes.dart';
 

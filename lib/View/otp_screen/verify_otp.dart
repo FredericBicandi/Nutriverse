@@ -190,6 +190,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 children: [
                   DynamicTextButton(
                     buttonText: "Resend OTP",
+                    // ignore: deprecated_member_use
                     textColor: _resendColor.value,
                     onClick: () async {
                       if (_secondsLeft > 0) return;
@@ -209,7 +210,6 @@ class _VerifyOtpState extends State<VerifyOtp> {
               ),
 
               const SizedBox(height: 24),
-              Footer(setHeight: 130),
             ],
           ),
         ),

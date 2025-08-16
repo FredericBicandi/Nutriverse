@@ -9,10 +9,12 @@ class _Survey9State extends State<Survey9> {
     setState(() => isLoading = true);
     int? response = await survey9NextButton();
     if (response == 200) {
+      // ignore: use_build_context_synchronously
       newStackScreen(context, const AuthScreen());
     } else if (response == 500) {
       // ignore: use_build_context_synchronously
       await iosAlert(
+        // ignore: use_build_context_synchronously
         context,
         "Unknown Error!",
         "Check Your Internet Connection And Try Again",
@@ -22,6 +24,7 @@ class _Survey9State extends State<Survey9> {
     } else {
       // ignore: use_build_context_synchronously
       await iosAlert(
+        // ignore: use_build_context_synchronously
         context,
         "Data cannot be saved",
         "an error occurred while trying to save your preferences please restart the app and try again",

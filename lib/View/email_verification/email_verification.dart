@@ -13,7 +13,7 @@ class _EmailVerificationState extends State<EmailVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Appbar()),
+      appBar: AppBar(title: const Appbar(left: 120)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -22,11 +22,11 @@ class _EmailVerificationState extends State<EmailVerification> {
                 SvgPicture.asset(
                   //TODO :: remove the Buildings
                   "assets/images/Email_sent.svg",
-                  width: sizeOf(context, 0.9),
+                  width: sizeOf(context, 0.97),
                   fit: BoxFit.cover,
                 ),
                 const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 320, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, 350, 0, 0),
                   child: Center(
                     child: Text(
                       "Verify Your Email!\n",
@@ -47,7 +47,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                       color: CupertinoColors.black,
                     ),
                   ),
-
                   DynamicTextButton(
                     onClick: () => navigateTo(context, const EditEmail()),
                     buttonText: emailController.text,
@@ -61,7 +60,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                 if (!isLoading) {
                   verification(
                     context,
-                    (String value) => null,
+                    (String value) => '',
                     (bool value) => setState(() => isLoading = value),
                     (bool value) => setState(() => isValidEmail = value),
                   );
@@ -71,7 +70,6 @@ class _EmailVerificationState extends State<EmailVerification> {
               setText: "Next",
               setIcon: Icons.keyboard_arrow_right_sharp,
             ),
-             Footer(setHeight: 180)
           ],
         ),
       ),

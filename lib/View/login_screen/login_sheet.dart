@@ -147,7 +147,6 @@ class _LoginSheetState extends State<LoginSheet> {
                                 ],
                               ),
                             ),
-                            Footer()
                           ],
                         ),
                       ],

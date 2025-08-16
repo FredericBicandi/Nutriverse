@@ -27,7 +27,7 @@ class _DashboardState extends State<Dashboard> {
 
     if (needsSurvey) {
       _routed = true;
-      newStackScreen(context, Survey1());
+      newStackScreen(context, const Survey1());
     }
   }
 

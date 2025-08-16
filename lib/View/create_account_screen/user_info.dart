@@ -388,7 +388,7 @@ class _UserInfoState extends State<UserInfo> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 35, 0, 10),
+                padding: const EdgeInsets.fromLTRB(0, 35, 0, 30),
                 child: DynamicButton(
                   onClick: isLoading
                       ? null
@@ -412,7 +412,6 @@ class _UserInfoState extends State<UserInfo> {
                   setText: "Create account",
                 ),
               ),
-              Footer(),
             ],
           ),
         ),

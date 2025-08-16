@@ -62,7 +62,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 20),
+                              padding: const EdgeInsets.only(top: 30),
                               child: Column(
                                 children: [
                                   DynamicButton(
@@ -86,10 +86,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                     },
                                     setText: "Reset Password",
                                     isLoading: isLoading,
-                                    setIcon:
-                                        CupertinoIcons.refresh_circled_solid,
                                   ),
-                                   Footer()
                                 ],
                               ),
                             ),

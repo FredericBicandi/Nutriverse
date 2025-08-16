@@ -25,15 +25,18 @@ Future<void> changeEmail(
       oldEmail = newEmail; // or reload user profile instead
 
       // Proceed to verification (if your flow requires it)
+      // ignore: use_build_context_synchronously
       newStackScreen(context, const EmailVerification());
     } else {
       await iosAlert(
+        // ignore: use_build_context_synchronously
         context,
         "Error!",
         (errorMessage?.isNotEmpty ?? false) ? errorMessage! : "Unknown error.",
       );
     }
   } catch (e) {
+    // ignore: use_build_context_synchronously
     await iosAlert(context, "Error!", e.toString());
   } finally {
     updateLoadingState(false);

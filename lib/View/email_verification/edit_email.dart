@@ -21,9 +21,9 @@ class _EditEmailState extends State<EditEmail> {
                 Stack(
                   children: [
                     Center(
-                      child: Image.asset(
-                        "assets/images/EditEmail.jpg",
-                        width: 350,
+                      child: SvgPicture.asset(
+                        "assets/images/EditEmail.svg",
+                        width: 650,
                       ),
                     ),
                     Center(
@@ -76,7 +76,6 @@ class _EditEmailState extends State<EditEmail> {
                               isLoading: isLoading,
                               setText: "Update email",
                             ),
-                            Footer(setHeight: 170),
                           ],
                         ),
                       ),

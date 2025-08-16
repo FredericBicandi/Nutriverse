@@ -14,7 +14,7 @@ class _PasswordResetState extends State<PasswordReset> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const Appbar()),
+      appBar: material.AppBar(title: const Appbar(left: 120)),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -51,43 +51,7 @@ class _PasswordResetState extends State<PasswordReset> {
                     ),
                   ),
                   Positioned(
-                    top: 365,
-                    left: 300,
-                    child: DynamicTextButton(
-                      onClick: () {
-                        setState(() => showPassword = !showPassword);
-                      },
-                      buttonIcon: showPassword
-                          ? CupertinoIcons.eye_fill
-                          : CupertinoIcons.eye_slash_fill,
-                    ),
-                  ),
-                  material.Center(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 450, 0, 0),
-                      child: SmartTextField(
-                        onChangeFunction: (value) {
-                          setState(
-                            () => !validatePasswordMatch(
-                              value,
-                              passwordController.text,
-                            )
-                                ? isValidPasswordMatch = false
-                                : isValidPasswordMatch = true,
-                          );
-                        },
-                        labelText: 'Confirm Password',
-                        errorText: 'password does not match',
-                        obscureText: showPassword,
-                        isValidInput: isValidPasswordMatch,
-                        controllerName: confirmPasswordController,
-                        iconName: material.Icons.password_outlined,
-                        filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 465,
+                    top: 361,
                     left: 300,
                     child: DynamicTextButton(
                       onClick: () {
@@ -100,7 +64,29 @@ class _PasswordResetState extends State<PasswordReset> {
                   ),
                 ],
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
+              material.Center(
+                child: SmartTextField(
+                  onChangeFunction: (value) {
+                    setState(
+                          () => !validatePasswordMatch(
+                        value,
+                        passwordController.text,
+                      )
+                          ? isValidPasswordMatch = false
+                          : isValidPasswordMatch = true,
+                    );
+                  },
+                  labelText: 'Confirm Password',
+                  errorText: 'password does not match',
+                  obscureText: showPassword,
+                  isValidInput: isValidPasswordMatch,
+                  controllerName: confirmPasswordController,
+                  iconName: material.Icons.password_outlined,
+                  filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+                ),
+              ),
+              const SizedBox(height: 30),
               DynamicButton(
                 onClick: () {
                   setState(
@@ -114,7 +100,6 @@ class _PasswordResetState extends State<PasswordReset> {
                 setText: "Change Password",
                 isLoading: isLoading,
               ),
-               Footer()
             ],
           ),
         ),

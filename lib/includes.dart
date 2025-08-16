@@ -24,7 +24,6 @@ export '.env.dart';
 
 // Widgets
 export 'Widgets/appbar.dart';
-export 'Widgets/footer.dart';
 export 'Widgets/ios_alerts.dart';
 export 'Widgets/image_button.dart';
 export 'Widgets/dynamic_button.dart';

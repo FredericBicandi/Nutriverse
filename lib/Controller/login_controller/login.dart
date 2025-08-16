@@ -31,11 +31,12 @@ Future<void> loginController(
     if (success == 200) {
       printDebugMsg("Authentication Success");
       updatePasswordValidity(true);
-      final info=await getUserInfo(null)!;
+      final info=await getUserInfo(null);
       if(info==null) {
+        // ignore: use_build_context_synchronously
         return iosAlert(context, "Unexcepted Error", errorMessage!);
       }
-      userInfo=info!;
+      userInfo=info;
       imageUrl=userInfo['photo'];
       printDebugMsg("Got user data =>$userInfo");
       // ignore: use_build_context_synchronously
