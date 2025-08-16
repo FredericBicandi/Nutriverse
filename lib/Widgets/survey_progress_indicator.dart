@@ -21,6 +21,7 @@ class SurveyProgressIndicator extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
+
               SizedBox(
                 width: 25,
                 height: 4,
@@ -163,7 +164,7 @@ class SurveyProgressIndicator extends StatelessWidget {
                   width: 20,
                   height: 20,
                   child: SvgPicture.asset(
-                    "images/NutriTracker.svg",
+                    "assets/images/NutriTracker.svg",
                     colorFilter: ColorFilter.mode(
                       Color(primaryColor),
                       BlendMode.srcIn,

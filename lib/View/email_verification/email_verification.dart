@@ -13,13 +13,14 @@ class _EmailVerificationState extends State<EmailVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Appbar(left: 120)),
+      appBar: AppBar(title: const Appbar()),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
                 SvgPicture.asset(
+                  //TODO :: remove the Buildings
                   "assets/images/Email_sent.svg",
                   width: sizeOf(context, 0.9),
                   fit: BoxFit.cover,
@@ -37,30 +38,19 @@ class _EmailVerificationState extends State<EmailVerification> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 16, 0, 0),
-              child: Stack(
+              child: Column(
                 children: [
-                  Wrap(
-                    children: [
-                      const Text(
-                        "We Will send you an email to ",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: CupertinoColors.black,
-                        ),
-                      ),
+                  const Text(
+                    "We Will send you an email to ",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: CupertinoColors.black,
+                    ),
+                  ),
 
-                      DynamicTextButton(
-                        onClick: () => navigateTo(context, const EditEmail()),
-                        buttonText: emailController.text,
-                      ),
-                      const Text(
-                        "to verify your account",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: CupertinoColors.black,
-                        ),
-                      )
-                    ],
+                  DynamicTextButton(
+                    onClick: () => navigateTo(context, const EditEmail()),
+                    buttonText: emailController.text,
                   ),
                 ],
               ),
@@ -81,7 +71,7 @@ class _EmailVerificationState extends State<EmailVerification> {
               setText: "Next",
               setIcon: Icons.keyboard_arrow_right_sharp,
             ),
-             Footer()
+             Footer(setHeight: 180)
           ],
         ),
       ),

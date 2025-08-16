@@ -38,12 +38,12 @@ Future<int?> saveSurveyInfo(Map<String, String> data) async {
           'kitchen_appliances': data['KitchenAppliances'],
           'medical_conditions': data['MedicalConditions']
         })
-        .eq('email', user?.email ?? '')
+        .eq('email', user?.email ?? emailController.text)
         .select();
     printDebugMsg("user Data =>$response after UPDATE");
     return 200;
   } catch (e) {
-    errorMessage = "Error while creating user account";
+    errorMessage = "Error while creating user account" ;
     printDebugMsg("$errorMessage => $e");
     return 500;
   }

@@ -29,7 +29,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const Appbar()),
+      appBar: material.AppBar(title: const Appbar(left: 120)),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -57,8 +57,8 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           },
                           width: 75,
                           maxLen: 1,
-                          labelText: "  #",
-                          errorText: "invalid",
+                          labelText: "",
+                          errorText: "",
                           focusNode: focusNode1,
                           isValidInput: otp1Valid,
                           controllerName: otpController1,
@@ -80,8 +80,8 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           },
                           width: 75,
                           maxLen: 1,
-                          labelText: "  #",
-                          errorText: "invalid",
+                          labelText: "",
+                          errorText: "",
                           focusNode: focusNode2,
                           isValidInput: otp2Valid,
                           controllerName: otpController2,
@@ -103,8 +103,8 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           },
                           width: 75,
                           maxLen: 1,
-                          labelText: "  #",
-                          errorText: "invalid",
+                          labelText: "",
+                          errorText: "",
                           focusNode: focusNode3,
                           isValidInput: otp3Valid,
                           controllerName: otpController3,
@@ -126,8 +126,8 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           },
                           width: 75,
                           maxLen: 1,
-                          labelText: "  #",
-                          errorText: "invalid",
+                          labelText: "",
+                          errorText: "",
                           focusNode: focusNode4,
                           isValidInput: otp4Valid,
                           controllerName: otpController4,
@@ -148,12 +148,13 @@ class _VerifyOtpState extends State<VerifyOtp> {
               const SizedBox(height: 10),
               Wrap(
                 children: [
-                  Text(
+                  const Text(
                     "We Sent you an OTP verification code to ",
-                    style: TextStyle(color: Color(fade)),
+                    style: TextStyle(color: CupertinoColors.black),
                   ),
                   Text(
                     "${emailController.text} ",
+                    style: TextStyle(color: Color(fade)),
                   ),
                 ],
               ),
@@ -172,7 +173,6 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 },
                 setText: "Verify ",
                 isLoading: isLoading,
-                setIcon: material.Icons.verified_user,
               ),
               const SizedBox(height: 5),
               Row(
@@ -196,7 +196,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                   ),
                 ],
               ),
-               Footer()
+               Footer(setHeight: 130)
             ],
           ),
         ),

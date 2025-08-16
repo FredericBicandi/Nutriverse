@@ -79,7 +79,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(350, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(300, 0, 0, 0),
                   child: CupertinoButton(
                     onPressed: () => setState(
                             () => showPassword = !showPassword),
@@ -132,7 +132,7 @@ class _CreateAccountState extends State<CreateAccount> {
               setIcon: material.Icons.keyboard_arrow_right,
               isLoading: isLoading,
             ),
-            Footer(setHeight: 180)
+            Footer(setHeight: 60)
           ],
         )),
       ),

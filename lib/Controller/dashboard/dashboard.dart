@@ -1,6 +1,19 @@
+import 'package:nutritracker/Model/users/get_user_info.dart';
+
 import '../../includes.dart';
 
 Future<bool> checkUserInfo(BuildContext context) async {
+  if(userInfo==null)
+  {
+    final res=await getUserInfo();
+    if(res!=null) {
+      userInfo=res;
+    } else{
+      // ignore: use_build_context_synchronously
+      await iosAlert(context, "error", errorMessage!);
+    }
+
+  }
   if (userInfo['avoid'] == null &&
       userInfo['fast_food'] == null &&
       userInfo['diet_plan'] == null &&
@@ -11,16 +24,12 @@ Future<bool> checkUserInfo(BuildContext context) async {
       userInfo['additional_goals'] == null &&
       userInfo['kitchen_appliances'] == null &&
       userInfo['medical_conditions'] == null &&
-      userInfo['daily_protein_consume'] == null
-  ) {
+      userInfo['daily_protein_consume'] == null) {
     // ignore: use_build_context_synchronously
     newStackScreen(context, const Survey1());
     // All values are null
     printDebugMsg("All optional fields are null throwing surveys");
     return true;
-  } else if (userInfo == null) {
-    // ignore: use_build_context_synchronously
-    await iosAlert(context, "error", errorMessage!);
   }
 
   return false;

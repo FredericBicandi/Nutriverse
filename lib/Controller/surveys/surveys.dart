@@ -371,7 +371,7 @@ Future<int?> survey9NextButton() async {
     surveyAnswers["MedicalConditions"] = '';
   }
 
-  printDebugMsg("$surveyAnswers");
   printDebugMsg("DATA RECEIVED:\n");
+  printDebugMsg("$surveyAnswers");
   return saveSurveyInfo(surveyAnswers);
 }

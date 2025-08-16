@@ -4,10 +4,9 @@ import '../../includes.dart';
 
 class _Survey9State extends State<Survey9> {
   double animationProgress = 0.0;
-  bool finished = false;
 
   void checkSelection() async {
-    setState(() => finished = true);
+    setState(() => isLoading = true);
     int? response = await survey9NextButton();
     if (response == 200) {
       newStackScreen(context, const Dashboard());
@@ -18,6 +17,8 @@ class _Survey9State extends State<Survey9> {
         "Unknown Error!",
         "Check Your Internet Connection And Try Again",
       );
+      setState(() => isLoading = false);
+      return;
     } else {
       // ignore: use_build_context_synchronously
       await iosAlert(
@@ -30,6 +31,7 @@ class _Survey9State extends State<Survey9> {
 
   @override
   void initState() {
+    isLoading = false;
     super.initState();
     startProgress(
       animationProgress,

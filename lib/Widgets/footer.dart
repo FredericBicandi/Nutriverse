@@ -1,7 +1,7 @@
 import '../includes.dart';
 
 class Footer extends StatelessWidget {
-  Footer({this.setHeight = 200, super.key});
+  Footer({this.setHeight = 100, super.key});
 
   double setHeight;
 

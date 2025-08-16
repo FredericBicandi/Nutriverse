@@ -66,10 +66,10 @@ class _Survey3State extends State<Survey3> {
                   },
                   setSize: 250,
                   setText: 'Gluten',
-                  bgColor: s2VeganDietPlanPressed ? accentColor : 0xFFFFFFFF,
+                  bgColor: s3glutenFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
                   borderColor:
-                      s2VeganDietPlanPressed ? 0x00000000 : accentColor,
-                  textColor: s2VeganDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  s3glutenFoodAllergiesPressed ? 0x00000000 : accentColor,
+                  textColor: s3glutenFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
                 ),
                 const SizedBox(height: 10),
                 DynamicButton(

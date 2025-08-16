@@ -12,7 +12,7 @@ class _EditEmailState extends State<EditEmail> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-        appBar: material.AppBar(title: const Appbar(left: 120)),
+        appBar: material.AppBar(title: const Appbar()),
         body: GestureDetector(
           onTap: () => dismissKeyboard(context),
           child: SingleChildScrollView(
@@ -49,7 +49,7 @@ class _EditEmailState extends State<EditEmail> {
                     material.Center(
                       child: material.Padding(
                         padding:
-                            EdgeInsets.fromLTRB(0, sizeOf(context, 1.04), 0, 0),
+                            EdgeInsets.fromLTRB(0, sizeOf(context, 1.20), 0, 0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,10 +66,9 @@ class _EditEmailState extends State<EditEmail> {
                               },
                               setSize: 200,
                               isLoading: isLoading,
-                              setIcon: material.Icons.send_and_archive_outlined,
-                              setText: "Update & Send code",
+                              setText: "Update email",
                             ),
-                             Footer(),
+                             Footer(setHeight: 170),
                           ],
                         ),
                       ),
