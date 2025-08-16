@@ -32,6 +32,10 @@ class _CreateAccountState extends State<CreateAccount> {
                     padding: const EdgeInsets.fromLTRB(0, 350, 0, 0),
                     child: SmartTextField(
                       onChangeFunction: (value) {
+                        if (emailController.text.toLowerCase() !=
+                            emailController.text) {
+                          emailController.text = emailController.text.toLowerCase();
+                        }
                         if (!isValidEmail) {
                           emailHandler(
                             value,
@@ -79,7 +83,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(300, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(360, 0, 0, 0),
                   child: CupertinoButton(
                     onPressed: () => setState(
                             () => showPassword = !showPassword),

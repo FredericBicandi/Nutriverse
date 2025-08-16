@@ -31,7 +31,7 @@ Future<void> loginController(
     if (success == 200) {
       printDebugMsg("Authentication Success");
       updatePasswordValidity(true);
-      final info=await getUserInfo()!;
+      final info=await getUserInfo(null)!;
       if(info==null) {
         return iosAlert(context, "Unexcepted Error", errorMessage!);
       }

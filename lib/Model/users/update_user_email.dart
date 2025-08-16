@@ -3,12 +3,6 @@ import '../../includes.dart';
 
 Future<int?> updateUserEmail(String oldEmail, String newEmail) async {
   try {
-    final currentUser = supabase.auth.currentUser;
-    if (currentUser == null || currentUser.email != oldEmail) {
-      printDebugMsg("Not logged in as $oldEmail");
-      return 403;
-    }
-
     final response = await http.post(
       Uri.parse(
           'https://xidmzwoldcsmkxbkzibz.supabase.co/functions/v1/changeAuthEmail'),

@@ -3,15 +3,6 @@ import 'package:nutritracker/Model/users/get_user_info.dart';
 import '../../includes.dart';
 
 Future<bool> checkUserInfo() async {
-  if (userInfo == null) {
-    final res = await getUserInfo();
-    if (res != null) {
-      userInfo = res;
-    } else {
-      return Future.error(errorMessage ?? 'Unknown error');
-    }
-  }
-
   final allNull =
       userInfo['avoid'] == null &&
           userInfo['fast_food'] == null &&

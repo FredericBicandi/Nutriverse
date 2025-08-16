@@ -41,7 +41,7 @@ class _EmailVerificationState extends State<EmailVerification> {
               child: Column(
                 children: [
                   const Text(
-                    "We Will send you an email to ",
+                    "We will send you an email to ",
                     style: TextStyle(
                       fontSize: 15,
                       color: CupertinoColors.black,

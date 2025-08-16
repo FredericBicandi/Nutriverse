@@ -31,8 +31,14 @@ class _EditEmailState extends State<EditEmail> {
                         padding: const EdgeInsets.fromLTRB(0, 330, 0, 0),
                         child: SmartTextField(
                           onChangeFunction: (value) {
+                            if (emailController.text.toLowerCase() !=
+                                emailController.text) {
+                              emailController.text =
+                                  emailController.text.toLowerCase();
+                            }
                             !isValidEmail
-                                ? setState(() => isValidEmail = validateEmail(value))
+                                ? setState(
+                                    () => isValidEmail = validateEmail(value))
                                 : null;
                           },
                           maxLen: 80,
@@ -60,15 +66,17 @@ class _EditEmailState extends State<EditEmail> {
                                 if (isLoading) return;
                                 changeEmail(
                                   context,
-                                  (bool value) => setState(() => isValidEmail = value),
-                                  (bool value) => setState(() => isLoading = value),
+                                  (bool value) =>
+                                      setState(() => isValidEmail = value),
+                                  (bool value) =>
+                                      setState(() => isLoading = value),
                                 );
                               },
                               setSize: 200,
                               isLoading: isLoading,
                               setText: "Update email",
                             ),
-                             Footer(setHeight: 170),
+                            Footer(setHeight: 170),
                           ],
                         ),
                       ),

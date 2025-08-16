@@ -3,37 +3,39 @@ import '../../includes.dart';
 
 Future<void> changeEmail(
   BuildContext context,
-  Function(bool) updateIsValidEmail,
-  Function(bool) updateLoadingState,
+  void Function(bool) updateIsValidEmail,
+  void Function(bool) updateLoadingState,
 ) async {
-  if (!validateEmail(emailController.text)) {
+  final newEmail = emailController.text.trim();
+
+  if (!validateEmail(newEmail)) {
     updateIsValidEmail(false);
     return;
   }
-  if (oldEmail == emailController.text) {
-    return newStackScreen(
-      context,
-      const EmailVerification(),
-    );
+
+  if (newEmail == oldEmail) {
+    return Navigator.pop(context);
   }
-  printDebugMsg("Same email skipping...");
   updateLoadingState(true);
-  final int? response = await updateUserEmail(
-    oldEmail,
-    emailController.text,
-  );
-  if (response != 200) {
+  try {
+    final int? res = await updateUserEmail(oldEmail, newEmail); // your API
+
+    if (res == 200) {
+      // IMPORTANT: keep your local state consistent for the next attempt
+      oldEmail = newEmail; // or reload user profile instead
+
+      // Proceed to verification (if your flow requires it)
+      newStackScreen(context, const EmailVerification());
+    } else {
+      await iosAlert(
+        context,
+        "Error!",
+        (errorMessage?.isNotEmpty ?? false) ? errorMessage! : "Unknown error.",
+      );
+    }
+  } catch (e) {
+    await iosAlert(context, "Error!", e.toString());
+  } finally {
     updateLoadingState(false);
-    return await iosAlert(
-      // ignore: use_build_context_synchronously
-      context,
-      "Error!",
-      errorMessage!,
-    );
   }
-  newStackScreen(
-    // ignore: use_build_context_synchronously
-    context,
-    const EmailVerification(),
-  );
 }

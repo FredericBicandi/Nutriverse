@@ -14,6 +14,7 @@ class _NutriTrackerState extends State<NutriTracker> {
   @override
   void initState() {
     super.initState();
+    emailController.text="fredy@gmail.com";
   }
 
   @override
@@ -45,7 +46,6 @@ class _NutriTrackerState extends State<NutriTracker> {
           ),
         ),
       ),
-      //TODO:: test the image thing
       home: const WelcomeScreen(),
     );
   }

@@ -81,47 +81,22 @@ void startProgress(double progress, Function(double) updateProgress) {
 }
 
 void survey1NextButton() {
-  String additionalGoals = '';
+  final selections = <String>[
+    if (s1LivingLongerButtonPressed) 'Living Longer',
+    if (s1FeelingEnergizedButtonPressed) 'Feeling Energized',
+    if (s1OptimizeAthleticPerformanceButtonPressed) 'Optimize Athletic Performance',
+    if (s1BuildHealthierHabitsButtonPressed) 'Build Healthier Habits',
+    if (s1EliminateAllOrNothingMindsetButtonPressed) 'Eliminate All Or Nothing Mindset',
+    if (s1PreventLifestyleDiseasesButtonPressed) 'Prevent Lifestyle Diseases',
+  ];
 
-  if (s1LivingLongerButtonPressed) {
-    additionalGoals == ''
-        ? additionalGoals = "Living Longer,"
-        : additionalGoals = "Living Longer,$additionalGoals";
-  }
-  if (s1FeelingEnergizedButtonPressed) {
-    additionalGoals == ''
-        ? additionalGoals = "Feeling Energized,"
-        : additionalGoals = "Feeling Energized,$additionalGoals";
-  }
-  if (s1OptimizeAthleticPerformanceButtonPressed) {
-    additionalGoals == ''
-        ? additionalGoals = "Optimize Athletic Performance,"
-        : additionalGoals = "Optimize Athletic Performance,$additionalGoals";
-  }
-  if (s1BuildHealthierHabitsButtonPressed) {
-    additionalGoals == ''
-        ? additionalGoals = "Build Healthier Habits,"
-        : additionalGoals = "Build Healthier Habits,$additionalGoals";
-  }
-  if (s1EliminateAllOrNothingMindsetButtonPressed) {
-    additionalGoals == ''
-        ? additionalGoals = "Eliminate All Or Nothing Mindset,"
-        : additionalGoals = "Eliminate All Or Nothing Mindset,$additionalGoals";
-  }
-  if (s1PreventLifestyleDiseasesButtonPressed) {
-    additionalGoals == ''
-        ? additionalGoals = "Prevent Lifestyle Diseases,"
-        : additionalGoals = "Prevent Lifestyle Diseases,$additionalGoals";
-  }
+  // store as CSV (or keep the list if your backend accepts arrays)
+  final csv = selections.join(', ');
+  surveyAnswers['AdditionalGoals'] = csv; // becomes '' if none selected
 
-  if (additionalGoals == '') {
-    surveyAnswers["AdditionalGoals"] = '';
-  } else {
-    surveyAnswers["AdditionalGoals"] = additionalGoals;
-  }
-
-  printDebugMsg("$surveyAnswers");
+  printDebugMsg('AdditionalGoals => $csv');
 }
+
 
 void survey2ChoiceUpdate(String? dietPlan) {
   if (s2VeganDietPlanPressed) s2VeganDietPlanPressed = false;
@@ -152,82 +127,44 @@ bool survey2NextButton() {
 }
 
 void survey3NextButton() {
-  String allergies = '';
+  final allergiesList = <String>[
+    if (s3dairyFoodAllergiesPressed) "Dairy",
+    if (s3glutenFoodAllergiesPressed) "Gluten",
+    if (s3nutsFoodAllergiesPressed) "Nuts",
+    if (s3eggsFoodAllergiesPressed) "Eggs",
+    if (s3shellfishFoodAllergiesPressed) "Shellfish",
+    if (s3soyFoodAllergiesPressed) "Soy",
+    if (othersFoodAllergiesController.text.isNotEmpty)
+      "(${othersFoodAllergiesController.text})",
+  ];
 
-  if (s3dairyFoodAllergiesPressed) {
-    allergies == '' ? allergies = "Dairy," : allergies = "Dairy,$allergies";
-  }
-  if (s3glutenFoodAllergiesPressed) {
-    allergies == '' ? allergies = "gluten" : allergies = "gluten,$allergies";
-  }
-  if (s3nutsFoodAllergiesPressed) {
-    allergies == '' ? allergies = "nuts" : allergies = "nuts,$allergies";
-  }
-  if (s3eggsFoodAllergiesPressed) {
-    allergies == '' ? allergies = "eggs" : allergies = "eggs,$allergies";
-  }
-  if (s3shellfishFoodAllergiesPressed) {
-    allergies == ''
-        ? allergies = "shellfish"
-        : allergies = "shellfish,$allergies";
-  }
-  if (s3soyFoodAllergiesPressed) {
-    allergies == '' ? allergies = "soy" : allergies = "soy,$allergies";
-  }
+  final allergies = allergiesList.join(", ");
 
-  if (othersFoodAllergiesController.text.isNotEmpty) {
-    // TODO::Check if valid allergies using gpt api
-    allergies = "$allergies,(${othersFoodAllergiesController.text})";
-  } else {
-    allergies = "$allergies${othersFoodAllergiesController.text}";
-  }
-  if (allergies.isNotEmpty || allergies != '') {
-    surveyAnswers["Allergies"] = allergies;
-  } else {
-    surveyAnswers["Allergies"] = '';
-  }
-  printDebugMsg("$surveyAnswers");
+  surveyAnswers["Allergies"] = allergies; // will be "" if none selected
+  printDebugMsg("Allergies => $allergies");
 }
 
 void survey4NextButton() {
-  String avoidFood = '';
+  final items = <String>[
+    if (s4PorkFoodAvoidPressed) "Pork",
+    if (s4AlcoholFoodAvoidPressed) "Alcohol",
+    if (s4RedMeatFoodAvoidPressed) "Red Meat",
+    if (s4ArtificialSweetenersFoodAvoidPressed) "Artificial Sweeteners",
+    if (s4ProcessedFoodsFoodAvoidPressed) "Processed Foods",
+  ];
 
-  if (s4PorkFoodAvoidPressed) {
-    avoidFood == '' ? avoidFood = "Pork," : avoidFood = "Pork,$avoidFood";
-  }
-  if (s4AlcoholFoodAvoidPressed) {
-    avoidFood == '' ? avoidFood = "Alcohol," : avoidFood = "Alcohol,$avoidFood";
-  }
-  if (s4RedMeatFoodAvoidPressed) {
-    avoidFood == ''
-        ? avoidFood = "Red Meat,"
-        : avoidFood = "Red Meat,$avoidFood";
-  }
-  if (s4ArtificialSweetenersFoodAvoidPressed) {
-    avoidFood == ''
-        ? avoidFood = "Artificial Sweeteners,"
-        : avoidFood = "Artificial Sweeteners,$avoidFood";
-  }
-  if (s4ProcessedFoodsFoodAvoidPressed) {
-    avoidFood == ''
-        ? avoidFood = "Processed Foods,"
-        : avoidFood = "Processed Foods,$avoidFood";
+  final other = othersFoodAvoidController.text.trim();
+  if (other.isNotEmpty) {
+    // TODO: validate custom entry if needed
+    items.add("($other)");
   }
 
-  if (othersFoodAvoidController.text.isNotEmpty) {
-    // TODO::Check if valid allergies using gpt api
-    avoidFood = "$avoidFood(${othersFoodAvoidController.text})";
-  } else {
-    avoidFood = "$avoidFood${othersFoodAvoidController.text}";
-  }
-  if (avoidFood.isNotEmpty || avoidFood != '') {
-    surveyAnswers["Avoid"] = avoidFood;
-  } else {
-    surveyAnswers["Avoid"] = '';
-  }
+  final avoid = items.join(", ");          // "" if none selected
+  surveyAnswers["Avoid"] = avoid;          // or store `items` if backend accepts arrays
 
-  printDebugMsg("$surveyAnswers");
+  printDebugMsg("Avoid => $avoid");
 }
+
 
 void survey5ChoiceUpdate(String numberOfMeals) {
   s5OneMealOption = false;
@@ -270,7 +207,6 @@ bool survey6NextButton() {
 
 void survey7ChoiceUpdate(String macroNutrient) {
   surveyAnswers['Macronutrient'] = macroNutrient;
-
   printDebugMsg("$surveyAnswers");
 }
 
@@ -290,56 +226,33 @@ void survey8ChoiceUpdate(String homeMealOften) {
 }
 
 bool survey8NextButton() {
-  String kitchenAppliances = '';
+  final appliances = <String>[
+    if (s8OvenKitchenAppliancesOption) "Oven",
+    if (s8BlenderKitchenAppliancesOption) "Blender",
+    if (s8AirFryerKitchenAppliancesOption) "Air Fryer",
+    if (s8MicrowaveKitchenAppliancesOption) "Microwave",
+    if (s8StoveKitchenAppliancesOption) "Stove",
+  ];
 
-  if (s8OvenKitchenAppliancesOption) {
-    kitchenAppliances == ''
-        ? kitchenAppliances = "Oven,"
-        : kitchenAppliances = "Oven,$kitchenAppliances";
-  }
-  if (s8BlenderKitchenAppliancesOption) {
-    kitchenAppliances == ''
-        ? kitchenAppliances = "Blender,"
-        : kitchenAppliances = "Blender,$kitchenAppliances";
-  }
-  if (s8AirFryerKitchenAppliancesOption) {
-    kitchenAppliances == ''
-        ? kitchenAppliances = "Air Fryer,"
-        : kitchenAppliances = "Air Fryer,$kitchenAppliances";
-  }
-  if (s8MicrowaveKitchenAppliancesOption) {
-    kitchenAppliances == ''
-        ? kitchenAppliances = "Microwave,"
-        : kitchenAppliances = "Microwave,$kitchenAppliances";
-  }
-  if (s8StoveKitchenAppliancesOption) {
-    kitchenAppliances == ''
-        ? kitchenAppliances = "Stove,"
-        : kitchenAppliances = "Stove,$kitchenAppliances";
-  }
+  surveyAnswers["KitchenAppliances"] = appliances.join(", ");
 
-  if (kitchenAppliances == '') {
-    surveyAnswers["KitchenAppliances"] = '';
-  } else {
-    surveyAnswers["KitchenAppliances"] = kitchenAppliances;
-  }
+  // Require at least one cooking frequency option
+  final hasCookingFrequency =
+      s8AlmostNeverCookAtHomeOption ||
+          s8OneTwoPerWeekCookAtHomeOption ||
+          s8ThreeFivePerWeekCookAtHomeOption ||
+          s8DailyCookAtHomeOption;
 
-  if (!s8AlmostNeverCookAtHomeOption &&
-      !s8OneTwoPerWeekCookAtHomeOption &&
-      !s8ThreeFivePerWeekCookAtHomeOption &&
-      !s8DailyCookAtHomeOption) {
-    return false;
-  }
   if (kDebugMode) print(surveyAnswers);
-  return true;
+
+  return hasCookingFrequency;
 }
 
 Future<int?> survey9NextButton() async {
   final parts = <String>[];
 
   if (s9DiabetesMedicalConditionOption) parts.add('Diabetes');
-  if (s9HighBloodPressureMedicalConditionOption)
-    parts.add('High Blood Pressure');
+  if (s9HighBloodPressureMedicalConditionOption) parts.add('High Blood Pressure');
   if (s9HighCholesterolMedicalConditionOption) parts.add('High Cholesterol');
   if (s9ThyroidDisorderMedicalConditionOption) parts.add('Thyroid Disorder');
 

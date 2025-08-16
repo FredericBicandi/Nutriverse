@@ -40,6 +40,10 @@ class _LoginSheetState extends State<LoginSheet> {
                       children: [
                         SmartTextField(
                           onChangeFunction: (value) {
+                            if (emailController.text.toLowerCase() !=
+                                emailController.text) {
+                              emailController.text = emailController.text.toLowerCase();
+                            }
                             !isValidEmail
                                 ? setState(
                                     () => isValidEmail = validateEmail(value),
@@ -72,7 +76,8 @@ class _LoginSheetState extends State<LoginSheet> {
                               controllerName: passwordController,
                               iconName: material.Icons.password_outlined,
                               filterTextInput:
-                                  FilteringTextInputFormatter.allow(passwordRegex),
+                                  FilteringTextInputFormatter.allow(
+                                      passwordRegex),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),

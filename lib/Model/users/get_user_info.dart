@@ -1,11 +1,13 @@
 import '../../includes.dart';
 
-Future<Map<String, dynamic>?> getUserInfo() async {
+Future<Map<String, dynamic>?> getUserInfo(String? email) async {
   try {
+    final value = user?.email ?? email;
+    if (value == null) return null;
     return await supabase
         .from('users')
         .select()
-        .eq('email', user?.email ?? '')
+        .eq('email', value)
         .maybeSingle();
   } catch (e) {
     errorMessage = "Error while fetching user data";

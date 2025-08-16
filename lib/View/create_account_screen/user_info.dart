@@ -31,13 +31,14 @@ class _UserInfoState extends State<UserInfo> {
                           String firstname;
 
                           setState(() {
-                            if (firstNameController.text.isNotEmpty && !(value[0] == value[0].toUpperCase())) {
+                            if (firstNameController.text.isNotEmpty &&
+                                !(value[0] == value[0].toUpperCase())) {
                               firstname =
                                   "${value[0].toUpperCase()}${value.substring(1)}";
                               firstNameController.text = firstname;
                             }
                             if (!isValidFirstName) {
-                              () => isValidFirstName = validateName(value);
+                              isValidFirstName = validateName(value);
                             }
                           });
                           isValidFirstName
@@ -59,7 +60,8 @@ class _UserInfoState extends State<UserInfo> {
                           String lastname;
 
                           setState(() {
-                            if (lastNameController.text.isNotEmpty && !(value[0] == value[0].toUpperCase())) {
+                            if (lastNameController.text.isNotEmpty &&
+                                !(value[0] == value[0].toUpperCase())) {
                               lastname =
                                   "${value[0].toUpperCase()}${value.substring(1)}";
                               lastNameController.text = lastname;
@@ -107,23 +109,37 @@ class _UserInfoState extends State<UserInfo> {
                                     ),
                                     Expanded(
                                       child: CupertinoDatePicker(
-                                          mode: CupertinoDatePickerMode.date,
-                                          onDateTimeChanged: (date) {
-                                            setState(() async {
-                                              DateTime? picked = date;
-                                              setState(() {
-                                                selectedDate = picked;
-                                                dateController.text = "${picked.toLocal()}".split(' ')[0];
-                                                ageNumberController.text = calculateAge(picked).toString();
-                                                updateUserInfo("Age", ageNumberController.text);
-                                                isValidAge = validateAge(ageNumberController.text);
-                                                dateController.text.isNotEmpty &&
-                                                        isValidAge
-                                                    ? updateUserInfo("DOB", dateController.text)
-                                                    : updateUserInfo("DOB", null);
-                                              });
-                                            });
-                                          }),
+                                        mode: CupertinoDatePickerMode.date,
+                                        minimumDate: DateTime(1900),
+                                        // or whatever earliest DOB you allow
+                                        maximumDate: DateTime.now(),
+                                        // prevents future years
+                                        onDateTimeChanged: (date) {
+                                          final picked = DateTime(
+                                              date.year, date.month, date.day);
+                                          final dobText = "${picked.toLocal()}"
+                                              .split(' ')[0];
+                                          final age = calculateAge(picked);
+                                          final valid =
+                                              validateAge(age.toString());
+
+                                          if (!mounted) return;
+                                          setState(() {
+                                            selectedDate = picked;
+                                            dateController.text = dobText;
+                                            ageNumberController.text =
+                                                age.toString();
+                                            isValidAge = valid;
+                                          });
+
+                                          updateUserInfo("Age", age.toString());
+                                          updateUserInfo(
+                                              "DOB",
+                                              (dobText.isNotEmpty && valid)
+                                                  ? dobText
+                                                  : null);
+                                        },
+                                      ),
                                     )
                                   ],
                                 ),
@@ -396,7 +412,7 @@ class _UserInfoState extends State<UserInfo> {
                   setText: "Create account",
                 ),
               ),
-               Footer(),
+              Footer(),
             ],
           ),
         ),
