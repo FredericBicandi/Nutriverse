@@ -23,6 +23,8 @@ Future<int?> saveUserInfo(final String email) async {
 
 Future<int?> saveSurveyInfo(Map<String, String> data) async {
   try {
+    final String email;
+    email = emailController.text;
     final response = await supabase
         .from('users')
         .update({
@@ -38,12 +40,12 @@ Future<int?> saveSurveyInfo(Map<String, String> data) async {
           'kitchen_appliances': data['KitchenAppliances'],
           'medical_conditions': data['MedicalConditions']
         })
-        .eq('email', user?.email ?? emailController.text)
+        .eq('email', email)
         .select();
     printDebugMsg("user Data =>$response after UPDATE");
     return 200;
   } catch (e) {
-    errorMessage = "Error while creating user account" ;
+    errorMessage = "Error while creating user account";
     printDebugMsg("$errorMessage => $e");
     return 500;
   }

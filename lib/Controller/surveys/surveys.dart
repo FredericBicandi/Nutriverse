@@ -1,3 +1,4 @@
+import 'package:nutritracker/Model/users/get_user_info.dart';
 import 'package:nutritracker/Model/users/save_user_info.dart';
 import '../../includes.dart';
 
@@ -373,5 +374,11 @@ Future<int?> survey9NextButton() async {
 
   printDebugMsg("DATA RECEIVED:\n");
   printDebugMsg("$surveyAnswers");
-  return saveSurveyInfo(surveyAnswers);
+  saveSurveyInfo(surveyAnswers);
+  final newUserInfo = await getUserInfo();
+  if (newUserInfo == null) {
+    return 500;
+  }
+  userInfo = newUserInfo;
+  return 200;
 }

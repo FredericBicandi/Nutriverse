@@ -11,11 +11,24 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int selectedNavigation = 0;
+  bool _routed = false; // guard
 
   @override
   void initState() {
     super.initState();
-    checkUserInfo(context);
+    // Defer until after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRoute());
+  }
+
+  Future<void> _maybeRoute() async {
+    if (_routed) return;
+    final needsSurvey = await checkUserInfo(); // <-- no context param
+    if (!mounted) return;
+
+    if (needsSurvey) {
+      _routed = true;
+      newStackScreen(context, Survey1());
+    }
   }
 
   @override
