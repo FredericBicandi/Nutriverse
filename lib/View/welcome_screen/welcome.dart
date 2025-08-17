@@ -24,48 +24,50 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 )
               : const BackgroundVideo(),
           SafeArea(
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: EdgeInsets.only(top: sizeOf(context, 0.35)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Healthy",
-                      style: TextStyle(
-                        fontSize: sizeOf(context, 0.18),
-                        fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                    Text(
-                      "Eating",
-                      style: TextStyle(
-                        fontSize: sizeOf(context, 0.18),
-                        fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      color: Color(accentColor),
-                      child: Text(
-                        "Simplified",
+            child: SingleChildScrollView(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: EdgeInsets.only(top: sizeOf(context, 0.35)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Healthy",
                         style: TextStyle(
-                          fontSize: sizeOf(context, 0.08),
+                          fontSize: sizeOf(context, 0.18),
                           fontWeight: FontWeight.bold,
                           color: CupertinoColors.white,
                           letterSpacing: 1.2,
                         ),
                       ),
-                    ),
-                  ],
+                      Text(
+                        "Eating",
+                        style: TextStyle(
+                          fontSize: sizeOf(context, 0.18),
+                          fontWeight: FontWeight.bold,
+                          color: CupertinoColors.white,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        color: Color(accentColor),
+                        child: Text(
+                          "Simplified",
+                          style: TextStyle(
+                            fontSize: sizeOf(context, 0.08),
+                            fontWeight: FontWeight.bold,
+                            color: CupertinoColors.white,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

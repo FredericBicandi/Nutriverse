@@ -18,7 +18,7 @@ class _ProfileSelectorState extends State<ProfileSelector> {
   Widget build(BuildContext context) {
     return material.Center(
       child: SizedBox(
-        width: 150,
+        width: widget.setSize,
         height: 150,
         child: DynamicTextButton(
           onClick: () {
@@ -91,7 +91,9 @@ class _ProfileSelectorState extends State<ProfileSelector> {
                   );
                 });
           },
-          image: imageFile != null ? FileImage(imageFile!) : widget.imageProfile,
+          setPlusSize: widget.plusSize,
+          image:
+              imageFile != null ? FileImage(imageFile!) : widget.imageProfile,
         ),
       ),
     );
@@ -99,8 +101,14 @@ class _ProfileSelectorState extends State<ProfileSelector> {
 }
 
 class ProfileSelector extends StatefulWidget {
-  const ProfileSelector({super.key, required this.imageProfile});
+  const ProfileSelector({
+    super.key,
+    required this.imageProfile,
+    this.setSize = 150,
+    this.plusSize = 18,
+  });
 
+  final double setSize, plusSize;
   final dynamic imageProfile;
 
   @override

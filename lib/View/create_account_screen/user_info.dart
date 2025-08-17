@@ -7,7 +7,10 @@ class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Appbar()),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Appbar(),
+      ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -45,7 +48,7 @@ class _UserInfoState extends State<UserInfo> {
                               ? updateUserInfo("Firstname", value)
                               : updateUserInfo("Firstname", null);
                         },
-                        labelText: "Firstname",
+                        labelText:  "Firstname",
                         errorText: "Invalid Name",
                         isValidInput: isValidFirstName,
                         keyboardType: TextInputType.name,
@@ -91,100 +94,109 @@ class _UserInfoState extends State<UserInfo> {
                 child: Row(
                   spacing: 10,
                   children: [
-                    SmartTextField(
-                      width: 270,
-                      onTap: () {
-                        showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) {
-                            // Compute once to avoid microsecond drift
-                            final now = DateTime.now();
-                            final maxDate = DateTime(now.year, now.month, now.day); // today @ 00:00
-                            final initial = (selectedDate != null && selectedDate!.isBefore(maxDate))
-                                ? selectedDate!
-                                : maxDate;
+                    Expanded(
+                      child: SmartTextField(
+                        width: 270,
+                        onTap: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) {
+                              // Compute once to avoid microsecond drift
+                              final now = DateTime.now();
+                              final maxDate = DateTime(now.year, now.month,
+                                  now.day); // today @ 00:00
+                              final initial = (selectedDate != null &&
+                                      selectedDate!.isBefore(maxDate))
+                                  ? selectedDate!
+                                  : maxDate;
 
-                            return Container(
-                              height: MediaQuery.of(context).size.height * 0.4,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("Done"),
-                                  ),
-                                  Expanded(
-                                    child: CupertinoDatePicker(
-                                      mode: CupertinoDatePickerMode.date,
-                                      minimumDate: DateTime(1900),
-                                      maximumDate: maxDate,
-                                      initialDateTime: initial, // <= guarantee initial <= maximum
-                                      onDateTimeChanged: (date) {
-                                        final picked = DateTime(date.year, date.month, date.day);
-                                        final dobText = "${picked.toLocal()}".split(' ')[0];
-                                        final age = calculateAge(picked);
-                                        final valid = validateAge(age.toString());
-
-                                        if (!mounted) return;
-                                        setState(() {
-                                          selectedDate = picked;
-                                          dateController.text = dobText;
-                                          ageNumberController.text = age.toString();
-                                          isValidAge = valid;
-                                        });
-
-                                        updateUserInfo("Age", age.toString());
-                                        updateUserInfo("DOB", (dobText.isNotEmpty && valid) ? dobText : null);
-                                      },
+                              return Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.4,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("Done"),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
+                                    Expanded(
+                                      child: CupertinoDatePicker(
+                                        mode: CupertinoDatePickerMode.date,
+                                        minimumDate: DateTime(1900),
+                                        maximumDate: maxDate,
+                                        initialDateTime: initial,
+                                        // <= guarantee initial <= maximum
+                                        onDateTimeChanged: (date) {
+                                          final picked = DateTime(
+                                              date.year, date.month, date.day);
+                                          final dobText = "${picked.toLocal()}"
+                                              .split(' ')[0];
+                                          final age = calculateAge(picked);
+                                          final valid =
+                                              validateAge(age.toString());
+
+                                          if (!mounted) return;
+                                          setState(() {
+                                            selectedDate = picked;
+                                            dateController.text = dobText;
+                                            ageNumberController.text =
+                                                age.toString();
+                                            isValidAge = valid;
+                                          });
+
+                                          updateUserInfo("Age", age.toString());
+                                          updateUserInfo(
+                                              "DOB",
+                                              (dobText.isNotEmpty && valid)
+                                                  ? dobText
+                                                  : null);
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        errorText: "",
+                        readOnly: true,
+                        isValidInput: true,
+                        labelText: "Select Date of Birth",
+                        iconName: CupertinoIcons.calendar,
+                        controllerName: dateController,
+                      ),
+                    ),
+                    DynamicTextButton(
+                      onClick: () {
+                        updateUserInfo("Gender", "Male");
+                        setState(() {
+                          isGenderMalePressed = false;
+                          if (isSelectedMale == false) {
+                            isSelectedMale = !isSelectedMale;
+                            isSelectedFemale = false;
+                          }
+                        });
                       },
-                      errorText: "",
-                      readOnly: true,
-                      isValidInput: true,
-                      labelText: "Select Date of Birth",
-                      iconName: CupertinoIcons.calendar,
-                      controllerName: dateController,
+                      iconColor: isSelectedMale ? 0xF36F94E8 : secondaryColor,
+                      buttonIcon: Icons.male_rounded,
+                      iconSize: 35,
                     ),
-                    Expanded(
-                      child: DynamicTextButton(
-                        onClick: () {
-                          updateUserInfo("Gender", "Male");
-                          setState(() {
-                            isGenderMalePressed = false;
-                            if (isSelectedMale == false) {
-                              isSelectedMale = !isSelectedMale;
-                              isSelectedFemale = false;
-                            }
-                          });
-                        },
-                        iconColor: isSelectedMale ? 0xF36F94E8 : secondaryColor,
-                        buttonIcon: Icons.male_rounded,
-                        iconSize: 35,
-                      ),
-                    ),
-                    Expanded(
-                      child: DynamicTextButton(
-                        onClick: () {
-                          updateUserInfo("Gender", "Female");
-                          setState(() {
-                            isGenderFemalePressed = false;
-                            if (isSelectedFemale == false) {
-                              isSelectedFemale = !isSelectedFemale;
-                              isSelectedMale = false;
-                            }
-                          });
-                        },
-                        iconColor:
-                            isSelectedFemale ? 0xFFE38AA8 : secondaryColor,
-                        buttonIcon: Icons.female_rounded,
-                        iconSize: 35,
-                      ),
+                    DynamicTextButton(
+                      onClick: () {
+                        updateUserInfo("Gender", "Female");
+                        setState(() {
+                          isGenderFemalePressed = false;
+                          if (isSelectedFemale == false) {
+                            isSelectedFemale = !isSelectedFemale;
+                            isSelectedMale = false;
+                          }
+                        });
+                      },
+                      iconColor: isSelectedFemale ? 0xFFE38AA8 : secondaryColor,
+                      buttonIcon: Icons.female_rounded,
+                      iconSize: 35,
                     )
                   ],
                 ),
@@ -200,7 +212,7 @@ class _UserInfoState extends State<UserInfo> {
                           setState(() => isValidAge = validateAge(value));
                         },
                         readOnly: true,
-                        labelText: "Age (Auto)",
+                        labelText: "Age (auto)",
                         errorText: "Invalid Age Value",
                         isValidInput: isValidAge,
                         controllerName: ageNumberController,
@@ -208,49 +220,34 @@ class _UserInfoState extends State<UserInfo> {
                       ),
                     ),
                     Expanded(
-                      child: Stack(
-                        children: [
-                          SmartTextField(
-                            onChangeFunction: (value) {
-                              if (!isValidWeight) {
-                                setState(() => isValidWeight =
-                                    validateHeightWeight(value));
-                              }
-                              if (heightNumberController.text.isNotEmpty) {
-                                bmiNumberController.text = updateUserBmi(
-                                  ageNumberController.text,
-                                  heightNumberController.text,
-                                  weightNumberController.text,
-                                );
-                              }
-                              isValidWeight
-                                  ? updateUserInfo(
-                                      "Weight", weightNumberController.text)
-                                  : updateUserInfo("Weight", null);
-                            },
-                            labelText: "Weight",
-                            errorText: "Invalid Weight Value",
-                            isValidInput: isValidWeight,
-                            controllerName: weightNumberController,
-                            filterTextInput: FilteringTextInputFormatter.allow(
-                                measuresRegEx),
-                            keyboardType: const TextInputType.numberWithOptions(
-                              signed: false,
-                              decimal: true,
-                            ),
-                          ),
-                          Positioned(
-                            top: 18,
-                            right: 20,
-                            child: Text(
-                              "(kg)",
-                              style: TextStyle(
-                                color: Color(fade),
-                                letterSpacing: 1.4,
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: SmartTextField(
+                        onChangeFunction: (value) {
+                          if (!isValidWeight) {
+                            setState(() =>
+                                isValidWeight = validateHeightWeight(value));
+                          }
+                          if (heightNumberController.text.isNotEmpty) {
+                            bmiNumberController.text = updateUserBmi(
+                              ageNumberController.text,
+                              heightNumberController.text,
+                              weightNumberController.text,
+                            );
+                          }
+                          isValidWeight
+                              ? updateUserInfo(
+                                  "Weight", weightNumberController.text)
+                              : updateUserInfo("Weight", null);
+                        },
+                        labelText: "Weight (kg)",
+                        errorText: "Invalid Weight Value",
+                        isValidInput: isValidWeight,
+                        controllerName: weightNumberController,
+                        filterTextInput:
+                            FilteringTextInputFormatter.allow(measuresRegEx),
+                        keyboardType: const TextInputType.numberWithOptions(
+                          signed: false,
+                          decimal: true,
+                        ),
                       ),
                     ),
                   ],
@@ -294,7 +291,7 @@ class _UserInfoState extends State<UserInfo> {
                                   "Height", heightNumberController.text)
                               : updateUserInfo("Height", null);
                         },
-                        labelText: "Height",
+                        labelText: "Height (cm)",
                         errorText: "Invalid Height Value",
                         isValidInput: isValidHeight,
                         controllerName: heightNumberController,
@@ -321,7 +318,8 @@ class _UserInfoState extends State<UserInfo> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 35, 0, 0),
-                child: Wrap(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     DynamicButton(
                       onClick: () {
@@ -360,30 +358,27 @@ class _UserInfoState extends State<UserInfo> {
                       borderColor: goal2 ? 0x00000000 : accentColor,
                       textColor: goal2 ? 0xFFFFFFFF : 0xFF757575,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(80, 25, 0, 0),
-                      child: DynamicButton(
-                        onClick: () {
-                          setState(() {
-                            if (!goal3) {
-                              goal3 = true;
-                              goal1 = false;
-                              goal2 = false;
-                              notSelected = false;
-                              updateUserInfo("Goal", "Gain Weight");
-                            }
-                          });
-                        },
-                        setSize: 170,
-                        setText: 'Gain Weight',
-                        bgColor: goal3 ? accentColor : 0xFFFFFFFF,
-                        borderColor: goal3 ? 0x00000000 : accentColor,
-                        textColor: goal3 ? 0xFFFFFFFF : 0xFF757575,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
                   ],
                 ),
+              ),
+              const SizedBox(height: 10),
+              DynamicButton(
+                onClick: () {
+                  setState(() {
+                    if (!goal3) {
+                      goal3 = true;
+                      goal1 = false;
+                      goal2 = false;
+                      notSelected = false;
+                      updateUserInfo("Goal", "Gain Weight");
+                    }
+                  });
+                },
+                setSize: 170,
+                setText: 'Gain Weight',
+                bgColor: goal3 ? accentColor : 0xFFFFFFFF,
+                borderColor: goal3 ? 0x00000000 : accentColor,
+                textColor: goal3 ? 0xFFFFFFFF : 0xFF757575,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 35, 0, 30),

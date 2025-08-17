@@ -43,6 +43,7 @@ export 'View/surveys/survey7.dart';
 export 'View/surveys/survey8.dart';
 export 'View/surveys/survey9.dart';
 export 'View/otp_screen/verify_otp.dart';
+export 'View/profile_screen/profile.dart';
 export 'View/welcome_screen/welcome.dart';
 export 'View/dashboard_screen/dashboard.dart';
 export 'View/email_verification/edit_email.dart';

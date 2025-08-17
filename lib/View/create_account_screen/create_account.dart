@@ -9,6 +9,7 @@ class _CreateAccountState extends State<CreateAccount> {
     return material.Scaffold(
       appBar: material.AppBar(
         elevation: 0,
+        centerTitle: true,
         title: const Appbar(),
       ),
       body: GestureDetector(
@@ -60,30 +61,25 @@ class _CreateAccountState extends State<CreateAccount> {
             // Password Field
             Stack(
               children: [
-                material.Center(
-                  child: SmartTextField(
-                    onChangeFunction: (value) {
-                      if (!isValidPassword) {
-                        setState(
-                          () => !validatePassword(value)
-                              ? isValidPassword = false
-                              : isValidPassword = true,
-                        );
-                      }
-                    },
-                    labelText: 'Password',
-                    errorText: 'should be more than 8 letters',
-                    obscureText: showPassword,
-                    isValidInput: isValidPassword,
-                    controllerName: passwordController,
-                    textInputAction: TextInputAction.next,
-                    iconName: material.Icons.password_outlined,
-                    filterTextInput:
-                        FilteringTextInputFormatter.allow(passwordRegex),
-                  ),
+                SmartTextField(
+                  onChangeFunction: (value) {
+                    if (!isValidPassword) {
+                      setState(() => isValidPassword = true);
+                    }
+                  },
+                  maxLen: 120,
+                  labelText: "Password",
+                  errorText: "incorrect email or password!",
+                  obscureText: showPassword,
+                  isValidInput: isValidPassword,
+                  controllerName: passwordController,
+                  iconName: material.Icons.password_outlined,
+                  filterTextInput:
+                  FilteringTextInputFormatter.allow(
+                      passwordRegex),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(301, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
                   child: CupertinoButton(
                     onPressed: () => setState(
                             () => showPassword = !showPassword),
@@ -94,7 +90,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           : CupertinoIcons.eye_slash_fill,
                     ),
                   ),
-                ),
+                )
               ],
             ),
             const SizedBox(height: 15),

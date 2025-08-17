@@ -14,7 +14,10 @@ class _PasswordResetState extends State<PasswordReset> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const Appbar(left: 120)),
+      appBar: material.AppBar(
+        centerTitle: true,
+        title: const Appbar(),
+      ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -69,7 +72,7 @@ class _PasswordResetState extends State<PasswordReset> {
                 child: SmartTextField(
                   onChangeFunction: (value) {
                     setState(
-                          () => !validatePasswordMatch(
+                      () => !validatePasswordMatch(
                         value,
                         passwordController.text,
                       )
@@ -83,7 +86,8 @@ class _PasswordResetState extends State<PasswordReset> {
                   isValidInput: isValidPasswordMatch,
                   controllerName: confirmPasswordController,
                   iconName: material.Icons.password_outlined,
-                  filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+                  filterTextInput:
+                      FilteringTextInputFormatter.allow(passwordRegex),
                 ),
               ),
               const SizedBox(height: 30),

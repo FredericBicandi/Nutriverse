@@ -14,6 +14,7 @@ class _NutriTrackerState extends State<NutriTracker> {
   @override
   void initState() {
     super.initState();
+    debug = true;
   }
 
   @override
@@ -45,7 +46,7 @@ class _NutriTrackerState extends State<NutriTracker> {
           ),
         ),
       ),
-      home: const AuthScreen(),
+      home: const Dashboard(),
     );
   }
 }

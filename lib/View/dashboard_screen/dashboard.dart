@@ -17,6 +17,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    if (debug) return;
     if (session == null) {
       session = supabase.auth.currentSession;
       user = supabase.auth.currentUser;
@@ -49,7 +50,17 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const ExtendedAppBar()),
+      appBar: material.AppBar(
+        centerTitle: true,
+        title: const Appbar(),
+        actions: [
+          ImageButton(
+            onClick: () => navigateTo(context, const ProfileScreen()),
+            urlImage: imageUrl == null ? false : true,
+            imagePath: imageUrl ?? "Avatar_male.png",
+          )
+        ],
+      ),
       bottomNavigationBar: material.NavigationBar(
         elevation: 0,
         height: 60,

@@ -13,64 +13,61 @@ class _EmailVerificationState extends State<EmailVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Appbar(left: 120)),
+      appBar: AppBar(title: const Appbar()),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                SvgPicture.asset(
-                  //TODO :: remove the Buildings
-                  "assets/images/Email_sent.svg",
-                  width: sizeOf(context, 0.97),
-                  fit: BoxFit.cover,
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 350, 0, 0),
-                  child: Center(
-                    child: Text(
-                      "Verify Your Email!\n",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25, 16, 0, 0),
-              child: Column(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Stack(
+                alignment: Alignment.center,
                 children: [
-                  const Text(
-                    "We will send you an email to ",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: CupertinoColors.black,
-                    ),
+                  SvgPicture.asset(
+                    "assets/images/Email_sent.svg",
+                    width: 600,
+                    fit: BoxFit.cover,
                   ),
-                  DynamicTextButton(
-                    onClick: () => navigateTo(context, const EditEmail()),
-                    buttonText: emailController.text,
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 525),
+                      child: Text(
+                        "Verify Your Email!\n",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: 20),
-            DynamicButton(
-              onClick: () {
-                if (!isLoading) {
-                  verification(
-                    context,
-                    (String value) => '',
-                    (bool value) => setState(() => isLoading = value),
-                    (bool value) => setState(() => isValidEmail = value),
-                  );
-                }
-              },
-              isLoading: isLoading,
-              setText: "Next",
-              setIcon: Icons.keyboard_arrow_right_sharp,
-            ),
-          ],
+              const Text(
+                "We will send you an email to ",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: CupertinoColors.black,
+                ),
+              ),
+              DynamicTextButton(
+                onClick: () => navigateTo(context, const EditEmail()),
+                buttonText: emailController.text,
+              ),
+              const SizedBox(height: 20),
+              DynamicButton(
+                onClick: () {
+                  if (!isLoading) {
+                    verification(
+                      context,
+                      (String value) => '',
+                      (bool value) => setState(() => isLoading = value),
+                      (bool value) => setState(() => isValidEmail = value),
+                    );
+                  }
+                },
+                isLoading: isLoading,
+                setText: "Next",
+                setIcon: Icons.keyboard_arrow_right_sharp,
+              ),
+            ],
+          ),
         ),
       ),
     );

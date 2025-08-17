@@ -12,6 +12,7 @@ class DynamicTextButton extends StatelessWidget {
     this.iconSize = 20,
     this.iconColor = 0xF4C2C2C2,
     this.textColor = 0xFF1AB394,
+    this.setPlusSize = 18,
     this.image,
     this.buttonText,
     this.buttonIcon,
@@ -19,7 +20,7 @@ class DynamicTextButton extends StatelessWidget {
   });
 
   int iconColor, textColor;
-  final double left, top, bottom, right;
+  final double left, top, bottom, right, setPlusSize;
   final double iconSize;
 
   final dynamic image;
@@ -76,12 +77,12 @@ class DynamicTextButton extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: CircleAvatar(
-                          radius: 18,
+                          radius: setPlusSize,
                           backgroundColor: Color(primaryColor),
-                          child: const Icon(
-                            Icons.edit,
+                          child: Icon(
+                            CupertinoIcons.add,
                             color: CupertinoColors.white,
-                            size: 18,
+                            size: setPlusSize,
                           ),
                         ),
                       ),

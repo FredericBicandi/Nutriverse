@@ -15,12 +15,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return material.Scaffold(
         appBar: material.AppBar(
           elevation: 0,
+          centerTitle: true,
           title: const Appbar(),
         ),
         body: GestureDetector(
           onTap: () => dismissKeyboard(context),
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Stack(
                   children: [
@@ -52,49 +55,29 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         ),
                       ),
                     ),
-                    Center(
-                      child: material.Padding(
-                        padding:
-                            EdgeInsets.fromLTRB(0, sizeOf(context, 1.04), 0, 0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 30),
-                              child: Column(
-                                children: [
-                                  DynamicButton(
-                                    onClick: () async {
-                                      if (isLoading) return;
-                                      validateEmail(emailController.text)
-                                          ? verification(
-                                              context,
-                                              (String value) => setState(
-                                                () => errMessage = value,
-                                              ),
-                                              (bool value) => setState(
-                                                () => isLoading = value,
-                                              ),
-                                              (bool value) => setState(
-                                                () => isValidEmail = value,
-                                              ),
-                                            )
-                                          : setState(
-                                              () => isValidEmail = false);
-                                    },
-                                    setText: "Reset Password",
-                                    isLoading: isLoading,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
                   ],
+                ),
+                const SizedBox(height: 180),
+                DynamicButton(
+                  onClick: () async {
+                    if (isLoading) return;
+                    validateEmail(emailController.text)
+                        ? verification(
+                            context,
+                            (String value) => setState(
+                              () => errMessage = value,
+                            ),
+                            (bool value) => setState(
+                              () => isLoading = value,
+                            ),
+                            (bool value) => setState(
+                              () => isValidEmail = value,
+                            ),
+                          )
+                        : setState(() => isValidEmail = false);
+                  },
+                  setText: "Reset Password",
+                  isLoading: isLoading,
                 )
               ],
             ),

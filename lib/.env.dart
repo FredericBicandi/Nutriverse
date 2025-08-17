@@ -5,6 +5,7 @@ import 'includes.dart';
 *   @this file contain sensitive information and authentication keys avoid pushing it to the public
 * */
 
+bool debug=false;
 late String? errorMessage="Unknown Error";
 bool isLoading = false;
 bool showPassword = true;
