@@ -1,49 +1,38 @@
+import '../../includes.dart';
+import 'package:flutter/material.dart' as material;
 import '../../Controller/create_account/.create_account.dart';
 import '../../Controller/create_account/account_info.dart';
-import 'package:flutter/material.dart' as material;
-import '../../includes.dart';
 
 class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
       appBar: material.AppBar(
-        elevation: 0,
         centerTitle: true,
         title: const Appbar(),
       ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Image and Email Field
-            Stack(
-              children: [
-                Center(
-                  child: SvgPicture.asset(
-                    "assets/images/SignUp.svg",
-                    width: 300,
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 350, 0, 0),
+            child: Center(
+          child: Column(
+            children: [
+              // Image and Email Field
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgPicture.asset("assets/images/SignUp.svg", width: 300),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 365, 0, 0),
                     child: SmartTextField(
                       onChangeFunction: (value) {
-                        if (emailController.text.toLowerCase() !=
-                            emailController.text) {
+                        String email = emailController.text;
+
+                        if (email.toLowerCase() != email)
                           emailController.text = emailController.text.toLowerCase();
-                        }
-                        if (!isValidEmail) {
-                          emailHandler(
-                            value,
-                            (bool value) =>
-                                setState(() => isValidEmail = value),
-                          );
-                        }
+                        !isValidEmail ?
+                          emailHandler(value, (bool value) => setState(() => isValidEmail = value))
+                          : null;
                       },
                       labelText: "Email",
                       errorText: emailErrorText,
@@ -54,85 +43,75 @@ class _CreateAccountState extends State<CreateAccount> {
                       keyboardType: TextInputType.emailAddress,
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            // Password Field
-            Stack(
-              children: [
-                SmartTextField(
-                  onChangeFunction: (value) {
-                    if (!isValidPassword) {
-                      setState(() => isValidPassword = true);
-                    }
-                  },
-                  maxLen: 120,
-                  labelText: "Password",
-                  errorText: "incorrect email or password!",
-                  obscureText: showPassword,
-                  isValidInput: isValidPassword,
-                  controllerName: passwordController,
-                  iconName: material.Icons.password_outlined,
-                  filterTextInput:
-                  FilteringTextInputFormatter.allow(
-                      passwordRegex),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
-                  child: CupertinoButton(
-                    onPressed: () => setState(
-                            () => showPassword = !showPassword),
-                    child: Icon(
-                      color: Color(fade),
-                      showPassword
-                          ? CupertinoIcons.eye_fill
-                          : CupertinoIcons.eye_slash_fill,
-                    ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              // Password Field
+              Stack(
+                children: [
+                  SmartTextField(
+                    onChangeFunction: (value) => !isValidPassword
+                        ? setState(() => isValidPassword = true)
+                        : null,
+                    maxLen: 120,
+                    labelText: "Password",
+                    errorText: "password should be at least 8 characters!",
+                    obscureText: showPassword,
+                    isValidInput: isValidPassword,
+                    controllerName: passwordController,
+                    iconName: material.Icons.password_outlined,
+                    filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                   ),
-                )
-              ],
-            ),
-            const SizedBox(height: 15),
-            SmartTextField(
-              onChangeFunction: (value) {
-                if (!isValidPasswordMatch) {
-                  setState(
-                        () => !validatePasswordMatch(
-                      value,
-                      passwordController.text,
-                    )
-                        ? isValidPasswordMatch = false
-                        : isValidPasswordMatch = true,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
+                    child: CupertinoButton(
+                      onPressed: () => setState(() => showPassword = !showPassword),
+                      child: Icon(
+                        color: Color(fade),
+                        showPassword
+                            ? CupertinoIcons.eye_fill
+                            : CupertinoIcons.eye_slash_fill,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 15),
+              SmartTextField(
+                onChangeFunction: (value) {
+                  if (!isValidPasswordMatch) {
+                    setState(() => !validatePasswordMatch(value, passwordController.text)
+                              ? isValidPasswordMatch = false
+                              : isValidPasswordMatch = true,
+                    );
+                  }
+                },
+                labelText: 'Confirm Password',
+                errorText: 'password does not match',
+                obscureText: showPassword,
+                isValidInput: isValidPasswordMatch,
+                controllerName: confirmPasswordController,
+                iconName: material.Icons.password_outlined,
+                filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+              ),
+              const SizedBox(height: 50),
+              DynamicButton(
+                onClick: () async {
+                  dismissKeyboard(context);
+                  nextPageHandler(
+                    context,
+                    (bool value) => setState(() => isLoading = value),
+                    (bool value) => setState(() => isValidEmail = value),
+                    (bool value) => setState(() => isValidPassword = value),
+                    (bool value) => setState(() => isValidPasswordMatch = value),
                   );
-                }
-              },
-              labelText: 'Confirm Password',
-              errorText: 'password does not match',
-              obscureText: showPassword,
-              isValidInput: isValidPasswordMatch,
-              controllerName: confirmPasswordController,
-              iconName: material.Icons.password_outlined,
-              filterTextInput:
-              FilteringTextInputFormatter.allow(passwordRegex),
-            ),
-            const SizedBox(height: 50),
-            DynamicButton(
-              onClick: () async {
-                dismissKeyboard(context);
-                nextPageHandler(
-                  context,
-                  (bool value) => setState(() => isLoading = value),
-                  (bool value) => setState(() => isValidEmail = value),
-                  (bool value) => setState(() => isValidPassword = value),
-                  (bool value) => setState(() => isValidPasswordMatch = value),
-                );
-              },
-              setText: "Next",
-              setIcon: material.Icons.keyboard_arrow_right,
-              isLoading: isLoading,
-            ),
-          ],
+                },
+                setText: "Next",
+                setIcon: material.Icons.keyboard_arrow_right,
+                isLoading: isLoading,
+              ),
+            ],
+          ),
         )),
       ),
     );

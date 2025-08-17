@@ -60,89 +60,73 @@ class _Survey2State extends State<Survey2> {
                 DynamicButton(
                   onClick: () {
                     survey2ChoiceUpdate("Vegan Diet Plan");
-                    setState(
-                        () => s2VeganDietPlanPressed = !s2VeganDietPlanPressed);
+                    setState(() => s2VeganDietPlanPressed = !s2VeganDietPlanPressed);
                   },
                   setSize: 250,
                   setText: 'Vegan',
                   bgColor: s2VeganDietPlanPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor: s2VeganDietPlanPressed ? 0x00000000 : accentColor,
                   textColor: s2VeganDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s2VeganDietPlanPressed ? 0x00000000 : accentColor,
                 ), // Eliminate
                 const SizedBox(height: 10),
                 DynamicButton(
                   onClick: () {
                     survey2ChoiceUpdate("Vegetarian Diet Plan");
-                    setState(() => s2VegetarianDietPlanPressed =
-                        !s2VegetarianDietPlanPressed);
+                    setState(() => s2VegetarianDietPlanPressed = !s2VegetarianDietPlanPressed);
                   },
                   setSize: 250,
                   setText: 'Vegetarian',
                   bgColor: s2VegetarianDietPlanPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor:
-                      s2VegetarianDietPlanPressed ? 0x00000000 : accentColor,
-                  textColor:
-                      s2VegetarianDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  textColor: s2VegetarianDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s2VegetarianDietPlanPressed ? 0x00000000 : accentColor,
                 ), // Eliminate
                 const SizedBox(height: 10),
                 DynamicButton(
                   onClick: () {
                     survey2ChoiceUpdate("Pescatarian Diet Plan");
-                    setState(() => s2PescatarianDietPlanPressed =
-                        !s2PescatarianDietPlanPressed);
+                    setState(() => s2PescatarianDietPlanPressed = !s2PescatarianDietPlanPressed);
                   },
                   setSize: 250,
                   setText: 'Pescatarian',
-                  bgColor:
-                      s2PescatarianDietPlanPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor:
-                      s2PescatarianDietPlanPressed ? 0x00000000 : accentColor,
-                  textColor:
-                      s2PescatarianDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  bgColor: s2PescatarianDietPlanPressed ? accentColor : 0xFFFFFFFF,
+                  textColor: s2PescatarianDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s2PescatarianDietPlanPressed ? 0x00000000 : accentColor,
                 ), //
                 const SizedBox(height: 10),
                 DynamicButton(
                   onClick: () {
                     survey2ChoiceUpdate("Keto Diet Plan");
-                    setState(
-                        () => s2KetoDietPlanPressed = !s2KetoDietPlanPressed);
+                    setState(() => s2KetoDietPlanPressed = !s2KetoDietPlanPressed);
                   },
                   setSize: 250,
                   setText: 'Keto',
                   bgColor: s2KetoDietPlanPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor: s2KetoDietPlanPressed ? 0x00000000 : accentColor,
                   textColor: s2KetoDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s2KetoDietPlanPressed ? 0x00000000 : accentColor,
                 ),
                 const SizedBox(height: 10),
                 DynamicButton(
                   onClick: () {
                     survey2ChoiceUpdate("Mediterranean Diet Plan");
-                    setState(() => s2MediterraneanDietPlanPressed =
-                        !s2MediterraneanDietPlanPressed);
+                    setState(() => s2MediterraneanDietPlanPressed = !s2MediterraneanDietPlanPressed);
                   },
                   setSize: 250,
                   setText: 'Mediterranean',
-                  bgColor:
-                      s2MediterraneanDietPlanPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor:
-                      s2MediterraneanDietPlanPressed ? 0x00000000 : accentColor,
-                  textColor:
-                      s2MediterraneanDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  bgColor: s2MediterraneanDietPlanPressed ? accentColor : 0xFFFFFFFF,
+                  textColor: s2MediterraneanDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s2MediterraneanDietPlanPressed ? 0x00000000 : accentColor,
                 ),
                 const SizedBox(height: 10),
                 DynamicButton(
                   onClick: () {
                     survey2ChoiceUpdate("No specific Diet Plan");
-                    setState(() => s2NoSpecificDietPlanPressed =
-                        !s2NoSpecificDietPlanPressed);
+                    setState(() => s2NoSpecificDietPlanPressed = !s2NoSpecificDietPlanPressed);
                   },
                   setSize: 250,
                   setText: 'No specific diet',
                   bgColor: s2NoSpecificDietPlanPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor:
-                      s2NoSpecificDietPlanPressed ? 0x00000000 : accentColor,
-                  textColor:
-                      s2NoSpecificDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  textColor: s2NoSpecificDietPlanPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s2NoSpecificDietPlanPressed ? 0x00000000 : accentColor,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),

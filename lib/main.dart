@@ -46,7 +46,7 @@ class _NutriTrackerState extends State<NutriTracker> {
           ),
         ),
       ),
-      home: const Dashboard(),
+      home: const AuthScreen(),
     );
   }
 }

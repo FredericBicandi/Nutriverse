@@ -14,5 +14,5 @@ Future<bool> checkUserInfo() async {
           userInfo['medical_conditions'] == null &&
           userInfo['daily_protein_consume'] == null;
 
-  return allNull; // <-- just return; no navigation here
+  return allNull;
 }

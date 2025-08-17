@@ -32,44 +32,34 @@ bool validateAge(String value) {
   return data != null && data >= 10 && data <= 90;
 }
 
-bool validatePassword(String password) =>
-    password.length >= 8 && passwordRegex.hasMatch(password);
-bool validatePasswordMatch(String passwordMatch, String password) =>
-    passwordMatch == password;
+bool validatePassword(String password) => password.length >= 8 && passwordRegex.hasMatch(password);
+bool validatePasswordMatch(String passwordMatch, String password) => passwordMatch == password;
 
 // ignore: avoid_print
 void printDebugMsg(String msg) => kDebugMode ? print("DEBUG $msg") : null;
 void dismissKeyboard(BuildContext context) => FocusScope.of(context).unfocus();
 void navigateTo(BuildContext context, Widget screen) =>
-    Navigator.of(context).push(
-      CupertinoPageRoute(builder: (BuildContext context) => screen),
-    );
+    Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context) => screen));
 void newStackScreen(BuildContext context, Widget screen) =>
     Navigator.pushAndRemoveUntil(
         context,
         material.MaterialPageRoute(builder: (_) => screen),
         (Route<dynamic> route) => false);
 
-double sizeOf(BuildContext context, double times) =>
-    MediaQuery.of(context).size.width * times;
+double sizeOf(BuildContext context, double times) => MediaQuery.of(context).size.width * times;
 
-Future<void> navigateToActionSheet(
-  BuildContext context,
-  Widget Function() sheet,
-) =>
+Future<void> navigateToActionSheet(BuildContext context, Widget Function() sheet) =>
     showCupertinoSheet<void>(
       context: context,
       useNestedNavigation: false,
-      // ignore: deprecated_member_use
       pageBuilder: (BuildContext context) => sheet(),
     );
 
 void disposeTimer() => timer?.cancel();
 void startTimer(Function(int) onTick) {
   timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-    if (remainingSeconds <= 0) {
-      timer.cancel();
-    } else {
+    if (remainingSeconds <= 0) timer.cancel();
+    else {
       remainingSeconds--;
       onTick(remainingSeconds);
     }

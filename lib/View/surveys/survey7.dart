@@ -5,8 +5,6 @@ import '../../includes.dart';
 class _Survey7State extends State<Survey7> {
   double animationProgress = 0.0;
 
-  void _dismissKeyboard() => FocusScope.of(context).unfocus();
-
   @override
   void initState() {
     super.initState();
@@ -27,7 +25,7 @@ class _Survey7State extends State<Survey7> {
         ),
       ),
       body: GestureDetector(
-        onTap: _dismissKeyboard,
+        onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(25),
@@ -46,28 +44,24 @@ class _Survey7State extends State<Survey7> {
                         fontStyle: FontStyle.italic,
                         color: Colors.grey[700],
                         fontSize: 12,
-                        letterSpacing: 2.0),
+                        letterSpacing: 2.0,
+                    ),
                   ),
                   const SizedBox(height: 25),
                   DynamicButton(
                     onClick: () {
+                      s7LowFatMacronutrient = false;
                       s7HighCarbsMacronutrient = false;
                       s7BalancedDietMacronutrient = false;
-                      s7LowFatMacronutrient = false;
-                      setState(() => s7HighProteinMacronutrient =
-                          !s7HighProteinMacronutrient);
-                      s7HighProteinMacronutrient
-                          ? survey7ChoiceUpdate("High Protein")
-                          : survey7ChoiceUpdate("");
+
+                      setState(() => s7HighProteinMacronutrient = !s7HighProteinMacronutrient);
+                      s7HighProteinMacronutrient ? survey7ChoiceUpdate("High Protein") : survey7ChoiceUpdate("");
                     },
                     setSize: 250,
                     setText: 'Rarely',
-                    bgColor:
-                        s7HighProteinMacronutrient ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s7HighProteinMacronutrient ? 0x00000000 : accentColor,
-                    textColor:
-                        s7HighProteinMacronutrient ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s7HighProteinMacronutrient ? accentColor : 0xFFFFFFFF,
+                    textColor: s7HighProteinMacronutrient ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s7HighProteinMacronutrient ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
@@ -75,60 +69,47 @@ class _Survey7State extends State<Survey7> {
                       s7HighProteinMacronutrient = false;
                       s7BalancedDietMacronutrient = false;
                       s7LowFatMacronutrient = false;
-                      setState(() =>
-                          s7HighCarbsMacronutrient = !s7HighCarbsMacronutrient);
-                      s7HighCarbsMacronutrient
-                          ? survey7ChoiceUpdate("High Carbs")
-                          : survey7ChoiceUpdate("");
+
+                      setState(() => s7HighCarbsMacronutrient = !s7HighCarbsMacronutrient);
+                      s7HighCarbsMacronutrient ? survey7ChoiceUpdate("High Carbs") : survey7ChoiceUpdate("");
                     },
                     setSize: 250,
                     setText: 'High Carbs',
-                    bgColor:
-                        s7HighCarbsMacronutrient ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s7HighCarbsMacronutrient ? 0x00000000 : accentColor,
-                    textColor:
-                        s7HighCarbsMacronutrient ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s7HighCarbsMacronutrient ? accentColor : 0xFFFFFFFF,
+                    borderColor: s7HighCarbsMacronutrient ? 0x00000000 : accentColor,
+                    textColor: s7HighCarbsMacronutrient ? 0xFFFFFFFF : 0xFF757575,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
                     onClick: () {
-                      s7HighProteinMacronutrient = false;
-                      s7HighCarbsMacronutrient = false;
                       s7LowFatMacronutrient = false;
-                      setState(() => s7BalancedDietMacronutrient =
-                          !s7BalancedDietMacronutrient);
-                      s7BalancedDietMacronutrient
-                          ? survey7ChoiceUpdate("Balanced Diet")
-                          : survey7ChoiceUpdate("");
+                      s7HighCarbsMacronutrient = false;
+                      s7HighProteinMacronutrient = false;
+
+                      setState(() => s7BalancedDietMacronutrient = !s7BalancedDietMacronutrient);
+                      s7BalancedDietMacronutrient ? survey7ChoiceUpdate("Balanced Diet") : survey7ChoiceUpdate("");
                     },
                     setSize: 250,
                     setText: 'Balanced Diet',
-                    bgColor:
-                        s7BalancedDietMacronutrient ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s7BalancedDietMacronutrient ? 0x00000000 : accentColor,
-                    textColor:
-                        s7BalancedDietMacronutrient ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s7BalancedDietMacronutrient ? accentColor : 0xFFFFFFFF,
+                    textColor: s7BalancedDietMacronutrient ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s7BalancedDietMacronutrient ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
                     onClick: () {
-                      s7HighProteinMacronutrient = false;
                       s7HighCarbsMacronutrient = false;
+                      s7HighProteinMacronutrient = false;
                       s7BalancedDietMacronutrient = false;
-                      setState(
-                          () => s7LowFatMacronutrient = !s7LowFatMacronutrient);
-                      s7LowFatMacronutrient
-                          ? survey7ChoiceUpdate("Low Fat")
-                          : survey7ChoiceUpdate("");
+
+                      setState(() => s7LowFatMacronutrient = !s7LowFatMacronutrient);
+                      s7LowFatMacronutrient ? survey7ChoiceUpdate("Low Fat") : survey7ChoiceUpdate("");
                     },
                     setSize: 250,
                     setText: 'Low Fat',
                     bgColor: s7LowFatMacronutrient ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s7LowFatMacronutrient ? 0x00000000 : accentColor,
                     textColor: s7LowFatMacronutrient ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s7LowFatMacronutrient ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 50),
                   const Padding(
@@ -144,62 +125,56 @@ class _Survey7State extends State<Survey7> {
                         fontStyle: FontStyle.italic,
                         color: Colors.grey[700],
                         fontSize: 12,
-                        letterSpacing: 2.0),
+                        letterSpacing: 2.0,
+                    ),
                   ),
                   const SizedBox(height: 25),
                   DynamicButton(
                     onClick: () {
                       s7ModerateProteinConsume = false;
                       s7HighProteinConsume = false;
-                      setState(
-                          () => s7LowProteinConsume = !s7LowProteinConsume);
-                      s7LowProteinConsume
+
+                      setState(() => s7LowProteinConsume = !s7LowProteinConsume);s7LowProteinConsume
                           ? survey7Choice2Update("Low")
                           : survey7Choice2Update("");
                     },
                     setSize: 250,
                     setText: 'Low (<50g)',
                     bgColor: s7LowProteinConsume ? accentColor : 0xFFFFFFFF,
-                    borderColor: s7LowProteinConsume ? 0x00000000 : accentColor,
                     textColor: s7LowProteinConsume ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s7LowProteinConsume ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
                     onClick: () {
                       s7LowProteinConsume = false;
                       s7HighProteinConsume = false;
-                      setState(() =>
-                          s7ModerateProteinConsume = !s7ModerateProteinConsume);
+
+                      setState(() => s7ModerateProteinConsume = !s7ModerateProteinConsume);
                       s7ModerateProteinConsume
                           ? survey7Choice2Update("Moderate")
                           : survey7Choice2Update("");
                     },
                     setSize: 250,
                     setText: 'Moderate (50-100g)',
-                    bgColor:
-                        s7ModerateProteinConsume ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s7ModerateProteinConsume ? 0x00000000 : accentColor,
-                    textColor:
-                        s7ModerateProteinConsume ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s7ModerateProteinConsume ? accentColor : 0xFFFFFFFF,
+                    textColor: s7ModerateProteinConsume ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s7ModerateProteinConsume ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
                     onClick: () {
                       s7LowProteinConsume = false;
                       s7ModerateProteinConsume = false;
-                      setState(
-                          () => s7HighProteinConsume = !s7HighProteinConsume);
-                      s7HighProteinConsume
-                          ? survey7Choice2Update("High")
-                          : survey7Choice2Update("");
+
+                      setState(() => s7HighProteinConsume = !s7HighProteinConsume);
+                      s7HighProteinConsume ? survey7Choice2Update("High") : survey7Choice2Update("");
                     },
                     setSize: 250,
                     setText: 'High (100g+)',
                     bgColor: s7HighProteinConsume ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s7HighProteinConsume ? 0x00000000 : accentColor,
                     textColor: s7HighProteinConsume ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s7HighProteinConsume ? 0x00000000 : accentColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),

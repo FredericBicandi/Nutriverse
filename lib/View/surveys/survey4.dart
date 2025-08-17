@@ -57,82 +57,48 @@ class _Survey4State extends State<Survey4> {
                   ),
                   const SizedBox(height: 25),
                   DynamicButton(
-                    onClick: () {
-                      setState(() =>
-                          s4PorkFoodAvoidPressed = !s4PorkFoodAvoidPressed);
-                    },
+                    onClick: () => setState(() => s4PorkFoodAvoidPressed = !s4PorkFoodAvoidPressed),
                     setSize: 250,
                     setText: 'Pork',
                     bgColor: s4PorkFoodAvoidPressed ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s4PorkFoodAvoidPressed ? 0x00000000 : accentColor,
                     textColor: s4PorkFoodAvoidPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s4PorkFoodAvoidPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s4AlcoholFoodAvoidPressed =
-                          !s4AlcoholFoodAvoidPressed);
-                    },
+                    onClick: () => setState(() => s4AlcoholFoodAvoidPressed = !s4AlcoholFoodAvoidPressed),
                     setSize: 250,
                     setText: 'Alcohol',
-                    bgColor:
-                        s4AlcoholFoodAvoidPressed ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s4AlcoholFoodAvoidPressed ? 0x00000000 : accentColor,
-                    textColor:
-                        s4AlcoholFoodAvoidPressed ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s4AlcoholFoodAvoidPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s4AlcoholFoodAvoidPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s4AlcoholFoodAvoidPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s4RedMeatFoodAvoidPressed =
-                          !s4RedMeatFoodAvoidPressed);
-                    },
+                    onClick: () => setState(() => s4RedMeatFoodAvoidPressed = !s4RedMeatFoodAvoidPressed),
                     setSize: 250,
                     setText: 'Red meat',
-                    bgColor:
-                        s4RedMeatFoodAvoidPressed ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s4RedMeatFoodAvoidPressed ? 0x00000000 : accentColor,
-                    textColor:
-                        s4RedMeatFoodAvoidPressed ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s4RedMeatFoodAvoidPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s4RedMeatFoodAvoidPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s4RedMeatFoodAvoidPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s4ArtificialSweetenersFoodAvoidPressed =
-                          !s4ArtificialSweetenersFoodAvoidPressed);
-                    },
+                    onClick: () => setState(() => s4ArtificialSweetenersFoodAvoidPressed = !s4ArtificialSweetenersFoodAvoidPressed),
                     setSize: 250,
                     setText: 'Artificial sweeteners',
-                    bgColor: s4ArtificialSweetenersFoodAvoidPressed
-                        ? accentColor
-                        : 0xFFFFFFFF,
-                    borderColor: s4ArtificialSweetenersFoodAvoidPressed
-                        ? 0x00000000
-                        : accentColor,
-                    textColor: s4ArtificialSweetenersFoodAvoidPressed
-                        ? 0xFFFFFFFF
-                        : 0xFF757575,
+                    bgColor: s4ArtificialSweetenersFoodAvoidPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s4ArtificialSweetenersFoodAvoidPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s4ArtificialSweetenersFoodAvoidPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s4ProcessedFoodsFoodAvoidPressed =
-                          !s4ProcessedFoodsFoodAvoidPressed);
-                    },
+                    onClick: () => setState(() => s4ProcessedFoodsFoodAvoidPressed = !s4ProcessedFoodsFoodAvoidPressed),
                     setSize: 250,
                     setText: 'Processed foods',
-                    bgColor: s4ProcessedFoodsFoodAvoidPressed
-                        ? accentColor
-                        : 0xFFFFFFFF,
-                    borderColor: s4ProcessedFoodsFoodAvoidPressed
-                        ? 0x00000000
-                        : accentColor,
-                    textColor: s4ProcessedFoodsFoodAvoidPressed
-                        ? 0xFFFFFFFF
-                        : 0xFF757575,
+                    bgColor: s4ProcessedFoodsFoodAvoidPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s4ProcessedFoodsFoodAvoidPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s4ProcessedFoodsFoodAvoidPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   SmartTextField(
@@ -140,11 +106,10 @@ class _Survey4State extends State<Survey4> {
                     width: 250,
                     labelText: "Others",
                     errorText: "",
-                    controllerName: othersFoodAvoidController,
-                    keyboardType: TextInputType.text,
-                    filterTextInput:
-                        FilteringTextInputFormatter.allow(namingRegEx),
                     isValidInput: true,
+                    keyboardType: TextInputType.text,
+                    controllerName: othersFoodAvoidController,
+                    filterTextInput: FilteringTextInputFormatter.allow(namingRegEx),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),

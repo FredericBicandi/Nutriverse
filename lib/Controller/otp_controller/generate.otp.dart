@@ -3,6 +3,7 @@ import '../../includes.dart';
 import '.otp.dart';
 
 Future<void> generateOTP(final String email) async {
+
   otp = List.generate(4, (_) => Random().nextInt(10)).join();
   otp = otp.toString();
   emailTo = email;
@@ -14,6 +15,5 @@ Future<void> generateOTP(final String email) async {
 void resendOTP(BuildContext context) async {
   generateOTP(emailController.text);
   remainingSeconds = 100;
-  // ignore: use_build_context_synchronously
   return newStackScreen(context, const VerifyOtp());
 }

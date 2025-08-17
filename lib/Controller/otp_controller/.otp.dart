@@ -1,17 +1,21 @@
 import '../../includes.dart';
 
 int color=fade;
+
 late String otp;
 String emailTo = '';
+
 bool otp1Valid = true;
 bool otp2Valid = true;
 bool otp3Valid = true;
 bool otp4Valid = true;
 bool alreadySent = false;
+
 final focusNode1 = FocusNode();
 final focusNode2 = FocusNode();
 final focusNode3 = FocusNode();
 final focusNode4 = FocusNode();
+
 TextEditingController otpController1 = TextEditingController();
 TextEditingController otpController2 = TextEditingController();
 TextEditingController otpController3 = TextEditingController();

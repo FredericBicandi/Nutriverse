@@ -1,7 +1,6 @@
 import '../../Controller/dashboard/dashboard.dart';
 import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
-import 'dart:convert';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -17,28 +16,20 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    if (debug) return;
     if (session == null) {
       session = supabase.auth.currentSession;
       user = supabase.auth.currentUser;
       printDebugMsg("User =>\n");
-      debugPrint(
-        const JsonEncoder.withIndent('  ').convert(user),
-        wrapWidth: 1024,
-      );
+      debugPrint(const JsonEncoder.withIndent('  ').convert(user), wrapWidth: 1024);
     }
     printDebugMsg("$userInfo =>\n");
-    debugPrint(
-      const JsonEncoder.withIndent('  ').convert(userInfo),
-      wrapWidth: 1024,
-    );
-    // Defer until after first frame
+    debugPrint(const JsonEncoder.withIndent('  ').convert(userInfo), wrapWidth: 1024);
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRoute());
   }
 
   Future<void> _maybeRoute() async {
     if (_routed) return;
-    final needsSurvey = await checkUserInfo(); // <-- no context param
+    final needsSurvey = await checkUserInfo();
     if (!mounted) return;
 
     if (needsSurvey) {
@@ -57,33 +48,25 @@ class _DashboardState extends State<Dashboard> {
           ImageButton(
             onClick: () => navigateTo(context, const ProfileScreen()),
             urlImage: imageUrl == null ? false : true,
-            imagePath: imageUrl ?? "Avatar_male.png",
+            imagePath: imageUrl ??  userInfo['gender']? "Avatar_male.png": "Avatar_female.png",
           )
         ],
       ),
       bottomNavigationBar: material.NavigationBar(
         elevation: 0,
         height: 60,
-        onDestinationSelected: (int value) {
-          setState(() => selectedNavigation = value);
-        },
+        onDestinationSelected: (int value) => setState(() => selectedNavigation = value),
         indicatorColor: CupertinoColors.transparent,
         selectedIndex: selectedNavigation,
         destinations: [
           const material.NavigationDestination(
             icon: Icon(CupertinoIcons.star),
-            selectedIcon: Icon(
-              CupertinoIcons.star_fill,
-              color: CupertinoColors.systemYellow,
-            ),
+            selectedIcon: Icon(CupertinoIcons.star_fill, color: CupertinoColors.systemYellow),
             label: 'Home',
           ),
           const material.NavigationDestination(
             icon: Icon(CupertinoIcons.chart_bar_square_fill),
-            selectedIcon: Icon(
-              CupertinoIcons.chart_bar_square_fill,
-              color: CupertinoColors.activeBlue,
-            ),
+            selectedIcon: Icon(CupertinoIcons.chart_bar_square_fill, color: CupertinoColors.activeBlue),
             label: 'progress',
           ),
           material.NavigationDestination(
@@ -95,28 +78,19 @@ class _DashboardState extends State<Dashboard> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
-                  material.Icons.add,
-                  color: CupertinoColors.white,
-                ),
+                child: const Icon(material.Icons.add, color: CupertinoColors.white),
               ),
             ),
             label: "",
           ),
           const material.NavigationDestination(
             icon: Icon(material.Icons.emoji_food_beverage_outlined),
-            selectedIcon: Icon(
-              material.Icons.emoji_food_beverage_rounded,
-              color: CupertinoColors.destructiveRed,
-            ),
+            selectedIcon: Icon(material.Icons.emoji_food_beverage_rounded, color: CupertinoColors.destructiveRed),
             label: "Programs",
           ),
           const material.NavigationDestination(
             icon: Icon(material.Icons.food_bank_outlined),
-            selectedIcon: Icon(
-              material.Icons.food_bank_rounded,
-              color: CupertinoColors.systemOrange,
-            ),
+            selectedIcon: Icon(material.Icons.food_bank_rounded, color: CupertinoColors.systemOrange),
             label: "Recipes",
           )
         ],

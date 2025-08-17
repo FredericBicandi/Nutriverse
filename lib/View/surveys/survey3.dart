@@ -57,81 +57,48 @@ class _Survey3State extends State<Survey3> {
                   ),
                   const SizedBox(height: 25),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s3glutenFoodAllergiesPressed =
-                          !s3glutenFoodAllergiesPressed);
-                    },
+                    onClick: () =>setState(() => s3glutenFoodAllergiesPressed = !s3glutenFoodAllergiesPressed),
                     setSize: 250,
                     setText: 'Gluten',
-                    bgColor:
-                        s3glutenFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s3glutenFoodAllergiesPressed ? 0x00000000 : accentColor,
-                    textColor:
-                        s3glutenFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s3glutenFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s3glutenFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s3glutenFoodAllergiesPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s3nutsFoodAllergiesPressed =
-                          !s3nutsFoodAllergiesPressed);
-                    },
+                    onClick: () => setState(() => s3nutsFoodAllergiesPressed = !s3nutsFoodAllergiesPressed),
                     setSize: 250,
                     setText: 'Nuts',
-                    bgColor:
-                        s3nutsFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s3nutsFoodAllergiesPressed ? 0x00000000 : accentColor,
-                    textColor:
-                        s3nutsFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s3nutsFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s3nutsFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s3nutsFoodAllergiesPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s3eggsFoodAllergiesPressed =
-                          !s3eggsFoodAllergiesPressed);
-                    },
+                    onClick: () => setState(() => s3eggsFoodAllergiesPressed = !s3eggsFoodAllergiesPressed),
                     setSize: 250,
                     setText: 'Eggs',
-                    bgColor:
-                        s3eggsFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s3eggsFoodAllergiesPressed ? 0x00000000 : accentColor,
-                    textColor:
-                        s3eggsFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s3eggsFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s3eggsFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s3eggsFoodAllergiesPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s3shellfishFoodAllergiesPressed =
-                          !s3shellfishFoodAllergiesPressed);
-                    },
+                    onClick: () => setState(() => s3shellfishFoodAllergiesPressed = !s3shellfishFoodAllergiesPressed),
                     setSize: 250,
                     setText: 'Shellfish',
-                    bgColor: s3shellfishFoodAllergiesPressed
-                        ? accentColor
-                        : 0xFFFFFFFF,
-                    borderColor: s3shellfishFoodAllergiesPressed
-                        ? 0x00000000
-                        : accentColor,
-                    textColor: s3shellfishFoodAllergiesPressed
-                        ? 0xFFFFFFFF
-                        : 0xFF757575,
+                    bgColor: s3shellfishFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
+                    borderColor: s3shellfishFoodAllergiesPressed ? 0x00000000 : accentColor,
+                    textColor: s3shellfishFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s3soyFoodAllergiesPressed =
-                          !s3soyFoodAllergiesPressed);
-                    },
+                    onClick: () => setState(() => s3soyFoodAllergiesPressed = !s3soyFoodAllergiesPressed),
                     setSize: 250,
                     setText: 'Soy',
-                    bgColor:
-                        s3soyFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
-                    borderColor:
-                        s3soyFoodAllergiesPressed ? 0x00000000 : accentColor,
-                    textColor:
-                        s3soyFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    bgColor: s3soyFoodAllergiesPressed ? accentColor : 0xFFFFFFFF,
+                    textColor: s3soyFoodAllergiesPressed ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s3soyFoodAllergiesPressed ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   SmartTextField(
@@ -142,8 +109,7 @@ class _Survey3State extends State<Survey3> {
                     isValidInput: true,
                     keyboardType: TextInputType.text,
                     controllerName: othersFoodAllergiesController,
-                    filterTextInput:
-                        FilteringTextInputFormatter.allow(namingRegEx),
+                    filterTextInput: FilteringTextInputFormatter.allow(namingRegEx),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),

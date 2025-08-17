@@ -25,44 +25,39 @@ class _PasswordResetState extends State<PasswordReset> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
+                alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset(
-                    "assets/images/reset_password.svg",
-                    width: 366,
-                  ),
-                  material.Center(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 350, 0, 0),
-                      child: SmartTextField(
-                        onChangeFunction: (value) {
-                          setState(
-                            () => !validatePassword(value)
-                                ? isValidPassword = false
-                                : isValidPassword = true,
-                          );
-                        },
-                        labelText: 'Password',
-                        errorText: 'should be more than 8 letters',
-                        obscureText: showPassword,
-                        isValidInput: isValidPassword,
-                        controllerName: passwordController,
-                        textInputAction: TextInputAction.next,
-                        iconName: material.Icons.password_outlined,
-                        filterTextInput:
-                            FilteringTextInputFormatter.allow(passwordRegex),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 361,
-                    left: 300,
-                    child: DynamicTextButton(
-                      onClick: () {
-                        setState(() => showPassword = !showPassword);
-                      },
-                      buttonIcon: showPassword
-                          ? CupertinoIcons.eye_fill
-                          : CupertinoIcons.eye_slash_fill,
+                  SvgPicture.asset("assets/images/reset_password.svg", width: 366),
+                  material.Padding(
+                    padding: const EdgeInsets.only(top: 390),
+                    child: Stack(
+                      children: [
+                        SmartTextField(
+                          onChangeFunction: (value) {
+                            if (!isValidPassword) setState(() => isValidPassword = true);
+                          },
+                          maxLen: 120,
+                          labelText: "Password",
+                          errorText: "incorrect email or password!",
+                          obscureText: showPassword,
+                          isValidInput: isValidPassword,
+                          controllerName: passwordController,
+                          iconName: material.Icons.password_outlined,
+                          filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
+                          child: CupertinoButton(
+                            onPressed: () => setState(() => showPassword = !showPassword),
+                            child: Icon(
+                              color: Color(fade),
+                              showPassword
+                                  ? CupertinoIcons.eye_fill
+                                  : CupertinoIcons.eye_slash_fill,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ],
@@ -71,11 +66,7 @@ class _PasswordResetState extends State<PasswordReset> {
               material.Center(
                 child: SmartTextField(
                   onChangeFunction: (value) {
-                    setState(
-                      () => !validatePasswordMatch(
-                        value,
-                        passwordController.text,
-                      )
+                    setState(() => !validatePasswordMatch(value, passwordController.text)
                           ? isValidPasswordMatch = false
                           : isValidPasswordMatch = true,
                     );
@@ -86,20 +77,18 @@ class _PasswordResetState extends State<PasswordReset> {
                   isValidInput: isValidPasswordMatch,
                   controllerName: confirmPasswordController,
                   iconName: material.Icons.password_outlined,
-                  filterTextInput:
-                      FilteringTextInputFormatter.allow(passwordRegex),
+                  filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 180),
               DynamicButton(
                 onClick: () {
-                  setState(
-                    () => changePassword(
+                changePassword(
                       context,
                       passwordController.text,
                       confirmPasswordController.text,
-                    ),
-                  );
+                      (bool value) =>setState(() => isLoading = value)
+                );
                 },
                 setText: "Change Password",
                 isLoading: isLoading,

@@ -4,14 +4,8 @@ import '../../Controller/otp_controller/.otp.dart';
 import '../../Controller/otp_controller/generate.otp.dart';
 import '../../Controller/otp_controller/verify_otp.dart';
 
-class VerifyOtp extends StatefulWidget {
-  const VerifyOtp({super.key});
-
-  @override
-  State<VerifyOtp> createState() => _VerifyOtpState();
-}
-
 class _VerifyOtpState extends State<VerifyOtp> {
+
   Timer? _otpTimer;
   int _secondsLeft = 0;
   Color _resendColor = Color(fade);
@@ -20,19 +14,15 @@ class _VerifyOtpState extends State<VerifyOtp> {
   @override
   void initState() {
     super.initState();
+    resetOtpFields();
 
-    resetOtpFields(); // your helper to clear fields & validity flags
-
-    _secondsLeft = remainingSeconds; // from your shared store, otherwise 60
-    if (_secondsLeft > 0) {
-      _startTimer();
-    } else {
-      // no active timer → allow resend
-      _resendColor = Color(primaryColor);
-    }
+    _secondsLeft = remainingSeconds;
+    if (_secondsLeft > 0) _startTimer();
+    else _resendColor = Color(primaryColor);
   }
 
   void _startTimer([int from = 60]) {
+
     if (from > 0) _secondsLeft = from;
     _otpTimer?.cancel();
     _otpTimer = Timer.periodic(const Duration(seconds: 1), (t) {
@@ -63,7 +53,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
         (b) => mounted ? setState(() => otp4Valid = b) : null,
         (b) => mounted ? setState(() => _isLoading = b) : null,
       );
-      if (!mounted) return; // verify() may navigate away
+      if (!mounted) return;
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -86,14 +76,9 @@ class _VerifyOtpState extends State<VerifyOtp> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // ====== top illustration ======
               Stack(
                 children: [
-                  Center(
-                    child:
-                        SvgPicture.asset("assets/images/otp.svg", width: 320),
-                  ),
-                  // ====== OTP fields row ======
+                  Center(child: SvgPicture.asset("assets/images/otp.svg", width: 320)),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 240, 0, 0),
                     child: Row(
@@ -104,11 +89,10 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           node: focusNode1,
                           onChanged: (v) {
                             final ok = verifyOtpNumber(v);
+
                             if (!mounted) return;
                             setState(() => otp1Valid = ok);
-                            if (otpController1.text.isNotEmpty) {
-                              FocusScope.of(context).requestFocus(focusNode2);
-                            }
+                            if (otpController1.text.isNotEmpty) FocusScope.of(context).requestFocus(focusNode2);
                           },
                           isValid: otp1Valid,
                         ),
@@ -118,13 +102,11 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           node: focusNode2,
                           onChanged: (v) {
                             final ok = verifyOtpNumber(v);
+
                             if (!mounted) return;
                             setState(() => otp2Valid = ok);
-                            if (otpController2.text.isEmpty) {
-                              FocusScope.of(context).requestFocus(focusNode1);
-                            } else {
-                              FocusScope.of(context).requestFocus(focusNode3);
-                            }
+                            if (otpController2.text.isEmpty) FocusScope.of(context).requestFocus(focusNode1);
+                            else FocusScope.of(context).requestFocus(focusNode3);
                           },
                           isValid: otp2Valid,
                         ),
@@ -134,13 +116,11 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           node: focusNode3,
                           onChanged: (v) {
                             final ok = verifyOtpNumber(v);
+
                             if (!mounted) return;
                             setState(() => otp3Valid = ok);
-                            if (otpController3.text.isEmpty) {
-                              FocusScope.of(context).requestFocus(focusNode2);
-                            } else {
-                              FocusScope.of(context).requestFocus(focusNode4);
-                            }
+                            if (otpController3.text.isEmpty) FocusScope.of(context).requestFocus(focusNode2);
+                            else FocusScope.of(context).requestFocus(focusNode4);
                           },
                           isValid: otp3Valid,
                         ),
@@ -150,13 +130,11 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           node: focusNode4,
                           onChanged: (v) {
                             final ok = verifyOtpNumber(v);
+
                             if (!mounted) return;
                             setState(() => otp4Valid = ok);
-                            if (otpController4.text.isEmpty) {
-                              FocusScope.of(context).requestFocus(focusNode3);
-                            } else {
-                              dismissKeyboard(context);
-                            }
+                            if (otpController4.text.isEmpty) FocusScope.of(context).requestFocus(focusNode3);
+                            else dismissKeyboard(context);
                           },
                           isValid: otp4Valid,
                         ),
@@ -177,7 +155,6 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 style: TextStyle(color: Color(fade)),
               ),
               const SizedBox(height: 40),
-              // ====== Verify button ======
               DynamicButton(
                 onClick: _verify,
                 setText: "Verify",
@@ -190,7 +167,6 @@ class _VerifyOtpState extends State<VerifyOtp> {
                 children: [
                   DynamicTextButton(
                     buttonText: "Resend OTP",
-                    // ignore: deprecated_member_use
                     textColor: _resendColor.value,
                     onClick: () async {
                       if (_secondsLeft > 0) return;
@@ -208,7 +184,6 @@ class _VerifyOtpState extends State<VerifyOtp> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 24),
             ],
           ),
@@ -240,3 +215,11 @@ class _VerifyOtpState extends State<VerifyOtp> {
     );
   }
 }
+
+class VerifyOtp extends StatefulWidget {
+  const VerifyOtp({super.key});
+
+  @override
+  State<VerifyOtp> createState() => _VerifyOtpState();
+}
+

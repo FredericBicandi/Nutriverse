@@ -28,23 +28,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Align(
                 alignment: Alignment.topRight,
                 child: Padding(
-                  padding: EdgeInsets.only(top: sizeOf(context, 0.35)),
+                  padding: const EdgeInsets.only(top: 100),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         "Healthy",
                         style: TextStyle(
-                          fontSize: sizeOf(context, 0.18),
+                          fontSize: 90,
                           fontWeight: FontWeight.bold,
                           color: CupertinoColors.white,
                           letterSpacing: 1.2,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Eating",
                         style: TextStyle(
-                          fontSize: sizeOf(context, 0.18),
+                          fontSize: 90,
                           fontWeight: FontWeight.bold,
                           color: CupertinoColors.white,
                           letterSpacing: 1.2,
@@ -56,10 +56,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           vertical: 4,
                         ),
                         color: Color(accentColor),
-                        child: Text(
+                        child: const Text(
                           "Simplified",
                           style: TextStyle(
-                            fontSize: sizeOf(context, 0.08),
+                            fontSize: 40,
                             fontWeight: FontWeight.bold,
                             color: CupertinoColors.white,
                             letterSpacing: 1.2,

@@ -16,12 +16,8 @@ class _Survey6State extends State<Survey6> {
   void _dismissKeyboard() => FocusScope.of(context).unfocus();
 
   void checkSelection() {
-    if (!survey6NextButton()) {
-      setState(() => selected = false);
-      return;
-    } else {
-      setState(() => selected = true);
-    }
+    if (!survey6NextButton()) return setState(() => selected = false);
+    else setState(() => selected = true);
     navigateTo(context, const Survey7());
   }
 
@@ -63,8 +59,10 @@ class _Survey6State extends State<Survey6> {
                   const SizedBox(height: 25),
                   DynamicButton(
                     onClick: () {
-                      survey5ChoiceUpdate("Rarely");
-                      setState(() => s6RarelyEatFastFoodOption = true);
+                      setState(() {
+                        survey6ChoiceUpdate("Rarely");
+                        setState(() => s6RarelyEatFastFoodOption = true);
+                      });
                     },
                     setSize: 250,
                     setText: 'Rarely',
@@ -75,38 +73,44 @@ class _Survey6State extends State<Survey6> {
                   const SizedBox(height: 10),
                   DynamicButton(
                     onClick: () {
-                      survey5ChoiceUpdate("One-Two times per week");
-                      setState(() => s6OneTwoPerWeekEatFastFoodOption = true);
+                      setState(() {
+                        survey6ChoiceUpdate("One-Two times per week");
+                        setState(() => s6OneTwoPerWeekEatFastFoodOption = true);
+                      });
                     },
                     setSize: 250,
                     setText: '1-2 times per week',
                     bgColor: s6OneTwoPerWeekEatFastFoodOption ? accentColor : 0xFFFFFFFF,
-                    borderColor: s6OneTwoPerWeekEatFastFoodOption ? 0x00000000 : accentColor,
                     textColor: s6OneTwoPerWeekEatFastFoodOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s6OneTwoPerWeekEatFastFoodOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
                     onClick: () {
-                      survey5ChoiceUpdate("Three-Five times per week");
-                      setState(() => s6ThreeFivePerWeekEatFastFoodOption = true);
+                      setState(() {
+                        survey6ChoiceUpdate("Three-Five times per week");
+                        setState(() => s6ThreeFivePerWeekEatFastFoodOption = true);
+                      });
                     },
                     setSize: 250,
                     setText: '3-5 times per week',
                     bgColor: s6ThreeFivePerWeekEatFastFoodOption ? accentColor : 0xFFFFFFFF,
-                    borderColor: s6ThreeFivePerWeekEatFastFoodOption ? 0x00000000 : accentColor,
                     textColor: s6ThreeFivePerWeekEatFastFoodOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s6ThreeFivePerWeekEatFastFoodOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
                     onClick: () {
-                      survey5ChoiceUpdate("Almost daily");
-                      setState(() => s6AlmostDailyEatFastFoodOption = true);
+                      setState(() {
+                        survey6ChoiceUpdate("Three-Almost daily");
+                        setState(() => s6AlmostDailyEatFastFoodOption = true);
+                      });
                     },
                     setSize: 250,
                     setText: 'Almost Daily',
                     bgColor: s6AlmostDailyEatFastFoodOption ? accentColor : 0xFFFFFFFF,
-                    borderColor: s6AlmostDailyEatFastFoodOption ? 0x00000000 : accentColor,
                     textColor: s6AlmostDailyEatFastFoodOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s6AlmostDailyEatFastFoodOption ? 0x00000000 : accentColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),

@@ -70,32 +70,29 @@ bool s9HighBloodPressureMedicalConditionOption = false;
 Map<String, String> surveyAnswers = {};
 
 void startProgress(double progress, Function(double) updateProgress) {
-  Timer.periodic(const Duration(milliseconds: 24), (timer) {
-    if (progress >= 1.0) {
-      timer.cancel();
-    } else {
-      updateProgress(progress += 0.05);
-    }
-  });
+  Timer.periodic(
+    const Duration(milliseconds: 24),
+    (timer) {
+      if (progress >= 1.0) timer.cancel();
+      else updateProgress(progress += 0.05);
+    },
+  );
 }
 
 void survey1NextButton() {
+
   final selections = <String>[
     if (s1LivingLongerButtonPressed) 'Living Longer',
     if (s1FeelingEnergizedButtonPressed) 'Feeling Energized',
-    if (s1OptimizeAthleticPerformanceButtonPressed) 'Optimize Athletic Performance',
+    if (s1OptimizeAthleticPerformanceButtonPressed)'Optimize Athletic Performance',
     if (s1BuildHealthierHabitsButtonPressed) 'Build Healthier Habits',
-    if (s1EliminateAllOrNothingMindsetButtonPressed) 'Eliminate All Or Nothing Mindset',
+    if (s1EliminateAllOrNothingMindsetButtonPressed)'Eliminate All Or Nothing Mindset',
     if (s1PreventLifestyleDiseasesButtonPressed) 'Prevent Lifestyle Diseases',
   ];
 
-  // store as CSV (or keep the list if your backend accepts arrays)
   final csv = selections.join(', ');
-  surveyAnswers['AdditionalGoals'] = csv; // becomes '' if none selected
-
-  printDebugMsg('AdditionalGoals => $csv');
+  surveyAnswers['AdditionalGoals'] = csv;
 }
-
 
 void survey2ChoiceUpdate(String? dietPlan) {
   if (s2VeganDietPlanPressed) s2VeganDietPlanPressed = false;
@@ -105,23 +102,15 @@ void survey2ChoiceUpdate(String? dietPlan) {
   if (s2MediterraneanDietPlanPressed) s2MediterraneanDietPlanPressed = false;
   if (s2NoSpecificDietPlanPressed) s2NoSpecificDietPlanPressed = false;
 
-  if (dietPlan == null) {
-    surveyAnswers['DietPlan'] = '';
-  } else {
-    surveyAnswers['DietPlan'] = dietPlan;
-  }
-  printDebugMsg("$surveyAnswers");
+  if (dietPlan == null) surveyAnswers['DietPlan'] = '';
+  else surveyAnswers['DietPlan'] = dietPlan;
 }
 
 bool survey2NextButton() {
-  if (!s2VeganDietPlanPressed &&
-      !s2VegetarianDietPlanPressed &&
-      !s2PescatarianDietPlanPressed &&
-      !s2KetoDietPlanPressed &&
-      !s2MediterraneanDietPlanPressed &&
-      !s2NoSpecificDietPlanPressed) {
+  if (!s2VeganDietPlanPressed && !s2VegetarianDietPlanPressed &&
+      !s2PescatarianDietPlanPressed && !s2KetoDietPlanPressed &&
+      !s2MediterraneanDietPlanPressed && !s2NoSpecificDietPlanPressed)
     return false;
-  }
   return true;
 }
 
@@ -138,9 +127,7 @@ void survey3NextButton() {
   ];
 
   final allergies = allergiesList.join(", ");
-
-  surveyAnswers["Allergies"] = allergies; // will be "" if none selected
-  printDebugMsg("Allergies => $allergies");
+  surveyAnswers["Allergies"] = allergies;
 }
 
 void survey4NextButton() {
@@ -153,17 +140,11 @@ void survey4NextButton() {
   ];
 
   final other = othersFoodAvoidController.text.trim();
-  if (other.isNotEmpty) {
-    // TODO: validate custom entry if needed
-    items.add("($other)");
-  }
+  if (other.isNotEmpty) items.add("($other)");
 
-  final avoid = items.join(", ");          // "" if none selected
-  surveyAnswers["Avoid"] = avoid;          // or store `items` if backend accepts arrays
-
-  printDebugMsg("Avoid => $avoid");
+  final avoid = items.join(", ");
+  surveyAnswers["Avoid"] = avoid;
 }
-
 
 void survey5ChoiceUpdate(String numberOfMeals) {
   s5OneMealOption = false;
@@ -171,16 +152,14 @@ void survey5ChoiceUpdate(String numberOfMeals) {
   s5ThreeMealsOption = false;
   s5FourPlusMealsOption = false;
   surveyAnswers['MealsNumber'] = numberOfMeals;
-  printDebugMsg("$surveyAnswers");
 }
 
 bool survey5NextButton() {
   if (!s5OneMealOption &&
       !s5TwoMealsOption &&
       !s5ThreeMealsOption &&
-      !s5FourPlusMealsOption) {
+      !s5FourPlusMealsOption)
     return false;
-  }
   return true;
 }
 
@@ -191,37 +170,27 @@ void survey6ChoiceUpdate(String fastFoodMeals) {
   s6AlmostDailyEatFastFoodOption = false;
 
   surveyAnswers['FastFood'] = fastFoodMeals;
-  printDebugMsg("$surveyAnswers");
 }
 
 bool survey6NextButton() {
   if (!s6RarelyEatFastFoodOption &&
       !s6OneTwoPerWeekEatFastFoodOption &&
       !s6ThreeFivePerWeekEatFastFoodOption &&
-      !s6AlmostDailyEatFastFoodOption) {
+      !s6AlmostDailyEatFastFoodOption)
     return false;
-  }
   return true;
 }
 
-void survey7ChoiceUpdate(String macroNutrient) {
-  surveyAnswers['Macronutrient'] = macroNutrient;
-  printDebugMsg("$surveyAnswers");
-}
-
-void survey7Choice2Update(String proteinConsume) {
-  surveyAnswers['DailyProteinConsume'] = proteinConsume;
-  printDebugMsg("$surveyAnswers");
-}
+void survey7ChoiceUpdate(String macroNutrient) => surveyAnswers['Macronutrient'] = macroNutrient;
+void survey7Choice2Update(String proteinConsume) => surveyAnswers['DailyProteinConsume'] = proteinConsume;
 
 void survey8ChoiceUpdate(String homeMealOften) {
+  s8DailyCookAtHomeOption = false;
   s8AlmostNeverCookAtHomeOption = false;
   s8OneTwoPerWeekCookAtHomeOption = false;
   s8ThreeFivePerWeekCookAtHomeOption = false;
-  s8DailyCookAtHomeOption = false;
 
   surveyAnswers['HomeMealOften'] = homeMealOften;
-  printDebugMsg("$surveyAnswers");
 }
 
 bool survey8NextButton() {
@@ -235,15 +204,8 @@ bool survey8NextButton() {
 
   surveyAnswers["KitchenAppliances"] = appliances.join(", ");
 
-  // Require at least one cooking frequency option
-  final hasCookingFrequency =
-      s8AlmostNeverCookAtHomeOption ||
-          s8OneTwoPerWeekCookAtHomeOption ||
-          s8ThreeFivePerWeekCookAtHomeOption ||
-          s8DailyCookAtHomeOption;
-
-  if (kDebugMode) print(surveyAnswers);
-
+  final hasCookingFrequency = s8AlmostNeverCookAtHomeOption || s8OneTwoPerWeekCookAtHomeOption
+      || s8ThreeFivePerWeekCookAtHomeOption || s8DailyCookAtHomeOption;
   return hasCookingFrequency;
 }
 

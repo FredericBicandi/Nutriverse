@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart' as material;
-
-import '../../Controller/authentication/authentication.dart';
 import '../../Controller/login_controller/login.dart';
 import '../../includes.dart';
 
@@ -34,10 +32,7 @@ class _LoginSheetState extends State<LoginSheet> {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: SvgPicture.asset(
-                    "assets/images/MobileLogin.svg",
-                    width: 350,
-                  ),
+                  child: SvgPicture.asset("assets/images/MobileLogin.svg", width: 350),
                 ),
                 Center(
                   child: Padding(
@@ -46,16 +41,11 @@ class _LoginSheetState extends State<LoginSheet> {
                       children: [
                         SmartTextField(
                           onChangeFunction: (value) {
-                            if (emailController.text.toLowerCase() !=
-                                emailController.text) {
-                              emailController.text =
-                                  emailController.text.toLowerCase();
-                            }
-                            !isValidEmail
-                                ? setState(
-                                    () => isValidEmail = validateEmail(value),
-                                  )
-                                : null;
+                            String email = emailController.text;
+
+                            if (email.toLowerCase() != email)
+                              emailController.text = emailController.text.toLowerCase();
+                            !isValidEmail ? setState(() => isValidEmail = validateEmail(value)) : null;
                           },
                           maxLen: 80,
                           labelText: "Email",
@@ -71,9 +61,7 @@ class _LoginSheetState extends State<LoginSheet> {
                           children: [
                             SmartTextField(
                               onChangeFunction: (value) {
-                                if (!isValidPassword) {
-                                  setState(() => isValidPassword = true);
-                                }
+                                if (!isValidPassword) setState(() => isValidPassword = true);
                               },
                               maxLen: 120,
                               labelText: "Password",
@@ -82,15 +70,12 @@ class _LoginSheetState extends State<LoginSheet> {
                               isValidInput: isValidPassword,
                               controllerName: passwordController,
                               iconName: material.Icons.password_outlined,
-                              filterTextInput:
-                                  FilteringTextInputFormatter.allow(
-                                      passwordRegex),
+                              filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
                               child: CupertinoButton(
-                                onPressed: () => setState(
-                                    () => showPassword = !showPassword),
+                                onPressed: () => setState(() => showPassword = !showPassword),
                                 child: Icon(
                                   color: Color(fade),
                                   showPassword
@@ -105,10 +90,7 @@ class _LoginSheetState extends State<LoginSheet> {
                         Align(
                           alignment: Alignment.center,
                           child: DynamicTextButton(
-                            onClick: () => navigateTo(
-                              context,
-                              const ForgetPassword(),
-                            ),
+                            onClick: () => navigateTo(context, const ForgetPassword()),
                             buttonText: "Forget password?",
                           ),
                         ),
@@ -117,20 +99,14 @@ class _LoginSheetState extends State<LoginSheet> {
                           children: [
                             DynamicButton(
                               onClick: () async {
-                                !isLoading
-                                    ? setState(() {
-                                        dismissKeyboard(context);
-                                        loginController(
-                                          context,
-                                          (bool value) => isValidEmail = value,
-                                          (bool value) =>
-                                              isValidPassword = value,
-                                          (bool value) => setState(() {
-                                            isLoading = value;
-                                          }),
-                                        );
-                                      })
-                                    : null;
+                                isLoading ? dismissKeyboard(context) : null;
+                                !isLoading ?
+                                  loginController(
+                                    context,
+                                        (bool value) => setState(() => isValidEmail = value),
+                                        (bool value) => setState(() =>isValidPassword = value),
+                                        (bool value) =>setState(() => isLoading = value)
+                                  ) : null;
                               },
                               setText: "Log in",
                               isLoading: isLoading,
@@ -142,14 +118,11 @@ class _LoginSheetState extends State<LoginSheet> {
                                 children: [
                                   const Text(
                                     "Don't have an account?",
-                                    style: TextStyle(
-                                      color: CupertinoColors.inactiveGray,
-                                    ),
+                                    style: TextStyle(color: CupertinoColors.inactiveGray),
                                   ),
                                   DynamicTextButton(
                                     buttonText: "Create one",
-                                    onClick: () => navigateTo(
-                                        context, const CreateAccount()),
+                                    onClick: () => navigateTo(context, const CreateAccount()),
                                   ),
                                 ],
                               ),

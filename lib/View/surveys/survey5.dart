@@ -16,12 +16,8 @@ class _Survey5State extends State<Survey5> {
   void _dismissKeyboard() => FocusScope.of(context).unfocus();
 
   void checkSelection() {
-    if (!survey5NextButton()) {
-      setState(() => selected = false);
-      return;
-    } else {
-      setState(() => selected = true);
-    }
+    if (!survey5NextButton()) return setState(() => selected = false);
+    else  setState(() => selected = true);
     navigateTo(context, const Survey6());
   }
 
@@ -69,8 +65,8 @@ class _Survey5State extends State<Survey5> {
                     setSize: 250,
                     setText: '1 (Intermittent Fasting)',
                     bgColor: s5OneMealOption ? accentColor : 0xFFFFFFFF,
-                    borderColor: s5OneMealOption ? 0x00000000 : accentColor,
                     textColor: s5OneMealOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s5OneMealOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
@@ -81,8 +77,8 @@ class _Survey5State extends State<Survey5> {
                     setSize: 250,
                     setText: '2',
                     bgColor: s5TwoMealsOption ? accentColor : 0xFFFFFFFF,
-                    borderColor: s5TwoMealsOption ? 0x00000000 : accentColor,
                     textColor: s5TwoMealsOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s5TwoMealsOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
@@ -93,8 +89,8 @@ class _Survey5State extends State<Survey5> {
                     setSize: 250,
                     setText: '3',
                     bgColor: s5ThreeMealsOption ? accentColor : 0xFFFFFFFF,
-                    borderColor: s5ThreeMealsOption ? 0x00000000 : accentColor,
                     textColor: s5ThreeMealsOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s5ThreeMealsOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
@@ -105,8 +101,8 @@ class _Survey5State extends State<Survey5> {
                     setSize: 250,
                     setText: '4+',
                     bgColor: s5FourPlusMealsOption ? accentColor : 0xFFFFFFFF,
-                    borderColor: s5FourPlusMealsOption ? 0x00000000 : accentColor,
                     textColor: s5FourPlusMealsOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s5FourPlusMealsOption ? 0x00000000 : accentColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),

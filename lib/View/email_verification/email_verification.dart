@@ -23,28 +23,18 @@ class _EmailVerificationState extends State<EmailVerification> {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset(
-                    "assets/images/Email_sent.svg",
-                    width: 600,
-                    fit: BoxFit.cover,
-                  ),
+                  SvgPicture.asset("assets/images/Email_sent.svg", width: 600, fit: BoxFit.cover),
                   const Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 525),
-                      child: Text(
-                        "Verify Your Email!\n",
-                        style: TextStyle(fontSize: 30),
-                      ),
+                      child: Text( "Verify Your Email!\n", style: TextStyle(fontSize: 30)),
                     ),
                   ),
                 ],
               ),
               const Text(
                 "We will send you an email to ",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: CupertinoColors.black,
-                ),
+                style: TextStyle(fontSize: 15, color: CupertinoColors.black),
               ),
               DynamicTextButton(
                 onClick: () => navigateTo(context, const EditEmail()),
@@ -62,8 +52,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                     );
                   }
                 },
-                isLoading: isLoading,
                 setText: "Next",
+                isLoading: isLoading,
                 setIcon: Icons.keyboard_arrow_right_sharp,
               ),
             ],

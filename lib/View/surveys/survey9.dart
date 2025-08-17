@@ -73,80 +73,45 @@ class _Survey9State extends State<Survey9> {
                               color: Colors.grey[700],
                               fontSize: 12,
                               fontStyle: FontStyle.italic,
-                              letterSpacing: 2.0),
+                              letterSpacing: 2.0,
+                          ),
                         ),
                       ),
                   const SizedBox(height: 25),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s9DiabetesMedicalConditionOption =
-                          !s9DiabetesMedicalConditionOption);
-                    },
+                    onClick: () => setState(() => s9DiabetesMedicalConditionOption = !s9DiabetesMedicalConditionOption),
                     setSize: 250,
                     setText: 'Diabetes',
-                    bgColor: s9DiabetesMedicalConditionOption
-                        ? accentColor
-                        : 0xFFFFFFFF,
-                    borderColor: s9DiabetesMedicalConditionOption
-                        ? 0x00000000
-                        : accentColor,
-                    textColor: s9DiabetesMedicalConditionOption
-                        ? 0xFFFFFFFF
-                        : 0xFF757575,
+                    bgColor: s9DiabetesMedicalConditionOption ? accentColor : 0xFFFFFFFF,
+                    textColor: s9DiabetesMedicalConditionOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s9DiabetesMedicalConditionOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s9HighBloodPressureMedicalConditionOption =
-                          !s9HighBloodPressureMedicalConditionOption);
-                    },
+                    onClick: () => setState(() => s9HighBloodPressureMedicalConditionOption = !s9HighBloodPressureMedicalConditionOption),
                     setSize: 250,
                     setText: 'High blood pressure',
-                    bgColor: s9HighBloodPressureMedicalConditionOption
-                        ? accentColor
-                        : 0xFFFFFFFF,
-                    borderColor: s9HighBloodPressureMedicalConditionOption
-                        ? 0x00000000
-                        : accentColor,
-                    textColor: s9HighBloodPressureMedicalConditionOption
-                        ? 0xFFFFFFFF
-                        : 0xFF757575,
+                    bgColor: s9HighBloodPressureMedicalConditionOption ? accentColor : 0xFFFFFFFF,
+                    textColor: s9HighBloodPressureMedicalConditionOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s9HighBloodPressureMedicalConditionOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s9HighCholesterolMedicalConditionOption =
-                          !s9HighCholesterolMedicalConditionOption);
-                    },
+                    onClick: () => setState(() => s9HighCholesterolMedicalConditionOption = !s9HighCholesterolMedicalConditionOption),
                     setSize: 250,
                     setText: 'High cholesterol',
-                    bgColor: s9HighCholesterolMedicalConditionOption
-                        ? accentColor
-                        : 0xFFFFFFFF,
-                    borderColor: s9HighCholesterolMedicalConditionOption
-                        ? 0x00000000
-                        : accentColor,
-                    textColor: s9HighCholesterolMedicalConditionOption
-                        ? 0xFFFFFFFF
-                        : 0xFF757575,
+                    bgColor: s9HighCholesterolMedicalConditionOption ? accentColor : 0xFFFFFFFF,
+                    textColor: s9HighCholesterolMedicalConditionOption ? 0xFFFFFFFF : 0xFF757575,
+                    borderColor: s9HighCholesterolMedicalConditionOption ? 0x00000000 : accentColor,
                   ),
                   const SizedBox(height: 10),
                   DynamicButton(
-                    onClick: () {
-                      setState(() => s9ThyroidDisorderMedicalConditionOption =
-                          !s9ThyroidDisorderMedicalConditionOption);
-                    },
+                    onClick: () => setState(() => s9ThyroidDisorderMedicalConditionOption = !s9ThyroidDisorderMedicalConditionOption),
                     setSize: 250,
                     setText: 'Thyroid disorder',
-                    bgColor: s9ThyroidDisorderMedicalConditionOption
-                        ? accentColor
-                        : 0xFFFFFFFF,
-                    borderColor: s9ThyroidDisorderMedicalConditionOption
-                        ? 0x00000000
-                        : accentColor,
-                    textColor: s9ThyroidDisorderMedicalConditionOption
-                        ? 0xFFFFFFFF
-                        : 0xFF757575,
+                    bgColor: s9ThyroidDisorderMedicalConditionOption ? accentColor : 0xFFFFFFFF,
+                    borderColor: s9ThyroidDisorderMedicalConditionOption ? 0x00000000 : accentColor,
+                    textColor: s9ThyroidDisorderMedicalConditionOption ? 0xFFFFFFFF : 0xFF757575,
                   ),
                   const SizedBox(height: 10),
                   SmartTextField(
@@ -157,8 +122,7 @@ class _Survey9State extends State<Survey9> {
                     isValidInput: true,
                     keyboardType: TextInputType.text,
                     controllerName: othersMedicalConditionsController,
-                    filterTextInput:
-                        FilteringTextInputFormatter.allow(namingRegEx),
+                    filterTextInput: FilteringTextInputFormatter.allow(namingRegEx),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),

@@ -13,7 +13,8 @@ void emailHandler(String value, Function(bool) updateEmailValid) {
 
 void passwordHandler(String value) {
   if (confirmPasswordController.text.isNotEmpty) {
-    isValidPasswordMatch = validatePasswordMatch(confirmPasswordController.text, value);
+    isValidPasswordMatch =
+        validatePasswordMatch(confirmPasswordController.text, value);
   }
   isValidPassword = validatePassword(value);
   isValidPassword && isValidPasswordMatch
@@ -33,51 +34,41 @@ void confirmPasswordHandler(String value, Function(bool) updatePasswordMatch) {
   }
 }
 
-void nextPageHandler(
+Future<void> nextPageHandler(
   BuildContext context,
   Function(bool) updateLoadingButton,
   Function(bool) updateEmailValid,
   Function(bool) updatePasswordValid,
   Function(bool) updatePasswordMatch,
 ) async {
-  if (!validateEmail(emailController.text.toLowerCase()) ||
-      emailController.text.isEmpty) {
-    updateEmailValid(false);
-    return;
-  } else if (passwordController.text.isEmpty ||
-      !validatePassword(passwordController.text)) {
-    updatePasswordValid(false);
-    return;
-  } else if (confirmPasswordController.text.isEmpty ||
-      !validatePasswordMatch(
-        confirmPasswordController.text,
-        passwordController.text,
-      )) {
-    updatePasswordMatch(false);
-    return;
-  }
+
+ final String email = emailController.text.toLowerCase();
+ final String password = passwordController.text;
+ final String confPassword = confirmPasswordController.text;
+
+  // check field values
+  if (!validateEmail(email) || email.isEmpty) return updateEmailValid(false);
+  else if (password.isEmpty || !validatePassword(password)) return updatePasswordValid(false);
+  else if (confPassword.isEmpty || !validatePasswordMatch(confPassword, password)) return updatePasswordMatch(false);
+
 
   updateLoadingButton(true);
+
+  // checks if email already taken
   int? response = await findUser(emailController.text);
   if (response == 404) {
-    // ignore: use_build_context_synchronously
     updateLoadingButton(false);
-    // ignore: use_build_context_synchronously
     return navigateTo(context, const UserInfo());
-  } else if (response == 200) {
+  }
+
+  if (response == 200) {
     emailErrorText = "Email is already taken";
     updateLoadingButton(false);
-    updateEmailValid(false);
-    return;
-  } else if (response == 500) {
-    // ignore: use_build_context_synchronously
-    await iosAlert(
-      // ignore: use_build_context_synchronously
-      context,
-      "Unknown Error!",
-      "$errorMessage",
-    );
-    updateLoadingButton(false);
-    return;
+    return updateEmailValid(false);
+  }
+
+  if (response == 500) {
+    await iosAlert(context, "Unknown Error!", "$errorMessage");
+    return updateLoadingButton(false);
   }
 }

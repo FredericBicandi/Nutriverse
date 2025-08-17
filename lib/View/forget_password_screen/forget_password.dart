@@ -28,20 +28,21 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 Stack(
                   children: [
                     Center(
-                      child: SvgPicture.asset(
-                        "assets/images/ForgetPassword.svg",
-                        width: 350,
-                      ),
+                      child: SvgPicture.asset("assets/images/ForgetPassword.svg", width: 350),
                     ),
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 330, 0, 0),
                         child: SmartTextField(
                           onChangeFunction: (value) {
+                            if(!isValidEmail){
+                              setState(() {
+                                isValidEmail=true;
+                                errMessage="Invalid email!";
+                              });
+                            }
                             !isValidEmail
-                                ? setState(
-                                    () => isValidEmail = validateEmail(value),
-                                  )
+                                ? setState(() => isValidEmail = validateEmail(value))
                                 : null;
                           },
                           maxLen: 80,
@@ -63,16 +64,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     if (isLoading) return;
                     validateEmail(emailController.text)
                         ? verification(
-                            context,
-                            (String value) => setState(
-                              () => errMessage = value,
-                            ),
-                            (bool value) => setState(
-                              () => isLoading = value,
-                            ),
-                            (bool value) => setState(
-                              () => isValidEmail = value,
-                            ),
+                            context, (String value) => setState(() => errMessage = value),
+                            (bool value) => setState(() => isLoading = value),
+                            (bool value) => setState(() => isValidEmail = value),
                           )
                         : setState(() => isValidEmail = false);
                   },

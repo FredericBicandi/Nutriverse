@@ -24,20 +24,14 @@ class _EditEmailState extends State<EditEmail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    "assets/images/EditEmail.svg",
-                    width: 660,
-                  ),
+                  SvgPicture.asset("assets/images/EditEmail.svg", width: 660),
                   SmartTextField(
                     onChangeFunction: (value) {
-                      if (emailErrorText != 'invalid email!') {
-                        emailErrorText != 'invalid email!';
-                      }
-                      if (emailController.text.toLowerCase() !=
-                          emailController.text) {
-                        emailController.text =
-                            emailController.text.toLowerCase();
-                      }
+                      String email = emailController.text;
+
+                      if (emailErrorText != 'invalid email!') emailErrorText != 'invalid email!';
+                      if (email != email.toLowerCase())
+                        emailController.text = emailController.text.toLowerCase();
                       !isValidEmail
                           ? setState(() => isValidEmail = validateEmail(value))
                           : null;
@@ -59,8 +53,7 @@ class _EditEmailState extends State<EditEmail> {
                         context,
                         (bool value) => setState(() => isValidEmail = value),
                         (bool value) => setState(() => isLoading = value),
-                        (String value) =>
-                            setState(() => emailErrorText = value),
+                        (String value) => setState(() => emailErrorText = value),
                       );
                     },
                     setSize: 200,

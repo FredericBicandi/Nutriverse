@@ -35,11 +35,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(
                           width: 50,
                           height: 50,
-                          child: SvgPicture.asset(
-                            "assets/images/NutriTracker.svg",
-                            // ignore: deprecated_member_use
-                            color: Color(primaryColor),
-                          ),
+                          child: SvgPicture.asset("assets/images/NutriTracker.svg", color: Color(primaryColor)),
                         ),
                         const SizedBox(width: 10),
                         Padding(

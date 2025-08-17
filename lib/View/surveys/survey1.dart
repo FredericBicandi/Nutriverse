@@ -56,104 +56,57 @@ class _Survey1State extends State<Survey1> {
                 ),
                 const SizedBox(height: 25),
                 DynamicButton(
-                  onClick: () {
-                    setState(() => s1LivingLongerButtonPressed =
-                        !s1LivingLongerButtonPressed);
-                  },
+                  onClick: () => setState(() => s1LivingLongerButtonPressed = !s1LivingLongerButtonPressed),
                   setSize: 250,
                   setText: 'Living longer',
                   bgColor: s1LivingLongerButtonPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor:
-                      s1LivingLongerButtonPressed ? 0x00000000 : accentColor,
-                  textColor:
-                      s1LivingLongerButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  textColor: s1LivingLongerButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s1LivingLongerButtonPressed ? 0x00000000 : accentColor,
                 ), // living longer
                 const SizedBox(height: 10),
                 DynamicButton(
-                  onClick: () {
-                    setState(() => s1FeelingEnergizedButtonPressed =
-                        !s1FeelingEnergizedButtonPressed);
-                  },
+                  onClick: () => setState(() => s1FeelingEnergizedButtonPressed = !s1FeelingEnergizedButtonPressed),
                   setSize: 250,
                   setText: 'Feeling energized',
-                  bgColor:
-                      s1FeelingEnergizedButtonPressed ? accentColor : 0xFFFFFFFF,
-                  borderColor:
-                      s1FeelingEnergizedButtonPressed ? 0x00000000 : accentColor,
-                  textColor:
-                      s1FeelingEnergizedButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  bgColor: s1FeelingEnergizedButtonPressed ? accentColor : 0xFFFFFFFF,
+                  textColor: s1FeelingEnergizedButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s1FeelingEnergizedButtonPressed ? 0x00000000 : accentColor,
                 ), // Feeling energized
                 const SizedBox(height: 10),
                 DynamicButton(
-                  onClick: () {
-                    setState(() => s1BuildHealthierHabitsButtonPressed =
-                        !s1BuildHealthierHabitsButtonPressed);
-                  },
+                  onClick: () => setState(() => s1BuildHealthierHabitsButtonPressed = !s1BuildHealthierHabitsButtonPressed),
                   setSize: 250,
                   setText: 'Build healthier habits',
-                  bgColor: s1BuildHealthierHabitsButtonPressed
-                      ? accentColor
-                      : 0xFFFFFFFF,
-                  borderColor: s1BuildHealthierHabitsButtonPressed
-                      ? 0x00000000
-                      : accentColor,
-                  textColor: s1BuildHealthierHabitsButtonPressed
-                      ? 0xFFFFFFFF
-                      : 0xFF757575,
+                  bgColor: s1BuildHealthierHabitsButtonPressed ? accentColor : 0xFFFFFFFF,
+                  textColor: s1BuildHealthierHabitsButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s1BuildHealthierHabitsButtonPressed ? 0x00000000 : accentColor,
                 ), // build healthier habits
                 const SizedBox(height: 10),
                 DynamicButton(
-                  onClick: () {
-                    setState(() => s1PreventLifestyleDiseasesButtonPressed =
-                        !s1PreventLifestyleDiseasesButtonPressed);
-                  },
+                  onClick: () => setState(() => s1PreventLifestyleDiseasesButtonPressed = !s1PreventLifestyleDiseasesButtonPressed),
                   setSize: 250,
                   setText: 'Prevent lifestyle diseases',
-                  bgColor: s1PreventLifestyleDiseasesButtonPressed
-                      ? accentColor
-                      : 0xFFFFFFFF,
-                  borderColor: s1PreventLifestyleDiseasesButtonPressed
-                      ? 0x00000000
-                      : accentColor,
-                  textColor: s1PreventLifestyleDiseasesButtonPressed
-                      ? 0xFFFFFFFF
-                      : 0xFF757575,
+                  bgColor: s1PreventLifestyleDiseasesButtonPressed ? accentColor : 0xFFFFFFFF,
+                  textColor: s1PreventLifestyleDiseasesButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s1PreventLifestyleDiseasesButtonPressed ? 0x00000000 : accentColor,
                 ), // Prevent LifeStyle
                 const SizedBox(height: 10), //Optimize
                 DynamicButton(
-                  onClick: () {
-                    setState(() => s1OptimizeAthleticPerformanceButtonPressed =
-                        !s1OptimizeAthleticPerformanceButtonPressed);
-                  },
+                  onClick: () => setState(() => s1OptimizeAthleticPerformanceButtonPressed = !s1OptimizeAthleticPerformanceButtonPressed),
                   setSize: 250,
                   setText: 'Optimize athletic performance',
-                  bgColor: s1OptimizeAthleticPerformanceButtonPressed
-                      ? accentColor
-                      : 0xFFFFFFFF,
-                  borderColor: s1OptimizeAthleticPerformanceButtonPressed
-                      ? 0x00000000
-                      : accentColor,
-                  textColor: s1OptimizeAthleticPerformanceButtonPressed
-                      ? 0xFFFFFFFF
-                      : 0xFF757575,
+                  bgColor: s1OptimizeAthleticPerformanceButtonPressed ? accentColor : 0xFFFFFFFF,
+                  textColor: s1OptimizeAthleticPerformanceButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s1OptimizeAthleticPerformanceButtonPressed ? 0x00000000 : accentColor,
                 ), // Optimize
                 const SizedBox(height: 10),
                 DynamicButton(
-                  onClick: () {
-                    setState(() => s1EliminateAllOrNothingMindsetButtonPressed =
-                        !s1EliminateAllOrNothingMindsetButtonPressed);
-                  },
+                  onClick: () => setState(() => s1EliminateAllOrNothingMindsetButtonPressed = !s1EliminateAllOrNothingMindsetButtonPressed),
                   setSize: 250,
                   setText: 'Eliminate All-or-Nothing mindset',
-                  bgColor: s1EliminateAllOrNothingMindsetButtonPressed
-                      ? accentColor
-                      : 0xFFFFFFFF,
-                  borderColor: s1EliminateAllOrNothingMindsetButtonPressed
-                      ? 0x00000000
-                      : accentColor,
-                  textColor: s1EliminateAllOrNothingMindsetButtonPressed
-                      ? 0xFFFFFFFF
-                      : 0xFF757575,
+                  bgColor: s1EliminateAllOrNothingMindsetButtonPressed ? accentColor : 0xFFFFFFFF,
+                  textColor: s1EliminateAllOrNothingMindsetButtonPressed ? 0xFFFFFFFF : 0xFF757575,
+                  borderColor: s1EliminateAllOrNothingMindsetButtonPressed ? 0x00000000 : accentColor,
                 ), // Eliminate
                 Padding(
                   padding: const EdgeInsets.fromLTRB(50, 30, 0, 20),
