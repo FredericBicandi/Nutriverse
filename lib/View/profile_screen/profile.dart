@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutritracker/includes.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,7 +12,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: AppBar()),
+      body: SingleChildScrollView(
+        child: Center(
+          child: DynamicButton(
+              setText: "Logout",
+              onClick: () async {
+                await supabase.auth.signOut(scope: SignOutScope.local);
+                newStackScreen(context, const WelcomeScreen());
+              }),
+        ),
+      ),
     );
   }
 }

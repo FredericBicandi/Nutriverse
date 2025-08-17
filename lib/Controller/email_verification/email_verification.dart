@@ -1,3 +1,5 @@
+import 'package:nutritracker/Controller/create_account/.create_account.dart';
+
 import '../../Model/users/update_user_email.dart';
 import '../../includes.dart';
 
@@ -5,6 +7,7 @@ Future<void> changeEmail(
   BuildContext context,
   void Function(bool) updateIsValidEmail,
   void Function(bool) updateLoadingState,
+  void Function(String value) updateEmailErrorText,
 ) async {
   final newEmail = emailController.text.trim();
 
@@ -27,6 +30,10 @@ Future<void> changeEmail(
       // Proceed to verification (if your flow requires it)
       // ignore: use_build_context_synchronously
       newStackScreen(context, const EmailVerification());
+    } else if (res == 400) {
+      emailErrorText = "Email Already Taken";
+      updateEmailErrorText(emailErrorText);
+      updateIsValidEmail(false);
     } else {
       await iosAlert(
         // ignore: use_build_context_synchronously

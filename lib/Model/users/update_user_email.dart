@@ -1,9 +1,15 @@
 import 'package:http/http.dart' as http;
+import 'package:nutritracker/Model/authentication_table/get_user_by_email.dart';
 import '../../includes.dart';
 
 Future<int?> updateUserEmail(String oldEmail, String newEmail) async {
   try {
-    final response = await http.post(
+    if (await findUser(newEmail) == 200) {
+      printDebugMsg('error email already found$errorMessage');
+      return 400;
+    }
+
+    await http.post(
       Uri.parse(
           'https://xidmzwoldcsmkxbkzibz.supabase.co/functions/v1/changeAuthEmail'),
       headers: {
@@ -15,14 +21,6 @@ Future<int?> updateUserEmail(String oldEmail, String newEmail) async {
         'new_email': newEmail,
       }),
     );
-
-    if (response.statusCode == 500) {
-      errorMessage = "error while update user email";
-      printDebugMsg('$errorMessage');
-      return 500;
-    }
-    printDebugMsg("$response");
-
     await supabase
         .from('users')
         .update({'email': newEmail}).eq('email', oldEmail);

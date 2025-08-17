@@ -1,5 +1,6 @@
 import 'package:nutritracker/Model/authentication_table/auth_login.dart';
 import 'package:nutritracker/Model/users/get_user_info.dart';
+import '../../Model/verified_users/check_verification.dart';
 import '../../includes.dart';
 
 void routeTo(BuildContext context, Widget screen) => Future.delayed(
@@ -7,8 +8,6 @@ void routeTo(BuildContext context, Widget screen) => Future.delayed(
       // ignore: use_build_context_synchronously
       () => newStackScreen(context, screen),
     );
-
-
 
 Future<void> checkUserAuth(BuildContext context) async {
   if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
@@ -18,30 +17,36 @@ Future<void> checkUserAuth(BuildContext context) async {
     );
     if (response == 200) {
       printDebugMsg("user Authenticated successfully");
-      final  res = await getUserInfo(emailController.text.trim());
+      final res = await getUserInfo(emailController.text.trim());
       if (res == null) {
-        // ignore: use_build_context_synchronously
+        await supabase.auth.signOut(scope: SignOutScope.local);
         return await iosAlert(context, "Error", errorMessage!);
       }
       userInfo = res;
-      // ignore: use_build_context_synchronously
       return routeTo(context, const Dashboard());
     }
-    printDebugMsg("not existing authentication found!");
-    // ignore: use_build_context_synchronously
+    printDebugMsg("not existing authentication found! as email and password");
     return routeTo(context, const WelcomeScreen());
   } else {
-    session = supabase.auth.currentSession;
-    user = supabase.auth.currentUser;
-    if (session != null && user != null) {
-      printDebugMsg("user Authenticated successfully");
-      final  res = getUserInfo(emailController.text.trim());
-      if (res == null) {
-        return await iosAlert(context, "Error", errorMessage!);
+    final currentSession = supabase.auth.currentSession;
+    final currentUser = supabase.auth.currentUser;
+
+    if (currentSession != null && currentUser != null) {
+      printDebugMsg("user Authenticated successfully ${currentUser.email}");
+      final res = await getUserInfo(currentUser.email);
+      if (await checkVerification(currentUser.email!) == 404) {
+        emailController.text=currentUser.email!;
+        return newStackScreen(context, const EmailVerification());
       }
-      userInfo = res as Map<String, dynamic>;
+      if (res == null) {
+        newStackScreen(context, const Survey1());
+        return;
+      }
+      userInfo = res;
+      imageUrl = userInfo['photo'];
       return routeTo(context, const Dashboard());
     }
+
     printDebugMsg("not existing authentication found!");
     return routeTo(context, const WelcomeScreen());
   }

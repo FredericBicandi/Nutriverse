@@ -22,8 +22,8 @@ String oldEmail = '';
 String? imageUrl;
 Map<String, dynamic> userInfo = {};
 
-late final Session? session;
-late final User? user;
+Session? session;
+User? user;
 final supabase = Supabase.instance.client;
 final String dataBaseUrl = "https://xidmzwoldcsmkxbkzibz.supabase.co";
 final String dataBaseKey =

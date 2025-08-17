@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' as material;
 
+import '../../Controller/authentication/authentication.dart';
 import '../../Controller/login_controller/login.dart';
 import '../../includes.dart';
 
@@ -11,6 +12,11 @@ class LoginSheet extends StatefulWidget {
 }
 
 class _LoginSheetState extends State<LoginSheet> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return material.MaterialApp(
@@ -42,7 +48,8 @@ class _LoginSheetState extends State<LoginSheet> {
                           onChangeFunction: (value) {
                             if (emailController.text.toLowerCase() !=
                                 emailController.text) {
-                              emailController.text = emailController.text.toLowerCase();
+                              emailController.text =
+                                  emailController.text.toLowerCase();
                             }
                             !isValidEmail
                                 ? setState(

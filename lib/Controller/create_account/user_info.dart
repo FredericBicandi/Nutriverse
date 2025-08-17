@@ -69,7 +69,7 @@ void createAccountHandler(
       );
       updateLoadingButton(false);
       // ignore: use_build_context_synchronously
-      navigateTo(context, const EmailVerification());
+      newStackScreen(context, const EmailVerification());
       return;
     }
     if (response == 301) {

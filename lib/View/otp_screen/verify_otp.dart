@@ -78,7 +78,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const Appbar(left: 120)),
+      appBar: material.AppBar(title: const Appbar()),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(

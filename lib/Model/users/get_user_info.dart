@@ -2,7 +2,7 @@ import '../../includes.dart';
 
 Future<Map<String, dynamic>?> getUserInfo(String? email) async {
   try {
-    final value = user?.email ?? email;
+    final value = email;
     if (value == null) return null;
     return await supabase
         .from('users')

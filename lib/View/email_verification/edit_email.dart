@@ -1,3 +1,5 @@
+import 'package:nutritracker/Controller/create_account/.create_account.dart';
+
 import '../../Controller/email_verification/email_verification.dart';
 import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
@@ -7,6 +9,7 @@ class _EditEmailState extends State<EditEmail> {
   void initState() {
     super.initState();
     oldEmail = emailController.text;
+    emailErrorText = 'invalid email!';
   }
 
   @override
@@ -23,7 +26,7 @@ class _EditEmailState extends State<EditEmail> {
                     Center(
                       child: SvgPicture.asset(
                         "assets/images/EditEmail.svg",
-                        width: 650,
+                        width: 660,
                       ),
                     ),
                     Center(
@@ -31,6 +34,9 @@ class _EditEmailState extends State<EditEmail> {
                         padding: const EdgeInsets.fromLTRB(0, 330, 0, 0),
                         child: SmartTextField(
                           onChangeFunction: (value) {
+                            if (emailErrorText != 'invalid email!') {
+                              emailErrorText != 'invalid email!';
+                            }
                             if (emailController.text.toLowerCase() !=
                                 emailController.text) {
                               emailController.text =
@@ -43,7 +49,7 @@ class _EditEmailState extends State<EditEmail> {
                           },
                           maxLen: 80,
                           labelText: "Email",
-                          errorText: "invalid email!",
+                          errorText: emailErrorText,
                           isValidInput: isValidEmail,
                           controllerName: emailController,
                           iconName: CupertinoIcons.mail_solid,
@@ -70,6 +76,8 @@ class _EditEmailState extends State<EditEmail> {
                                       setState(() => isValidEmail = value),
                                   (bool value) =>
                                       setState(() => isLoading = value),
+                                  (String value) =>
+                                      setState(() => emailErrorText = value),
                                 );
                               },
                               setSize: 200,

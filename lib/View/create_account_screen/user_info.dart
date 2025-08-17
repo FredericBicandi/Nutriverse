@@ -95,56 +95,54 @@ class _UserInfoState extends State<UserInfo> {
                       width: 270,
                       onTap: () {
                         showCupertinoModalPopup(
-                            context: context,
-                            builder: (context) {
-                              return Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.4,
-                                color: Colors.white,
-                                child: Column(
-                                  children: [
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      child: const Text("Done"),
+                          context: context,
+                          builder: (context) {
+                            // Compute once to avoid microsecond drift
+                            final now = DateTime.now();
+                            final maxDate = DateTime(now.year, now.month, now.day); // today @ 00:00
+                            final initial = (selectedDate != null && selectedDate!.isBefore(maxDate))
+                                ? selectedDate!
+                                : maxDate;
+
+                            return Container(
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text("Done"),
+                                  ),
+                                  Expanded(
+                                    child: CupertinoDatePicker(
+                                      mode: CupertinoDatePickerMode.date,
+                                      minimumDate: DateTime(1900),
+                                      maximumDate: maxDate,
+                                      initialDateTime: initial, // <= guarantee initial <= maximum
+                                      onDateTimeChanged: (date) {
+                                        final picked = DateTime(date.year, date.month, date.day);
+                                        final dobText = "${picked.toLocal()}".split(' ')[0];
+                                        final age = calculateAge(picked);
+                                        final valid = validateAge(age.toString());
+
+                                        if (!mounted) return;
+                                        setState(() {
+                                          selectedDate = picked;
+                                          dateController.text = dobText;
+                                          ageNumberController.text = age.toString();
+                                          isValidAge = valid;
+                                        });
+
+                                        updateUserInfo("Age", age.toString());
+                                        updateUserInfo("DOB", (dobText.isNotEmpty && valid) ? dobText : null);
+                                      },
                                     ),
-                                    Expanded(
-                                      child: CupertinoDatePicker(
-                                        mode: CupertinoDatePickerMode.date,
-                                        minimumDate: DateTime(1900),
-                                        // or whatever earliest DOB you allow
-                                        maximumDate: DateTime.now(),
-                                        // prevents future years
-                                        onDateTimeChanged: (date) {
-                                          final picked = DateTime(
-                                              date.year, date.month, date.day);
-                                          final dobText = "${picked.toLocal()}"
-                                              .split(' ')[0];
-                                          final age = calculateAge(picked);
-                                          final valid =
-                                              validateAge(age.toString());
-
-                                          if (!mounted) return;
-                                          setState(() {
-                                            selectedDate = picked;
-                                            dateController.text = dobText;
-                                            ageNumberController.text =
-                                                age.toString();
-                                            isValidAge = valid;
-                                          });
-
-                                          updateUserInfo("Age", age.toString());
-                                          updateUserInfo(
-                                              "DOB",
-                                              (dobText.isNotEmpty && valid)
-                                                  ? dobText
-                                                  : null);
-                                        },
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            });
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
                       },
                       errorText: "",
                       readOnly: true,

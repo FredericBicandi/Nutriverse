@@ -1,6 +1,7 @@
 import '../../Controller/dashboard/dashboard.dart';
 import 'package:flutter/material.dart' as material;
 import '../../includes.dart';
+import 'dart:convert';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -16,6 +17,20 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    if (session == null) {
+      session = supabase.auth.currentSession;
+      user = supabase.auth.currentUser;
+      printDebugMsg("User =>\n");
+      debugPrint(
+        const JsonEncoder.withIndent('  ').convert(user),
+        wrapWidth: 1024,
+      );
+    }
+    printDebugMsg("$userInfo =>\n");
+    debugPrint(
+      const JsonEncoder.withIndent('  ').convert(userInfo),
+      wrapWidth: 1024,
+    );
     // Defer until after first frame
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRoute());
   }

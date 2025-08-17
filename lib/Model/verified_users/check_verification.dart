@@ -9,7 +9,6 @@ Future<int?> checkVerification(final String email) async {
         .eq('email_verified', true)
         .maybeSingle();
 
-
     if (response != null) {
       printDebugMsg('User is verified!');
     } else {

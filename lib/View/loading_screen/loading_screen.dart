@@ -36,7 +36,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           width: 50,
                           height: 50,
                           child: SvgPicture.asset(
-                            "images/NutriTracker.svg",
+                            "assets/images/NutriTracker.svg",
                             // ignore: deprecated_member_use
                             color: Color(primaryColor),
                           ),

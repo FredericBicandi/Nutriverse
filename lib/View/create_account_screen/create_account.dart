@@ -9,7 +9,7 @@ class _CreateAccountState extends State<CreateAccount> {
     return material.Scaffold(
       appBar: material.AppBar(
         elevation: 0,
-        title: const Appbar(left: 120),
+        title: const Appbar(),
       ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
