@@ -175,6 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Text(
                   "CUSTOMIZATION",
                   style: TextStyle(
+                    color: CupertinoColors.inactiveGray,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.5,
                   ),
@@ -204,8 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     setIcons: Icons.person_outline,
                     setText: "Personal details",
                   ),
-                  Container(
-                      width: 346, height: 0.1, color: CupertinoColors.black),
+                  Container(width: 346, height: 0.1, color: CupertinoColors.black),
                   ProfileOptions(
                     onClick: () {},
                     setIcons: Icons.food_bank_outlined,
