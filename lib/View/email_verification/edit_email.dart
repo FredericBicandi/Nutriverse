@@ -15,7 +15,7 @@ class _EditEmailState extends State<EditEmail> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-        appBar: material.AppBar(title: const Appbar()),
+        appBar: material.AppBar(automaticallyImplyLeading: false, title: const Appbar()),
         body: GestureDetector(
           onTap: () => dismissKeyboard(context),
           child: SingleChildScrollView(

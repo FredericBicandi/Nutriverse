@@ -63,12 +63,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ProfileSelector(
-                      setSize: 90,
+                      setSize: 110,
                       plusSize: 12,
                       imageProfile: userInfo['photo'] != null
                           ? NetworkImage("$imageUrl")
-                          : AssetImage("assets/images/$imageUrl")
-                              as ImageProvider),
+                          : AssetImage("assets/images/$imageUrl") as ImageProvider),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,8 +241,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: DynamicButton(
                     setText: "Save",
                     onClick: () async {
-                      await supabase.auth.signOut(scope: SignOutScope.local);
-                      newStackScreen(context, const WelcomeScreen());
+                      Navigator.pop(context);
                     }),
               ),
             ),
@@ -251,8 +249,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
               child: DynamicButton(
                 onClick: () async {
+                  userInfo = {};
+                  user = null;
+                  session = null;
                   await supabase.auth.signOut(scope: SignOutScope.local);
                   newStackScreen(context, const WelcomeScreen());
+
                 },
                 setSize: 170,
                 setText: 'Logout',

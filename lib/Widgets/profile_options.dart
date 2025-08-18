@@ -33,7 +33,7 @@ class _ProfileOptionsState extends State<ProfileOptions> {
                 widget.setText,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w300,
                   fontSize: 16,
                 ),
               ),
