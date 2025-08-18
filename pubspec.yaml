@@ -18,9 +18,6 @@ dependencies:
   # Supabase - Official Flutter client for Supabase
   supabase_flutter: ^2.9.0
 
-  # PocketBase - Dart client for PocketBase (if you are using both Supabase and PocketBase, ensure this is intentional)
-  pocketbase: ^0.21.0
-
   # URL Launcher - For opening URLs
   url_launcher: ^6.1.14
 

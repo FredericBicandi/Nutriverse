@@ -4,9 +4,7 @@ import '../../includes.dart';
 Future<int> findUser(String email) async {
   try {
     final response = await http.post(
-      Uri.parse(
-        'https://xidmzwoldcsmkxbkzibz.supabase.co/functions/v1/check-user-ts',
-      ),
+      Uri.parse('https://xidmzwoldcsmkxbkzibz.supabase.co/functions/v1/check-user-ts'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $serviceRoleKey',

@@ -23,10 +23,10 @@ class _EmailVerificationState extends State<EmailVerification> {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset("assets/images/Email_sent.svg", width: 600, fit: BoxFit.cover),
+                  SvgPicture.asset("assets/images/Email_sent.svg", width: 500, fit: BoxFit.cover),
                   const Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 525),
+                      padding: EdgeInsets.only(top: 452),
                       child: Text( "Verify Your Email!\n", style: TextStyle(fontSize: 30)),
                     ),
                   ),

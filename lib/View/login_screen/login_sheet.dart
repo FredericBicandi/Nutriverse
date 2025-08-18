@@ -13,6 +13,9 @@ class _LoginSheetState extends State<LoginSheet> {
   @override
   void initState() {
     super.initState();
+    isLoading = false;
+    isValidEmail = true;
+    isValidPassword = true;
   }
 
   @override
@@ -45,7 +48,9 @@ class _LoginSheetState extends State<LoginSheet> {
 
                             if (email.toLowerCase() != email)
                               emailController.text = emailController.text.toLowerCase();
-                            !isValidEmail ? setState(() => isValidEmail = validateEmail(value)) : null;
+                            !isValidEmail
+                                ? setState(() => isValidEmail = validateEmail(value))
+                                : null;
                           },
                           maxLen: 80,
                           labelText: "Email",
@@ -76,8 +81,7 @@ class _LoginSheetState extends State<LoginSheet> {
                               padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
                               child: CupertinoButton(
                                 onPressed: () => setState(() => showPassword = !showPassword),
-                                child: Icon(
-                                  color: Color(fade),
+                                child: Icon(color: Color(fade),
                                   showPassword
                                       ? CupertinoIcons.eye_fill
                                       : CupertinoIcons.eye_slash_fill,
@@ -100,13 +104,13 @@ class _LoginSheetState extends State<LoginSheet> {
                             DynamicButton(
                               onClick: () async {
                                 isLoading ? dismissKeyboard(context) : null;
-                                !isLoading ?
-                                  loginController(
-                                    context,
+                                !isLoading
+                                    ? loginController(
+                                        context,
                                         (bool value) => setState(() => isValidEmail = value),
-                                        (bool value) => setState(() =>isValidPassword = value),
-                                        (bool value) =>setState(() => isLoading = value)
-                                  ) : null;
+                                        (bool value) => setState(() => isValidPassword = value),
+                                        (bool value) => setState(() => isLoading = value))
+                                    : null;
                               },
                               setText: "Log in",
                               isLoading: isLoading,

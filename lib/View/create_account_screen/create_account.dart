@@ -5,19 +5,22 @@ import '../../Controller/create_account/account_info.dart';
 
 class _CreateAccountState extends State<CreateAccount> {
   @override
+  void initState() {
+    super.initState();
+    isLoading = false;
+    isValidEmail = true;
+    isValidPassword = true;
+  }
+  @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(
-        centerTitle: true,
-        title: const Appbar(),
-      ),
+      appBar: material.AppBar(title: const Appbar()),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
             child: Center(
           child: Column(
             children: [
-              // Image and Email Field
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -110,6 +113,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 setIcon: material.Icons.keyboard_arrow_right,
                 isLoading: isLoading,
               ),
+              const SizedBox(height: 50),
             ],
           ),
         )),

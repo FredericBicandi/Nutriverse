@@ -36,6 +36,8 @@ class _DashboardState extends State<Dashboard> {
       _routed = true;
       newStackScreen(context, const Survey1());
     }
+    if (imageUrl!=null)
+      imageUrl=userInfo['gender']? "Avatar_male.png": "Avatar_female.png";
   }
 
   @override
@@ -48,7 +50,7 @@ class _DashboardState extends State<Dashboard> {
           ImageButton(
             onClick: () => navigateTo(context, const ProfileScreen()),
             urlImage: imageUrl == null ? false : true,
-            imagePath: imageUrl ??  userInfo['gender']? "Avatar_male.png": "Avatar_female.png",
+            imagePath: imageUrl,
           )
         ],
       ),
@@ -75,9 +77,7 @@ class _DashboardState extends State<Dashboard> {
               height: 60,
               child: material.Card(
                 color: Color(primaryColor),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 child: const Icon(material.Icons.add, color: CupertinoColors.white),
               ),
             ),

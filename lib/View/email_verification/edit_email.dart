@@ -15,7 +15,7 @@ class _EditEmailState extends State<EditEmail> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-        appBar: material.AppBar(centerTitle: true, title: const Appbar()),
+        appBar: material.AppBar(title: const Appbar()),
         body: GestureDetector(
           onTap: () => dismissKeyboard(context),
           child: SingleChildScrollView(
@@ -24,26 +24,34 @@ class _EditEmailState extends State<EditEmail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset("assets/images/EditEmail.svg", width: 660),
-                  SmartTextField(
-                    onChangeFunction: (value) {
-                      String email = emailController.text;
+                  material.Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SvgPicture.asset("assets/images/EditEmail.svg", width: 500),
+                      material.Padding(
+                        padding: const EdgeInsets.only(top: 320),
+                        child: SmartTextField(
+                          onChangeFunction: (value) {
+                            String email = emailController.text;
 
-                      if (emailErrorText != 'invalid email!') emailErrorText != 'invalid email!';
-                      if (email != email.toLowerCase())
-                        emailController.text = emailController.text.toLowerCase();
-                      !isValidEmail
-                          ? setState(() => isValidEmail = validateEmail(value))
-                          : null;
-                    },
-                    maxLen: 80,
-                    labelText: "Email",
-                    errorText: emailErrorText,
-                    isValidInput: isValidEmail,
-                    controllerName: emailController,
-                    iconName: CupertinoIcons.mail_solid,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: material.TextInputType.emailAddress,
+                            if (emailErrorText != 'invalid email!') emailErrorText != 'invalid email!';
+                            if (email != email.toLowerCase())
+                              emailController.text = emailController.text.toLowerCase();
+                            !isValidEmail
+                                ? setState(() => isValidEmail = validateEmail(value))
+                                : null;
+                          },
+                          maxLen: 80,
+                          labelText: "Email",
+                          errorText: emailErrorText,
+                          isValidInput: isValidEmail,
+                          controllerName: emailController,
+                          iconName: CupertinoIcons.mail_solid,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: material.TextInputType.emailAddress,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 180),
                   DynamicButton(
@@ -59,7 +67,8 @@ class _EditEmailState extends State<EditEmail> {
                     setSize: 200,
                     isLoading: isLoading,
                     setText: "Update email",
-                  )
+                  ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),

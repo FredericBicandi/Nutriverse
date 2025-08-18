@@ -9,67 +9,67 @@ class _PasswordResetState extends State<PasswordReset> {
     passwordController.text = '';
     confirmPasswordController.text = '';
     isLoading = false;
+    isValidPassword=true;
+    isValidPasswordMatch=true;
   }
 
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(
-        centerTitle: true,
-        title: const Appbar(),
-      ),
+      appBar: material.AppBar(title: const Appbar()),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  SvgPicture.asset("assets/images/reset_password.svg", width: 366),
-                  material.Padding(
-                    padding: const EdgeInsets.only(top: 390),
-                    child: Stack(
-                      children: [
-                        SmartTextField(
-                          onChangeFunction: (value) {
-                            if (!isValidPassword) setState(() => isValidPassword = true);
-                          },
-                          maxLen: 120,
-                          labelText: "Password",
-                          errorText: "incorrect email or password!",
-                          obscureText: showPassword,
-                          isValidInput: isValidPassword,
-                          controllerName: passwordController,
-                          iconName: material.Icons.password_outlined,
-                          filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
-                          child: CupertinoButton(
-                            onPressed: () => setState(() => showPassword = !showPassword),
-                            child: Icon(
-                              color: Color(fade),
-                              showPassword
-                                  ? CupertinoIcons.eye_fill
-                                  : CupertinoIcons.eye_slash_fill,
-                            ),
+          child: material.Center(
+            child: Column(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SvgPicture.asset("assets/images/reset_password.svg", width: 366),
+                    material.Padding(
+                      padding: const EdgeInsets.only(top: 398),
+                      child: Stack(
+                        children: [
+                          SmartTextField(
+                            onChangeFunction: (value) => !isValidPassword
+                                ? setState(() => isValidPassword = true)
+                                : null,
+                            maxLen: 120,
+                            labelText: "Password",
+                            errorText: "password should be at least 8 characters!",
+                            obscureText: showPassword,
+                            isValidInput: isValidPassword,
+                            controllerName: passwordController,
+                            iconName: material.Icons.password_outlined,
+                            filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
+                            child: CupertinoButton(
+                              onPressed: () => setState(() => showPassword = !showPassword),
+                              child: Icon(
+                                color: Color(fade),
+                                showPassword
+                                    ? CupertinoIcons.eye_fill
+                                    : CupertinoIcons.eye_slash_fill,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              material.Center(
-                child: SmartTextField(
+                  ],
+                ),
+                const SizedBox(height: 15),
+                SmartTextField(
                   onChangeFunction: (value) {
-                    setState(() => !validatePasswordMatch(value, passwordController.text)
+                    if (!isValidPasswordMatch) {
+                      setState(() => !validatePasswordMatch(value, passwordController.text)
                           ? isValidPasswordMatch = false
                           : isValidPasswordMatch = true,
-                    );
+                      );
+                    }
                   },
                   labelText: 'Confirm Password',
                   errorText: 'password does not match',
@@ -79,21 +79,23 @@ class _PasswordResetState extends State<PasswordReset> {
                   iconName: material.Icons.password_outlined,
                   filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
                 ),
-              ),
-              const SizedBox(height: 180),
-              DynamicButton(
-                onClick: () {
-                changePassword(
-                      context,
-                      passwordController.text,
-                      confirmPasswordController.text,
-                      (bool value) =>setState(() => isLoading = value)
-                );
-                },
-                setText: "Change Password",
-                isLoading: isLoading,
-              ),
-            ],
+                const SizedBox(height: 50),
+                DynamicButton(
+                  onClick: () {
+                  changePassword(
+                        context,
+                        passwordController.text,
+                        confirmPasswordController.text,
+                        (bool value) =>setState(() => isValidPassword = value),
+                        (bool value) =>setState(() => isValidPasswordMatch = value),
+                        (bool value) =>setState(() => isLoading = value)
+                  );
+                  },
+                  setText: "Change Password",
+                  isLoading: isLoading,
+                ),
+              ],
+            ),
           ),
         ),
       ),

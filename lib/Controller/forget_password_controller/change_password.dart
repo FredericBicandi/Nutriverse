@@ -5,17 +5,14 @@ Future <void> changePassword(
     BuildContext context,
     final String password,
     final String confirmedPassword,
+    Function(bool) updatePasswordValidation,
+    Function(bool) updatePasswordMatchValidation,
     Function(bool) updateLoadingButton,
     ) async {
 
   if (isLoading) return;
-  if (password.isEmpty || !isValidPassword) {
-    isValidPassword = false;
-    return;
-  } else if (confirmedPassword.isEmpty || !isValidPasswordMatch) {
-    isValidPasswordMatch = false;
-    return;
-  }
+  if (password.isEmpty || !isValidPassword)  return updatePasswordValidation (false);
+  if (confirmedPassword.isEmpty || !isValidPasswordMatch) return updatePasswordMatchValidation(false);
   updateLoadingButton(true);
   await request(context, password);
   updateLoadingButton(false);

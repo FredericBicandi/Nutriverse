@@ -28,19 +28,12 @@ Future<void> loginController(
 
     // loads all user info
     final info = await getUserInfo(email);
-    if (info == null) return iosAlert(context, "Unexcepted Error", errorMessage!);
-    userInfo = info;
+    userInfo = info!;
     imageUrl = userInfo['photo'];
 
-    // checks for email if verified
-    final int? response = await checkVerification(email);
-    if (response == 404) return newStackScreen(context, const EmailVerification());
-    if (response == 500) return await iosAlert(context, "Error", errorMessage!);
-
-    return newStackScreen(context, const Dashboard());
+    return newStackScreen(context, const AuthScreen());
   }
-
-  if (success == 500) return await iosAlert(context, "Error!", errorMessage!);
-  updatePasswordValidity(false);
+  if(success==401) updatePasswordValidity(false);
+  if (success == 500) await iosAlert(context, "Error", errorMessage!);
   return updateLoadingButton(false);
 }

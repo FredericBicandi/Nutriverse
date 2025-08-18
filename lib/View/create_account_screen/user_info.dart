@@ -7,7 +7,7 @@ class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: const Appbar()),
+      appBar: AppBar(title: const Appbar()),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -106,9 +106,11 @@ class _UserInfoState extends State<UserInfo> {
                                     Expanded(
                                       child: CupertinoDatePicker(
                                         mode: CupertinoDatePickerMode.date,
-                                        minimumDate: DateTime(1900),
-                                        maximumDate: maxDate,
-                                        initialDateTime: initial,
+                                        minimumDate: DateTime(1935, 1, 1),
+                                        maximumDate: DateTime.now(),
+                                        initialDateTime: initial.isBefore(DateTime(1935, 1, 1))
+                                            ? DateTime(1935, 1, 1)
+                                            : (initial.isAfter(DateTime.now()) ? DateTime.now() : initial),
                                         onDateTimeChanged: (date) {
                                           final picked = DateTime(date.year, date.month, date.day);
                                           final dobText = "${picked.toLocal()}".split(' ')[0];

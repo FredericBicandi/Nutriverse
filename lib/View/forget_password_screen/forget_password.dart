@@ -13,11 +13,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-        appBar: material.AppBar(
-          elevation: 0,
-          centerTitle: true,
-          title: const Appbar(),
-        ),
+        appBar: material.AppBar(title: const Appbar()),
         body: GestureDetector(
           onTap: () => dismissKeyboard(context),
           child: SingleChildScrollView(
