@@ -13,7 +13,12 @@ Future<void> checkUserAuth(BuildContext context) async {
   if (currentSession != null && currentUser != null) {
     final res = await getUserInfo(currentUser.email);
     userInfo = res!;
-    imageUrl = userInfo['photo'];
+    userInfo['name'] = currentUser.userMetadata?['display_name'];
+    if(userInfo['photo'] !=null) imageUrl = userInfo['photo'];
+    else{
+      if (userInfo['gender']) imageUrl = "Avatar_male.png";
+      else imageUrl = "Avatar_female.png";
+    }
 
     if (await checkVerification(currentUser.email!) == 404) {
       emailController.text = currentUser.email!;

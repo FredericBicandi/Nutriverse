@@ -25,12 +25,6 @@ Future<void> loginController(
   final int success = await userAuth(email, password);
   if (success == 200) {
     updatePasswordValidity(true);
-
-    // loads all user info
-    final info = await getUserInfo(email);
-    userInfo = info!;
-    imageUrl = userInfo['photo'];
-
     return newStackScreen(context, const AuthScreen());
   }
   if(success==401) updatePasswordValidity(false);

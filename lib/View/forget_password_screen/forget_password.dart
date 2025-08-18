@@ -13,7 +13,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-        appBar: material.AppBar(title: const Appbar()),
+        appBar: material.AppBar(automaticallyImplyLeading: false, title: const Appbar()),
         body: GestureDetector(
           onTap: () => dismissKeyboard(context),
           child: SingleChildScrollView(
@@ -31,6 +31,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         padding: const EdgeInsets.fromLTRB(0, 330, 0, 0),
                         child: SmartTextField(
                           onChangeFunction: (value) {
+                            String email = emailController.text;
+
+                            if (email.toLowerCase() != email)
+                              emailController.text = emailController.text.toLowerCase();
                             if(!isValidEmail){
                               setState(() {
                                 isValidEmail=true;

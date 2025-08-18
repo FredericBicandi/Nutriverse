@@ -27,6 +27,7 @@ export 'Widgets/appbar.dart';
 export 'Widgets/ios_alerts.dart';
 export 'Widgets/image_button.dart';
 export 'Widgets/dynamic_button.dart';
+export 'Widgets/profile_options.dart';
 export 'Widgets/smart_text_field.dart';
 export 'Widgets/profile_selector.dart';
 export 'Widgets/dynamic_text_button.dart';

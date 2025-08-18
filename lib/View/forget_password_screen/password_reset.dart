@@ -16,7 +16,7 @@ class _PasswordResetState extends State<PasswordReset> {
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const Appbar()),
+      appBar: material.AppBar(automaticallyImplyLeading: false, title: const Appbar()),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -82,6 +82,7 @@ class _PasswordResetState extends State<PasswordReset> {
                 const SizedBox(height: 50),
                 DynamicButton(
                   onClick: () {
+                    !isLoading?
                   changePassword(
                         context,
                         passwordController.text,
@@ -89,7 +90,8 @@ class _PasswordResetState extends State<PasswordReset> {
                         (bool value) =>setState(() => isValidPassword = value),
                         (bool value) =>setState(() => isValidPasswordMatch = value),
                         (bool value) =>setState(() => isLoading = value)
-                  );
+                  ):
+                    null;
                   },
                   setText: "Change Password",
                   isLoading: isLoading,

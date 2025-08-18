@@ -11,10 +11,14 @@ class _CreateAccountState extends State<CreateAccount> {
     isValidEmail = true;
     isValidPassword = true;
   }
+
   @override
   Widget build(BuildContext context) {
     return material.Scaffold(
-      appBar: material.AppBar(title: const Appbar()),
+      appBar: material.AppBar(
+        automaticallyImplyLeading: false,
+        title: const Appbar(),
+      ),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -32,10 +36,14 @@ class _CreateAccountState extends State<CreateAccount> {
                         String email = emailController.text;
 
                         if (email.toLowerCase() != email)
-                          emailController.text = emailController.text.toLowerCase();
-                        !isValidEmail ?
-                          emailHandler(value, (bool value) => setState(() => isValidEmail = value))
-                          : null;
+                          emailController.text =
+                              emailController.text.toLowerCase();
+                        !isValidEmail
+                            ? emailHandler(
+                                value,
+                                (bool value) =>
+                                    setState(() => isValidEmail = value))
+                            : null;
                       },
                       labelText: "Email",
                       errorText: emailErrorText,
@@ -63,12 +71,14 @@ class _CreateAccountState extends State<CreateAccount> {
                     isValidInput: isValidPassword,
                     controllerName: passwordController,
                     iconName: material.Icons.password_outlined,
-                    filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+                    filterTextInput:
+                        FilteringTextInputFormatter.allow(passwordRegex),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
                     child: CupertinoButton(
-                      onPressed: () => setState(() => showPassword = !showPassword),
+                      onPressed: () =>
+                          setState(() => showPassword = !showPassword),
                       child: Icon(
                         color: Color(fade),
                         showPassword
@@ -83,7 +93,9 @@ class _CreateAccountState extends State<CreateAccount> {
               SmartTextField(
                 onChangeFunction: (value) {
                   if (!isValidPasswordMatch) {
-                    setState(() => !validatePasswordMatch(value, passwordController.text)
+                    setState(
+                      () =>
+                          !validatePasswordMatch(value, passwordController.text)
                               ? isValidPasswordMatch = false
                               : isValidPasswordMatch = true,
                     );
@@ -95,7 +107,8 @@ class _CreateAccountState extends State<CreateAccount> {
                 isValidInput: isValidPasswordMatch,
                 controllerName: confirmPasswordController,
                 iconName: material.Icons.password_outlined,
-                filterTextInput: FilteringTextInputFormatter.allow(passwordRegex),
+                filterTextInput:
+                    FilteringTextInputFormatter.allow(passwordRegex),
               ),
               const SizedBox(height: 50),
               DynamicButton(

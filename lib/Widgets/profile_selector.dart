@@ -48,8 +48,7 @@ class _ProfileSelectorState extends State<ProfileSelector> {
                               Column(
                                 children: [
                                   DynamicTextButton(
-                                    onClick: () =>
-                                        takePhoto(ImageSource.camera),
+                                    onClick: () => takePhoto(ImageSource.camera),
                                     buttonIcon: CupertinoIcons.camera_fill,
                                     iconSize: 45,
                                   ),
@@ -67,10 +66,8 @@ class _ProfileSelectorState extends State<ProfileSelector> {
                               Column(
                                 children: [
                                   DynamicTextButton(
-                                    onClick: () =>
-                                        takePhoto(ImageSource.gallery),
-                                    buttonIcon: CupertinoIcons
-                                        .photo_fill_on_rectangle_fill,
+                                    onClick: () => takePhoto(ImageSource.gallery),
+                                    buttonIcon: CupertinoIcons.photo_fill_on_rectangle_fill,
                                     iconSize: 45,
                                   ),
                                   const Text(
@@ -92,8 +89,7 @@ class _ProfileSelectorState extends State<ProfileSelector> {
                 });
           },
           setPlusSize: widget.plusSize,
-          image:
-              imageFile != null ? FileImage(imageFile!) : widget.imageProfile,
+          image: imageFile != null ? FileImage(imageFile!) : widget.imageProfile,
         ),
       ),
     );

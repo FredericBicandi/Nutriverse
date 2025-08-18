@@ -11,7 +11,8 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int selectedNavigation = 0;
-  bool _routed = false; // guard
+  bool _routed = false;
+
 
   @override
   void initState() {
@@ -36,8 +37,6 @@ class _DashboardState extends State<Dashboard> {
       _routed = true;
       newStackScreen(context, const Survey1());
     }
-    if (imageUrl!=null)
-      imageUrl=userInfo['gender']? "Avatar_male.png": "Avatar_female.png";
   }
 
   @override
@@ -45,11 +44,11 @@ class _DashboardState extends State<Dashboard> {
     return material.Scaffold(
       appBar: material.AppBar(
         centerTitle: true,
-        title: const Appbar(),
+        title: const Appbar(dashboard: true),
         actions: [
           ImageButton(
             onClick: () => navigateTo(context, const ProfileScreen()),
-            urlImage: imageUrl == null ? false : true,
+            urlImage: userInfo['photo']==null ? false : true,
             imagePath: imageUrl,
           )
         ],
@@ -62,12 +61,12 @@ class _DashboardState extends State<Dashboard> {
         selectedIndex: selectedNavigation,
         destinations: [
           const material.NavigationDestination(
-            icon: Icon(CupertinoIcons.star),
+            icon: Icon(CupertinoIcons.star, color: CupertinoColors.systemGrey),
             selectedIcon: Icon(CupertinoIcons.star_fill, color: CupertinoColors.systemYellow),
             label: 'Home',
           ),
           const material.NavigationDestination(
-            icon: Icon(CupertinoIcons.chart_bar_square_fill),
+            icon: Icon(CupertinoIcons.chart_bar_square,color: CupertinoColors.systemGrey),
             selectedIcon: Icon(CupertinoIcons.chart_bar_square_fill, color: CupertinoColors.activeBlue),
             label: 'progress',
           ),
@@ -84,12 +83,12 @@ class _DashboardState extends State<Dashboard> {
             label: "",
           ),
           const material.NavigationDestination(
-            icon: Icon(material.Icons.emoji_food_beverage_outlined),
+            icon: Icon(material.Icons.emoji_food_beverage_outlined, color: CupertinoColors.systemGrey),
             selectedIcon: Icon(material.Icons.emoji_food_beverage_rounded, color: CupertinoColors.destructiveRed),
             label: "Programs",
           ),
           const material.NavigationDestination(
-            icon: Icon(material.Icons.food_bank_outlined),
+            icon: Icon(material.Icons.food_bank_outlined, color: CupertinoColors.systemGrey),
             selectedIcon: Icon(material.Icons.food_bank_rounded, color: CupertinoColors.systemOrange),
             label: "Recipes",
           )

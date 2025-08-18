@@ -10,22 +10,15 @@ Future <void> changePassword(
     Function(bool) updateLoadingButton,
     ) async {
 
-  if (isLoading) return;
-  if (password.isEmpty || !isValidPassword)  return updatePasswordValidation (false);
-  if (confirmedPassword.isEmpty || !isValidPasswordMatch) return updatePasswordMatchValidation(false);
+  if (password.isEmpty || !validatePassword(password))  return updatePasswordValidation (false);
+  if (confirmedPassword.isEmpty || !validatePasswordMatch(confirmedPassword,password)) return updatePasswordMatchValidation(false);
+
   updateLoadingButton(true);
-  await request(context, password);
-  updateLoadingButton(false);
-}
-
-
-Future<void> request(BuildContext context, final String password) async {
-
   int response = await updateUserPassword(emailController.text, password);
   if (response == 200) {
     await iosAlert(
       context,
-      "Password has been changed successfully!",
+      "Success",
       "you may now login to your account normally thank you!",
       true,
     );
@@ -33,5 +26,8 @@ Future<void> request(BuildContext context, final String password) async {
   }
 
   printDebugMsg("couldn't change password! CHECK THE LOGS");
-  return await iosAlert(context, "Couldn't Update your password!", errorMessage!,);
+  return await iosAlert(context, "Couldn't Update your password!", errorMessage!);
+  updateLoadingButton(false);
 }
+
+

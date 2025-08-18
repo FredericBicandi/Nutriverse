@@ -54,6 +54,7 @@ class _DynamicButtonState extends State<DynamicButton> {
                     widget.setText,
                     style: TextStyle(
                       fontFamily: "Avenir",
+                      fontWeight: FontWeight.bold,
                       color: Color(widget.textColor),
                     ),
                   ),
