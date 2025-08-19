@@ -1,10 +1,8 @@
-import 'package:nutritracker/Model/authentication_table/auth_login.dart';
-import 'package:nutritracker/Model/users/get_user_info.dart';
+import '../../Model/users/get_user_info.dart';
 import '../../Model/verified_users/check_verification.dart';
 import '../../includes.dart';
 
-void routeTo(BuildContext context, Widget screen) =>
-    Future.delayed(const Duration(seconds: 2), () => newStackScreen(context, screen));
+void routeTo(BuildContext context, Widget screen) => Future.delayed(const Duration(seconds: 2), () => newStackScreen(context, screen));
 
 Future<void> checkUserAuth(BuildContext context) async {
   final currentSession = supabase.auth.currentSession;

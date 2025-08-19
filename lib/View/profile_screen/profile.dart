@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nutritracker/includes.dart';
+import '../../Controller/create_account/.create_account.dart';
+import '../../Model/storage/delete_media.dart';
+import '../../includes.dart';
+import '../../Model/storage/find_media.dart';
+import '../../Model/storage/upload_media.dart';
+import '../../Model/users/update_user_email.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -9,6 +14,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  String? get img => null;
+  bool imageRemoved = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,15 +75,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       plusSize: 12,
                       imageProfile: userInfo['photo'] != null
                           ? NetworkImage("$imageUrl")
-                          : AssetImage("assets/images/$imageUrl") as ImageProvider),
+                          : AssetImage("assets/images/$imageUrl")
+                              as ImageProvider,
+                      onRemoval: () {
+                        setState(() {
+                          updateUserInfo('photo', null);
+                          if (userInfo['gender'])
+                            imageUrl = "Avatar_male.png";
+                          else
+                            imageUrl = "Avatar_female.png";
+                          imageRemoved = true;
+                        });
+                      }),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("${userInfo['name']}",
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      Text("${userInfo['age']} years",
-                          style: const TextStyle(fontWeight: FontWeight.bold))
+                      Text(
+                        "${userInfo['name']}",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "${userInfo['age']} years",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      )
                     ],
                   ),
                 ],
@@ -205,7 +228,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     setIcons: Icons.person_outline,
                     setText: "Personal details",
                   ),
-                  Container(width: 346, height: 0.1, color: CupertinoColors.black),
+                  Container(
+                      width: 346, height: 0.1, color: CupertinoColors.black),
                   ProfileOptions(
                     onClick: () {},
                     setIcons: Icons.food_bank_outlined,
@@ -239,9 +263,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
               child: Center(
                 child: DynamicButton(
+                    isLoading: isLoading,
                     setText: "Save",
                     onClick: () async {
-                      Navigator.pop(context);
+                      String? email;
+                      String? imageLink;
+                      int? res;
+
+                      email = user!.email;
+                      if (imageRemoved && userInfo['photo'] != imageUrl) {
+                        setState(() => isLoading = true);
+                        String filename = "$email.${imageFile?.path.split('/').last}";
+                        await deleteBucketMedia(filename, 'userphotos');
+                        updateInfo('photo', null);
+                      } else if (imageFile != null) {
+                        setState(() => isLoading = true);
+                        printDebugMsg(
+                            "uploading user photo ${imageFile?.path.split('/').last}");
+                        res = await uploadBucketMedia(
+                            email!, 'userphotos', imageFile);
+                        if (res == 200) {
+                          imageLink = await findBucketMedia(
+                            "$email.${imageFile?.path.split('/').last}",
+                            "userphotos",
+                          );
+                          updateInfo('photo', imageLink!);
+                          setState(() {
+                            updateUserInfo('photo', imageLink);
+                            imageUrl = imageLink;
+                            printDebugMsg("NEW IMAGE URL => $imageUrl");
+                            userInfo['photo'] = imageUrl;
+                            printDebugMsg("UPDATING USER INF => $userInfo");
+                          });
+                          setState(() => isLoading = false);
+                        } else {
+                          await iosAlert(
+                            context,
+                            "Couldn't upload Image",
+                            "image already exist",
+                          );
+                        }
+                      }
+                      setState(() => isLoading = false);
+                      return Navigator.pop(context);
                     }),
               ),
             ),
@@ -254,7 +318,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   session = null;
                   await supabase.auth.signOut(scope: SignOutScope.local);
                   newStackScreen(context, const WelcomeScreen());
-
                 },
                 setSize: 170,
                 setText: 'Logout',

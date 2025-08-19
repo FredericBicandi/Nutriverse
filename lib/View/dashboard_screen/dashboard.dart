@@ -13,7 +13,6 @@ class _DashboardState extends State<Dashboard> {
   int selectedNavigation = 0;
   bool _routed = false;
 
-
   @override
   void initState() {
     super.initState();

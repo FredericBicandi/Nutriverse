@@ -3,8 +3,7 @@ import '../../includes.dart';
 
 TextEditingController othersFoodAvoidController = TextEditingController();
 TextEditingController othersFoodAllergiesController = TextEditingController();
-TextEditingController othersMedicalConditionsController =
-    TextEditingController();
+TextEditingController othersMedicalConditionsController = TextEditingController();
 
 bool s1LivingLongerButtonPressed = false;
 bool s1FeelingEnergizedButtonPressed = false;

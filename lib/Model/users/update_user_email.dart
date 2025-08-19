@@ -31,3 +31,21 @@ Future<int?> updateUserEmail(String oldEmail, String newEmail) async {
     return 500;
   }
 }
+
+Future<int?> updateInfo(final String field, final String? value) async {
+  try {
+    String? email = user?.email;
+
+    final response = await supabase
+        .from('users')
+        .update({field: value})
+        .eq('email', email!)
+        .select();
+    printDebugMsg("user Data =>$response after UPDATE");
+    return 200;
+  } catch (e) {
+    errorMessage = "Error while creating user account";
+    printDebugMsg("$errorMessage => $e");
+    return 500;
+  }
+}

@@ -1,5 +1,7 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:nutritracker/Controller/create_account/.create_account.dart';
+import 'package:nutritracker/Model/users/update_user_email.dart';
 import '../includes.dart';
 
 class _ProfileSelectorState extends State<ProfileSelector> {
@@ -48,7 +50,8 @@ class _ProfileSelectorState extends State<ProfileSelector> {
                               Column(
                                 children: [
                                   DynamicTextButton(
-                                    onClick: () => takePhoto(ImageSource.camera),
+                                    onClick: () =>
+                                        takePhoto(ImageSource.camera),
                                     buttonIcon: CupertinoIcons.camera_fill,
                                     iconSize: 45,
                                   ),
@@ -66,12 +69,36 @@ class _ProfileSelectorState extends State<ProfileSelector> {
                               Column(
                                 children: [
                                   DynamicTextButton(
-                                    onClick: () => takePhoto(ImageSource.gallery),
-                                    buttonIcon: CupertinoIcons.photo_fill_on_rectangle_fill,
+                                    iconColor: 0xFF595959,
+                                    onClick: () =>
+                                        takePhoto(ImageSource.gallery),
+                                    buttonIcon: CupertinoIcons
+                                        .photo_fill_on_rectangle_fill,
                                     iconSize: 45,
                                   ),
                                   const Text(
                                     "Gallery",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF595959),
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  DynamicTextButton(
+                                    onClick: () {
+                                      widget.onRemoval?.call();
+                                      Navigator.pop(context);
+                                    },
+                                    iconColor: 0xfffa6c61,
+                                    buttonIcon: CupertinoIcons.trash_fill,
+                                    iconSize: 45,
+                                  ),
+                                  const Text(
+                                    "remove",
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: Color(0xFF595959),
@@ -89,7 +116,8 @@ class _ProfileSelectorState extends State<ProfileSelector> {
                 });
           },
           setPlusSize: widget.plusSize,
-          image: imageFile != null ? FileImage(imageFile!) : widget.imageProfile,
+          image:
+              imageFile != null ? FileImage(imageFile!) : widget.imageProfile,
         ),
       ),
     );
@@ -97,15 +125,16 @@ class _ProfileSelectorState extends State<ProfileSelector> {
 }
 
 class ProfileSelector extends StatefulWidget {
-  const ProfileSelector({
-    super.key,
-    required this.imageProfile,
-    this.setSize = 150,
-    this.plusSize = 18,
-  });
+  const ProfileSelector(
+      {super.key,
+      required this.imageProfile,
+      this.setSize = 150,
+      this.plusSize = 18,
+      this.onRemoval});
 
   final double setSize, plusSize;
   final dynamic imageProfile;
+  final VoidCallback? onRemoval;
 
   @override
   State<ProfileSelector> createState() => _ProfileSelectorState();

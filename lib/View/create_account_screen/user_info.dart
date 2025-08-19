@@ -7,7 +7,7 @@ class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Appbar()),
+      appBar: AppBar(automaticallyImplyLeading: false, title: const Appbar()),
       body: GestureDetector(
         onTap: () => dismissKeyboard(context),
         child: SingleChildScrollView(
@@ -15,8 +15,10 @@ class _UserInfoState extends State<UserInfo> {
             children: [
               ProfileSelector(
                 imageProfile: !isSelectedFemale
-                    ? const AssetImage("assets/images/Avatar_male.png") as ImageProvider
-                    : const AssetImage("assets/images/Avatar_female.png") as ImageProvider,
+                    ? const AssetImage("assets/images/Avatar_male.png")
+                        as ImageProvider
+                    : const AssetImage("assets/images/Avatar_female.png")
+                        as ImageProvider,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 35, 10, 0),
@@ -26,15 +28,18 @@ class _UserInfoState extends State<UserInfo> {
                     Expanded(
                       child: SmartTextField(
                         onChangeFunction: (value) {
-                          String firstname= firstNameController.text;
-                          String temp= firstNameController.text;
+                          String firstname = firstNameController.text;
+                          String temp = firstNameController.text;
 
                           setState(() {
-                            if (firstname.isNotEmpty && !(value[0] == value[0].toUpperCase())) {
-                              temp = "${value[0].toUpperCase()}${value.substring(1)}";
+                            if (firstname.isNotEmpty &&
+                                !(value[0] == value[0].toUpperCase())) {
+                              temp =
+                                  "${value[0].toUpperCase()}${value.substring(1)}";
                               firstNameController.text = temp;
                             }
-                            if (!isValidFirstName) isValidFirstName = validateName(value);
+                            if (!isValidFirstName)
+                              isValidFirstName = validateName(value);
                           });
                           isValidFirstName
                               ? updateUserInfo("Firstname", value)
@@ -45,21 +50,25 @@ class _UserInfoState extends State<UserInfo> {
                         isValidInput: isValidFirstName,
                         keyboardType: TextInputType.name,
                         controllerName: firstNameController,
-                        filterTextInput: FilteringTextInputFormatter.allow(namingRegEx),
+                        filterTextInput:
+                            FilteringTextInputFormatter.allow(namingRegEx),
                       ),
                     ),
                     Expanded(
                       child: SmartTextField(
                         onChangeFunction: (value) {
-                          String lastname=lastNameController.text;
+                          String lastname = lastNameController.text;
                           String temp;
 
                           setState(() {
-                            if (lastname.isNotEmpty && !(value[0] == value[0].toUpperCase())) {
-                              temp = "${value[0].toUpperCase()}${value.substring(1)}";
+                            if (lastname.isNotEmpty &&
+                                !(value[0] == value[0].toUpperCase())) {
+                              temp =
+                                  "${value[0].toUpperCase()}${value.substring(1)}";
                               lastNameController.text = temp;
                             }
-                            if (!isValidLastName) isValidLastName = validateName(value);
+                            if (!isValidLastName)
+                              isValidLastName = validateName(value);
                           });
                           isValidLastName
                               ? updateUserInfo("Lastname", value)
@@ -70,7 +79,8 @@ class _UserInfoState extends State<UserInfo> {
                         isValidInput: isValidLastName,
                         keyboardType: TextInputType.name,
                         controllerName: lastNameController,
-                        filterTextInput: FilteringTextInputFormatter.allow(namingRegEx),
+                        filterTextInput:
+                            FilteringTextInputFormatter.allow(namingRegEx),
                       ),
                     )
                   ],
@@ -89,13 +99,16 @@ class _UserInfoState extends State<UserInfo> {
                             context: context,
                             builder: (context) {
                               final now = DateTime.now();
-                              final maxDate = DateTime(now.year, now.month, now.day);
-                              final initial = (selectedDate != null && selectedDate!.isBefore(maxDate))
+                              final maxDate =
+                                  DateTime(now.year, now.month, now.day);
+                              final initial = (selectedDate != null &&
+                                      selectedDate!.isBefore(maxDate))
                                   ? selectedDate!
                                   : maxDate;
 
                               return Container(
-                                height: MediaQuery.of(context).size.height * 0.4,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.4,
                                 color: Colors.white,
                                 child: Column(
                                   children: [
@@ -108,25 +121,36 @@ class _UserInfoState extends State<UserInfo> {
                                         mode: CupertinoDatePickerMode.date,
                                         minimumDate: DateTime(1935, 1, 1),
                                         maximumDate: DateTime.now(),
-                                        initialDateTime: initial.isBefore(DateTime(1935, 1, 1))
+                                        initialDateTime: initial
+                                                .isBefore(DateTime(1935, 1, 1))
                                             ? DateTime(1935, 1, 1)
-                                            : (initial.isAfter(DateTime.now()) ? DateTime.now() : initial),
+                                            : (initial.isAfter(DateTime.now())
+                                                ? DateTime.now()
+                                                : initial),
                                         onDateTimeChanged: (date) {
-                                          final picked = DateTime(date.year, date.month, date.day);
-                                          final dobText = "${picked.toLocal()}".split(' ')[0];
+                                          final picked = DateTime(
+                                              date.year, date.month, date.day);
+                                          final dobText = "${picked.toLocal()}"
+                                              .split(' ')[0];
                                           final age = calculateAge(picked);
-                                          final valid = validateAge(age.toString());
+                                          final valid =
+                                              validateAge(age.toString());
 
                                           if (!mounted) return;
                                           setState(() {
                                             selectedDate = picked;
                                             dateController.text = dobText;
-                                            ageNumberController.text = age.toString();
+                                            ageNumberController.text =
+                                                age.toString();
                                             isValidAge = valid;
                                           });
 
                                           updateUserInfo("Age", age.toString());
-                                          updateUserInfo("DOB", (dobText.isNotEmpty && valid) ? dobText : null);
+                                          updateUserInfo(
+                                              "DOB",
+                                              (dobText.isNotEmpty && valid)
+                                                  ? dobText
+                                                  : null);
                                         },
                                       ),
                                     ),
@@ -184,7 +208,8 @@ class _UserInfoState extends State<UserInfo> {
                   children: [
                     Expanded(
                       child: SmartTextField(
-                        onChangeFunction: (value) => setState(() => isValidAge = validateAge(value)),
+                        onChangeFunction: (value) =>
+                            setState(() => isValidAge = validateAge(value)),
                         readOnly: true,
                         labelText: "Age (auto)",
                         errorText: "Invalid Age Value",
@@ -200,17 +225,25 @@ class _UserInfoState extends State<UserInfo> {
                           String weight = weightNumberController.text;
                           String age = ageNumberController.text;
 
-                          if (!isValidWeight) setState(() => isValidWeight = validateHeightWeight(value));
-                          if (height.isNotEmpty) bmiNumberController.text = updateUserBmi(age, height, weight);
+                          if (!isValidWeight)
+                            setState(() =>
+                                isValidWeight = validateHeightWeight(value));
+                          if (height.isNotEmpty)
+                            bmiNumberController.text =
+                                updateUserBmi(age, height, weight);
 
-                          isValidWeight ? updateUserInfo("Weight", weight) : updateUserInfo("Weight", null);
+                          isValidWeight
+                              ? updateUserInfo("Weight", weight)
+                              : updateUserInfo("Weight", null);
                         },
                         labelText: "Weight (kg)",
                         errorText: "Invalid Weight Value",
                         isValidInput: isValidWeight,
                         controllerName: weightNumberController,
-                        filterTextInput: FilteringTextInputFormatter.allow(measuresRegEx),
-                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: true),
+                        filterTextInput:
+                            FilteringTextInputFormatter.allow(measuresRegEx),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            signed: false, decimal: true),
                       ),
                     ),
                   ],
@@ -233,7 +266,8 @@ class _UserInfoState extends State<UserInfo> {
                         labelText: 'Bmi (auto)',
                         errorText: 'Invalid BMI Value',
                         controllerName: bmiNumberController,
-                        filterTextInput: FilteringTextInputFormatter.allow(measuresRegEx),
+                        filterTextInput:
+                            FilteringTextInputFormatter.allow(measuresRegEx),
                       ),
                     ),
                     Expanded(
@@ -243,19 +277,25 @@ class _UserInfoState extends State<UserInfo> {
                           String height = heightNumberController.text;
                           String weight = weightNumberController.text;
 
-                          if (!isValidHeight) setState(() => isValidHeight = validateHeightWeight(value));
-                          bmiNumberController.text = updateUserBmi(age , height, weight);
+                          if (!isValidHeight)
+                            setState(() =>
+                                isValidHeight = validateHeightWeight(value));
+                          bmiNumberController.text =
+                              updateUserBmi(age, height, weight);
 
-                          isValidHeight ?
-                            updateUserInfo("Height", heightNumberController.text) :
-                            updateUserInfo("Height", null);
+                          isValidHeight
+                              ? updateUserInfo(
+                                  "Height", heightNumberController.text)
+                              : updateUserInfo("Height", null);
                         },
                         labelText: "Height (cm)",
                         errorText: "Invalid Height Value",
                         isValidInput: isValidHeight,
                         controllerName: heightNumberController,
-                        filterTextInput: FilteringTextInputFormatter.allow(measuresRegEx),
-                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: true),
+                        filterTextInput:
+                            FilteringTextInputFormatter.allow(measuresRegEx),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            signed: false, decimal: true),
                       ),
                     ),
                   ],
@@ -339,9 +379,9 @@ class _UserInfoState extends State<UserInfo> {
                 padding: const EdgeInsets.fromLTRB(0, 35, 0, 30),
                 child: DynamicButton(
                   onClick: () async {
-                    if(!isLoading) dismissKeyboard(context);
-                    !isLoading?
-                          createAccountHandler(
+                    if (!isLoading) dismissKeyboard(context);
+                    !isLoading
+                        ? createAccountHandler(
                             context,
                             (bool value) => setState(() => isValidAge = value),
                             (bool value) => setState(() => isValidHeight = value),
@@ -350,8 +390,8 @@ class _UserInfoState extends State<UserInfo> {
                             (bool value) => setState(() => isValidFirstName = value),
                             (bool value) => setState(() => isLoading = value),
                             (bool value) => setState(() => notSelected = value),
-                          ) :
-                    printDebugMsg("LOADING $isLoading");
+                          )
+                        : printDebugMsg("LOADING $isLoading");
                   },
                   isLoading: isLoading,
                   setText: "Create account",

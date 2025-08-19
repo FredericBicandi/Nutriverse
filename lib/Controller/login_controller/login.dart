@@ -1,7 +1,5 @@
 import '../../includes.dart';
-import '../../Model/users/get_user_info.dart';
 import '../../Model/authentication_table/auth_login.dart';
-import '../../Model/verified_users/check_verification.dart';
 
 Future<void> loginController(
   BuildContext context,

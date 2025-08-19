@@ -71,8 +71,6 @@ class _CreateAccountState extends State<CreateAccount> {
                     isValidInput: isValidPassword,
                     controllerName: passwordController,
                     iconName: material.Icons.password_outlined,
-                    filterTextInput:
-                        FilteringTextInputFormatter.allow(passwordRegex),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(290, 0, 0, 0),
@@ -107,8 +105,6 @@ class _CreateAccountState extends State<CreateAccount> {
                 isValidInput: isValidPasswordMatch,
                 controllerName: confirmPasswordController,
                 iconName: material.Icons.password_outlined,
-                filterTextInput:
-                    FilteringTextInputFormatter.allow(passwordRegex),
               ),
               const SizedBox(height: 50),
               DynamicButton(
@@ -119,7 +115,8 @@ class _CreateAccountState extends State<CreateAccount> {
                     (bool value) => setState(() => isLoading = value),
                     (bool value) => setState(() => isValidEmail = value),
                     (bool value) => setState(() => isValidPassword = value),
-                    (bool value) => setState(() => isValidPasswordMatch = value),
+                    (bool value) =>
+                        setState(() => isValidPasswordMatch = value),
                   );
                 },
                 setText: "Next",

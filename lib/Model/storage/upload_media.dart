@@ -6,7 +6,7 @@ Future<int?> uploadBucketMedia(
   final dynamic imageFile,
 ) async {
   try {
-    final fileExt = imageFile.path.split('.').last;
+    final fileExt = imageFile.path.split('/').last;
     final fileName = "$email.$fileExt";
 
     await supabase.storage.from(bucketName).upload(fileName, imageFile);

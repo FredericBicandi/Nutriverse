@@ -35,7 +35,10 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(
                           width: 50,
                           height: 50,
-                          child: SvgPicture.asset("assets/images/NutriTracker.svg", color: Color(primaryColor)),
+                          child: SvgPicture.asset(
+                            "assets/images/NutriTracker.svg",
+                            color: Color(primaryColor),
+                          ),
                         ),
                         const SizedBox(width: 10),
                         Padding(
@@ -64,7 +67,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
             const Text(
-              "Powered by the holy spirit.",
+              "Powered by the holy spirit 🕊️",
               style: TextStyle(color: Colors.blueGrey),
             ),
           ],
