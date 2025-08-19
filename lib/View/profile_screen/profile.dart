@@ -18,6 +18,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool imageRemoved = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLoading = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF1EDE9),
@@ -37,12 +44,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           actions: [
-            DynamicTextButton(
-              onClick: () {},
-              buttonIcon: Icons.settings_outlined,
-              iconSize: 26,
-              iconColor: 0xFF171717,
-            ),
+            isLoading
+                ? Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CupertinoActivityIndicator(
+                        color: Color(secondaryColor)))
+                : DynamicTextButton(
+                    buttonText: "Save",
+                    onClick: () async {
+                      String? email;
+                      String? imageLink;
+                      int? res;
+
+                      email = user!.email;
+                      if (imageRemoved && userInfo['photo'] != imageUrl) {
+                        setState(() => isLoading = true);
+                        String filename =
+                            "$email.${imageFile?.path.split('/').last}";
+                        await deleteBucketMedia(filename, 'userphotos');
+                        updateInfo('photo', null);
+                      } else if (imageFile != null) {
+                        setState(() => isLoading = true);
+                        printDebugMsg(
+                            "uploading user photo ${imageFile?.path.split('/').last}");
+                        res = await uploadBucketMedia(
+                            email!, 'userphotos', imageFile);
+                        if (res == 200) {
+                          imageLink = await findBucketMedia(
+                            "$email.${imageFile?.path.split('/').last}",
+                            "userphotos",
+                          );
+                          updateInfo('photo', imageLink!);
+                          setState(() {
+                            updateUserInfo('photo', imageLink);
+                            imageUrl = imageLink;
+                            printDebugMsg("NEW IMAGE URL => $imageUrl");
+                            userInfo['photo'] = imageUrl;
+                            printDebugMsg("UPDATING USER INF => $userInfo");
+                          });
+                        } else {
+                          await iosAlert(
+                            context,
+                            "Couldn't upload Image",
+                            "image already exist",
+                          );
+                        }
+                      }
+                      imageFile = null;
+                      setState(() => isLoading = false);
+                      return Navigator.pop(context);
+                    })
           ],
         ),
       ),
@@ -259,58 +310,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
+            //   child: Center(
+            //     child: ,
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
-              child: Center(
-                child: DynamicButton(
-                    isLoading: isLoading,
-                    setText: "Save",
-                    onClick: () async {
-                      String? email;
-                      String? imageLink;
-                      int? res;
-
-                      email = user!.email;
-                      if (imageRemoved && userInfo['photo'] != imageUrl) {
-                        setState(() => isLoading = true);
-                        String filename = "$email.${imageFile?.path.split('/').last}";
-                        await deleteBucketMedia(filename, 'userphotos');
-                        updateInfo('photo', null);
-                      } else if (imageFile != null) {
-                        setState(() => isLoading = true);
-                        printDebugMsg(
-                            "uploading user photo ${imageFile?.path.split('/').last}");
-                        res = await uploadBucketMedia(
-                            email!, 'userphotos', imageFile);
-                        if (res == 200) {
-                          imageLink = await findBucketMedia(
-                            "$email.${imageFile?.path.split('/').last}",
-                            "userphotos",
-                          );
-                          updateInfo('photo', imageLink!);
-                          setState(() {
-                            updateUserInfo('photo', imageLink);
-                            imageUrl = imageLink;
-                            printDebugMsg("NEW IMAGE URL => $imageUrl");
-                            userInfo['photo'] = imageUrl;
-                            printDebugMsg("UPDATING USER INF => $userInfo");
-                          });
-                          setState(() => isLoading = false);
-                        } else {
-                          await iosAlert(
-                            context,
-                            "Couldn't upload Image",
-                            "image already exist",
-                          );
-                        }
-                      }
-                      setState(() => isLoading = false);
-                      return Navigator.pop(context);
-                    }),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
               child: DynamicButton(
                 onClick: () async {
                   userInfo = {};
