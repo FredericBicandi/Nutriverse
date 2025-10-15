@@ -1,76 +1,37 @@
-Suggestion and fixes
-    fix the like button
-    fix the images in write your blog make a hidden input for that
-    make a comment for user and admin
-    make button to block user as admin
-# [1/28/2025]
-fixed long loading time caused by static images on google cloud 
-# [1/19/2025]
-hosting project DONE
-# [1/8/2025]
-Congrats Project is DoneoNE 💘🎉🎉
-# [1/8/2025]
-//REMAINING::Comments and like with AJAX + Request consultation (nutriverse) + nutriAdmin
-DONE PROJECT WITH AJAX AND ALOT OF 💘🎉🎉
-# [1/7/2025]
-//REMAINING::Comments and like with AJAX + Request consultation (nutriverse) + nutriAdmin
-DONE PROJECT WITH ALOT OF 💘🎉🎉
-# [1/6/2025]
-//REMAINING::Comments and like with AJAX + Request consultation (nutriverse) + nutriAdmin
-done create blog with content preview and error display
-    also done database accepted col
-# [1/5/2025]
-//REMAINING::Comments and like with AJAX (GOOD JOB :P <3 love you)
-// TODO:: FIX the content blog form to have dynamic id instead os static ones
-        try to make a form with only a button saying submit after user preview and change the original submit to preview
-        also remove navbar from preview
-fixed content-blog default routing now abort with message
-also added content-blog preview route
-fixed create blog all styles
-create blog is now functional with an issue 
-added preview iframe for content blog submit
-# [1/3/2025]
-//REMAINING::Comments and like with AJAX (GOOD JOB :P <3 love you)
-//TODO:: all posts and creat_blog functioning
+# Nutriverse 
 
-in nutriverse
-    fixed the navbar style i made it white for about and black for the rest
-    also i added hover accent style transition
-in nutriblog
-    FIXED Wigling in all Screen 
-    Added intro animation
-    made underline animation for navbar
-    fixed the routing based on authentication
-    changed the text theme accent
-    made dynamic content fetched from database 
-    and displayed correctly 
-in php 
-    added a try catch for database connection Default is VPN
-in sign in 
-    added authentication check no need to sign in if auth
-in member 
-    if user is auth we call the blog page which have the same html code
-added the blog content structure base
-made an abort function with message
-# [1/1/2025]
-Done sign in user with authentication/validation and testing
-    also member auth with dynamic abort 
-//TODO::
-    implement member.php
-    fetch the blog content from blog table based on blogid
-# [12/31/2024]
-Done create user with validation and testing all good
-//TODO:: 
-    sign validation and authentication
-# [12/30/2024]
-Done blog fething from db
-//TODO:: 
-    create user validation
-    sign validation and authentication
+<p align="center">
+    <img src="welcomepage.png" title="Nutriverse webview"/>
+</p>
 
-# [12/29/2024]
-//TODO:: 
-    fetch all blogs from database 
-    add Tag to blogs table
-    Add all the blogs Details to database
-    Filter based on tags
+## Project issued
+
+<b>Date Started :</b> 14/Nov/2024
+
+<b>Date Presented :</b> [Pending graduation year]
+
+<b>Level :</b> Senior
+
+## Project idea
+Step into the NutriVerse, where technology meets nutrition for a healthier future. Designed for dieticians and their clients, NutriVerse leverages advanced machine learning to analyze meals and provide accurate recipes and calorie insights. Clients can effortlessly track their eating habits, while dieticians benefit from comprehensive dashboards, progress reports, and tailored recommendations. NutriVerse isn’t just a tool—it’s a universe of smarter, healthier living, built to connect and empower individuals and professionals alike
+
+## Project Solutions
+
+| **NutriBlog** | **NutriTracker** | **Nutrium**  | **NutriAdmin**|
+|:-------------------------------------------------------------------------------------------------------------------------------:|:----------------:|:------------:|:-------------------------------------------------------------------------------------------------------------------------:|
+| NutriBlog is a blog web app embedded as one of our solutions to deliver daily tips for everyone. | -- | -- |  NutriAdmin is a centralized administration platform for monitoring and managing all aspects of NutriVerse
+NutriBlog offers users the ability to like and comment on their favorite daily tips, as well as create and share their own blogs in an easy and unified way.| In Progress | In Progress  | NutriAdmin includes blog reviews, user comments, consultation requests, and elevated privileges for taking necessary actions such as approving or rejecting blogs, moderating comments, and reviewing consultation submissions. |
+
+
+## Tech Stack
+ ### Nutriblog
+<img align="center" width="3%" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png"/> <img align="center" width="3%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/2560px-Tailwind_CSS_Logo.svg.png"/> <img align="center" width="6%" src="https://www.andreafiori.net/img/software-development/posts/php8-features.gif"/> <img align="center" width="6%" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/mysql.png"/> <img align="center" width="5%" src="https://infinityfree-forum-uploads.s3.dualstack.eu-central-1.amazonaws.com/original/3X/a/a/aa031572455185b8e9ad7c1bc79f3816a1eb2a1b.png"/>
+
+
+
+### Solution link
+
+https://bicandy-new.42web.io/nutriverse
+
+---
+62410031@students.liu.edu.lb | LinkedIn: [fbicandy](https://www.linkedin.com/in/freddy-bicandy/)
