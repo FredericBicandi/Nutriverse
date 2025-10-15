@@ -53,6 +53,7 @@ dependencies:
   # Cupertino Modal Sheet - For native-looking iOS modal sheets
   cupertino_modal_sheet: ^1.1.0
 
+  google_generative_ai: ^0.4.0
 
 dev_dependencies:
   flutter_test:

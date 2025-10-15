@@ -25,6 +25,8 @@ Map<String, dynamic> userInfo = {};
 
 Session? session;
 User? user;
+late final model;
+final apiKey = 'AIzaSyDTHbULUkYnINv53hRy4Hp75y5snqP5GW8';
 final supabase = Supabase.instance.client;
 final String dataBaseUrl = "https://xidmzwoldcsmkxbkzibz.supabase.co";
 final String dataBaseKey =

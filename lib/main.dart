@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nutritracker/Model/gemini/gemini.dart';
 import 'includes.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -7,6 +9,7 @@ void main() async {
     url: dataBaseUrl,
     anonKey: dataBaseKey,
   );
+  Gemini().init();
   runApp(const NutriTracker());
 }
 

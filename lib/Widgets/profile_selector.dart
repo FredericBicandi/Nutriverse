@@ -1,7 +1,5 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/material.dart' as material;
-import 'package:nutritracker/Controller/create_account/.create_account.dart';
-import 'package:nutritracker/Model/users/update_user_email.dart';
 import '../includes.dart';
 
 class _ProfileSelectorState extends State<ProfileSelector> {
