@@ -68,11 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
+    <!-- Meta tags for proper rendering and mobile optimization -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#EEF1F6">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#eaedf3">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -82,14 +85,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
     <title>
-        NutriVerse
+        nutriverse
     </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </head>
 
 
-<body class="bg-gradient-to-r from-[#eaedf3] to-[#fafcff] min-h-screen">
+<body class="bg-[#eaedf3] bg-gradient-to-r from-[#eaedf3] to-[#fafcff]">
 
     <?= nutrinavbar("bg-gradient-to-r from-[#eaedf3] to-[#fafcff]") ?>
 
@@ -109,19 +112,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <section name="Tilte and form"
             class="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between">
             <div class="lg:w-1/2 lg:mb-32 text-center lg:text-left" data-aos="fade-up">
-                <h1 class="body_text text-6xl leading-tight lg:leading-normal text-[#343a45] font-extrabold lg:font-semibold ">
-                    Ready to elevate your <br>
-                    <span class="text-white body_text bg-[#f7c761] py-0 px-1">well-being?</span>
+                <h1
+                    class="body_text text-6xl leading-tight lg:leading-normal text-[#343a45] font-extrabold lg:font-semibold ">
+                    Ready to elevate your <?= !Mobile($Device) ? "" : "<br>" ?>
+                    <span
+                        class="text-white body_text bg-[#f7c761] py-0 px-5 <?= Mobile($Device) ? "text-5xl" : "" ?>">well-being?</span>
                 </h1>
 
-                <p class="mt-6 text-lg mb-12 text">
+                <p class="mt-6 text-lg mb-12">
                     Just one step is enough to find out more about <?= Mobile($Device) ? "" : "<br>" ?>
                     <b> how you can change the way you live </b> with healthy <?= Mobile($Device) ? "" : "<br>" ?>eating
                     habits.
                 </p>
             </div>
-
-            <div data-aos="fade-up" class="lg:w-1/2 lg:mt-32 min-h-fit">
+            <div data-aos="fade-up" class="lg:w-1/2 lg:mt-32 min-h-fit <?= Mobile($Device) ? "mt-20" : "" ?>">
                 <form method="POST" action="/nutriverse/request_form" class="max-w-md mx-auto space-y-4">
                     <input
                         class="w-full px-5 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"
@@ -156,13 +160,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="grid grid-cols-2 gap-4">
                         <input
                             class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"
-                            id="country_code" name="country_code" type="number" placeholder="country code*">
+                            id="country_code" name="country_code" maxlength="4" type="tel" required
+                            placeholder="country code*">
                         <input
                             class="w-full px-4 py-3 border rounded-md shadow-md focus:ring-2 focus:ring-[#f7c761] focus:outline-none bg-white text-[#8290ac]"
-                            id="tel" name="tel" type="tel" placeholder="Mobile phone*">
+                            id="tel" name="tel" type="tel" maxlength="9" placeholder="Mobile phone*">
                     </div>
-                    <button algin="center"
-                        class="bg-[#f7c761] text-white ml-16 <?= Mobile($Device) ? 'px-16' : 'px-32' ?> py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-[#363c48] hover:border-[#f7c761] border duration-300"
+                    <button align="center"
+                        class="bg-[#f7c761] text-white ml-16 mt-12 <?= Mobile($Device) ? 'px-16' : 'px-32' ?> py-3 rounded-full text-sm font-medium hover:bg-transparent hover:text-[#363c48] hover:border-[#f7c761] border duration-300"
                         type="submit">Send Request
                     </button>
                 </form>

@@ -6,57 +6,123 @@
 <head>
   <!-- Meta tags for proper rendering and mobile optimization -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#EEF1F6">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#eaedf3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  
   <!-- External resources: Fonts, Styles, and Icons -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/style.css">
   <link rel="icon" type="image/png" href="https://bicandy-new.42web.io/nutriverse/pages/images/nutriverse_logo.png">
   <link
-    href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Story+Script&display=swap"
     rel="stylesheet">
 
   <!-- Page title -->
-  <title>
-    Nutriverse
-  </title>
+  <title> nutriverse </title>
 
   <!-- JavaScript dependencies -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+
+    // Wait for <img> tags
+    function waitForTagImages() {
+      const imgs = Array.from(document.images);
+      return Promise.all(imgs.map(img =>
+        img.complete ? Promise.resolve() :
+          new Promise(res => {
+            img.addEventListener('load', res, { once: true });
+            img.addEventListener('error', res, { once: true }); // don't block forever on errors
+          })
+      ));
+    }
+
+    // Wait for background-image URLs in computed styles
+    function waitForBackgroundImages() {
+      const urls = new Set();
+      Array.from(document.querySelectorAll('*')).forEach(el => {
+        const bg = getComputedStyle(el).backgroundImage;
+        const match = bg && bg.match(/url\(([^)]+)\)/g);
+        if (match) match.forEach(m => urls.add(m.replace(/^url\(["']?/, '').replace(/["']?\)$/, '')));
+      });
+      const loaders = Array.from(urls).map(src => new Promise(res => {
+        const i = new Image();
+        i.onload = i.onerror = res;
+        i.src = src;
+      }));
+      return Promise.all(loaders);
+    }
+
+    // Wait for web fonts too
+    const fontsReady = ('fonts' in document) ? document.fonts.ready : Promise.resolve();
+
+    // Window 'load' covers most subresources, but we also explicitly wait for bg images & fonts
+    const fullReady = Promise.all([
+      new Promise(res => window.addEventListener('load', res, { once: true })),
+      waitForTagImages(),
+      waitForBackgroundImages(),
+      fontsReady
+    ]);
+
+    fullReady.then(() => {
+      // If you initialize AOS or other libs, do it here
+      // AOS.init({ once: true });
+      const loader = document.getElementById('app-loader');
+      if (loader) loader.remove();
+      document.documentElement.classList.add('page-loaded');
+    });
+  </script>
 </head>
 
 <!-- Main body with light gradient background -->
 
-<body class="bg-gradient-to-r from-[#eaedf3] to-[#fafcff]">
+<body class="bg-[#eaedf3] bg-gradient-to-r from-[#eaedf3] to-[#fafcff]">
 
   <!-- Navigation bar component with background gradient matching body -->
   <?= nutrinavbar("bg-gradient-to-r from-[#eaedf3] to-[#fafcff]") ?>
+  <div id="app-loader" class="fixed inset-0 z-[99999] flex items-center justify-center bg-white">
+    <div class="h-16 w-16 animate-spin rounded-full border-8 border-[#f7c761]/30 border-t-[#f7c761]"></div>
+  </div>
 
   <main>
     <!-- Hero Section: Main welcome screen with title, description and hero image -->
     <section name="welcome screen"
       class="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between">
 
-      <!-- Title and introduction text - centered on mobile, left-aligned on larger screens -->
-      <div name="Welcome screen title" class="lg:ml-32 lg:w-1/2 text-center lg:text-left" data-aos="fade-up">
-        <h1 class="text-6xl body_text text-[#343a45] leading-tight lg:leading-normal font-extrabold md:font-bold">
+      <section name="mobile navbar" class="bg-gradient-to-r from-[#eaedf3] to-[#fafcff] sm:hidden md:hidden lg:hidden">
+        <div data-aos="fade-up" class="min-h-screen text-[#343a45]">
+          <h1 class="ml-12 text-6xl font-bold">
+            <br><br>
+            <b>
+              <span data-aos-delay="200" data-aos="fade-up"
+                class="bg-[#f7c761] text-white font-extrabold py-0 px-5">Your</span>
+              best version just a click away
+            </b>
+          </h1>
+        </div>
+      </section>
+
+
+      <div <?= Mobile($Device) ? "class='hidden'" : "" ?> class="lg:ml-20 lg:w-1/2 text-center lg:text-left"
+        data-aos="fade-up">
+        <h1
+          class="<?= Mobile($Device) ? "text-start text-6xl body_text text-[#343a45] leading-tight lg:leading-normal font-extrabold md:font-bold" : "text-6xl body_text text-[#343a45] leading-tight lg:leading-normal font-extrabold md:font-bold" ?>">
           Your<?= Mobile($Device) ? "<br>" : "" ?>
-          <span class="text-white body_text bg-[#f7c761] py-0 px-1 text-6xl">
+          <span class="text-white bg-[#f7c761] py-0 px-1 text-6xl">
             best version
           </span>
-          <br>just a<?= Mobile($Device) ? "<br>" : "" ?> click away
+          <br> <span>just a click</span><?= Mobile($Device) ? "<br>" : "" ?> away
         </h1>
 
-        <p class="mt-6 text text-lg">
-          The <b>ideal dietitian beside you</b>, where and when you want. <br>
+        <p class="<?= Mobile($Device) ? "text-start start mt-6 text text-lg" : "mt-6 text text-lg" ?>">
+          The <b>ideal dietitian beside you</b>, where and when you want.<?= Mobile($Device) ? "" : "<br>" ?>
           <b>Your new life begins now!</b>
         </p>
+        <?= Mobile($Device) ? "<br><br>" : "" ?>
       </div>
 
       <!-- Hero image with animation - takes full width on mobile, half on larger screens -->
@@ -72,7 +138,7 @@
       <!-- Features section heading with highlighted text -->
       <h2 name="features" class="mt-32 body_text text-center text-3xl font-semibold ">
         A new way to <?= Mobile($Device) ? "<br>" : "" ?>
-        <span class="text-white text bg-[#f7c761] py-0 px-1 font-normal leading-normal">
+        <span class="text-white bg-[#f7c761] py-0 px-2 font-normal leading-normal">
           <b data-aos="fade-up">
             experience nutrition
           </b>
@@ -83,8 +149,7 @@
       <p class="mt-6 text text-lg">
         Experience totally personalized nutrition, closer than ever. Because it's easier to achieve
         <b>
-          results when
-          you have the right <br>
+          results when you have the right <?= !Mobile($Device) ? "<br>" : "" ?>
           help by your side.
         </b>
       </p>
@@ -130,15 +195,15 @@
       <div class="text-center">
         <h2 class="body_text text-center text-3xl font-semibold">
           What if from today
-          <span data-aos="fade-up" class="text-white text bg-[#f7c761] px-1 py-0 font-normal">
+          <span data-aos="fade-up" class="text-white bg-[#f7c761] py-0 px-2 font-normal">
             <b>everything changes?</b>
           </span>
         </h2>
 
         <p class="mt-6 text text-lg">
           Achieving your goals is easier with
-          <b>personalized guidance and continuous monitoring</b>
-          .At NutriVerse,you'll find qualified <br>
+          <b>personalized guidance and continuous monitoring.</b>
+          At NutriVerse, you'll find qualified <?= !Mobile($Device) ? "<br>" : "" ?>
           dietitians who are with you far beyond the appointments.
         </p>
       </div>
@@ -152,8 +217,8 @@
           <h1 class="body_text text-4xl font-semibold leading-normal">
             Find the right dietitian for <br>
             you and get access to <br>
-            <span class="text text-white bg-[#c9e08a] px-1 font-normal">
-              <b data-aos="fade-up">unlimited appointments</b>
+            <span class="cursive text-white bg-[#c9e08a] py-0 px-2 font-normal">
+              <b data-aos="fade-up" <?= !Mobile($Device) ? "" : "class='text-3xl'" ?>>unlimited appointments</b>
             </span>
             <br>
           </h1>
@@ -168,7 +233,7 @@
 
         <!-- Solution 1 image - right side on desktop, below on mobile -->
         <?= side_image(
-          image: $home_UnlimitedAppointments
+          image: "https://bicandy-new.42web.io/nutriverse/pages/images/dietitian.png"
         ); ?>
       </section>
 
@@ -186,8 +251,8 @@
           <h1 class="body_text text-4xl font-semibold leading-normal">
             Never lose motivation with<br>
             a dietitian always<br>
-            <span class="text font-normal text-white bg-[#ccb8b8] px-1 py-0">
-              <b data-aos="zoom-in">available on a daily basis</b>
+            <span class="cursive font-normal text-white bg-[#ccb8b8] px-2 py-0">
+              <b data-aos="zoom-in" <?= !Mobile($Device) ? "" : "class='text-xl'" ?>>available on a daily basis</b>
             </span>
             <br>
           </h1>
@@ -208,9 +273,10 @@
         <!-- Solution 3 text content -->
         <div class="lg:w-1/2 text-center lg:text-left">
           <h1 class="body_text text-4xl font-semibold leading-normal">
-            Simplify your diet with the<br>
-            help of<br>
-            <span data-aos="fade-up" class="text-white text font-normal bg-[#e39269] px-1">
+            Simplify your diet with the <?= !Mobile($Device) ? "<br>" : "" ?>
+            help of
+            <?= Mobile($Device) ? "<br>" : "" ?>
+            <span data-aos="fade-up" class="cursive text-white font-normal bg-[#e39269] py-0 px-2">
               <strong>Mobile App</strong>
             </span>
             <br>
@@ -229,18 +295,19 @@
 
         <!-- Solution 3 image - right side on desktop, below on mobile -->
         <?= side_image(
-          image: $home_RecipesBooksTips
+          image: "https://bicandy-new.42web.io/nutriverse/pages/images/mmtFeature.png"
         ); ?>
       </section>
     </section>
 
     <!-- Testimonials Section: Social proof and success stories -->
-    <section class="container mx-auto px-6 md:px-12 py-12">
+    <section class="container mx-auto px-6 md:px-12 py-12 justify-between">
       <!-- Section heading and introduction -->
       <div class="text-center">
-        <h2 class="body_text text-center text-3xl font-semibold">
+        <h2 class="body_text text-3xl font-semibold">
           Results you see,
-          <span class="text-white text bg-[#f7c761] px-1 py-0 font-normal">
+          <?= Mobile($Device) ? "<br>" : "" ?>
+          <span class="text-white bg-[#f7c761] px-2 py-0 font-normal">
             <b data-aos="fade-up">health you can feel</b>
           </span>
         </h2>
@@ -248,46 +315,51 @@
         <p data-aos="fade-up" class="mt-6 text text-lg">
           people who tested our solutions reported an improve in their lives through simple changes in their eating
           habits.
-          <b>The next great success <br> story could be yours.</b>
+          <b>
+            The next great success story <?= !Mobile($Device) ? "<br>" : "" ?> could be yours.
+          </b>
         </p>
 
         <!-- Testimonial cards - 1 column on mobile, 3 columns on desktop -->
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Testimonial 1: Susana's story -->
           <?php
-          $susana = $home_SusanaImage;
+          $helena = $home_helena;
           feedback_card(
             delay: 0,
-            image: $susana,
+            image: $helena,
             feedback: "
-            'I cycle and didn't know what to eat to feel full. I've learned to 
-            eat better and now I can do high-intensity workouts without feeling hungry or lacking in strength.'",
-            name: "- Susana"
+            '“If you use the app over time, you will learn a lot about food and diet.
+            You easily get an overview of what you are getting.
+            Whether you just want to eat healthy and get clean food, or if you want to lose weight,
+            build muscle or gain weight, you get a good overview of the daily intake of nutrients.
+            If you want to lose weight, for example, protein is an important macronutrient to get a lot of.
+            It costs the body quite a bit to break down and it is very filling”",
+            name: "- Helena"
           ) ?>
 
           <!-- Testimonial 2: Ana's story -->
           <?php
-          $Ana = $home_AnaImage;
+          $Marianne = $home_Marianne;
           feedback_card(
             delay: 100,
-            image: $Ana,
-            feedback: "I had mobility issues due to being overweight.
-            With the dietitian's help,
-            I changed my eating habits,
-            improved my health dramatically, and feel amazing!",
-            name: "- Ana"
+            image: $Marianne,
+            feedback: "“The best thing about Lifesum is the full overview you get on your nutrition. 
+            I’ve learnt how to prioritize my food which makes me even more motivated to continue my journey. 
+            I’ve tried other similar apps before, but Lifesum is really easy to use and stick to.”",
+            name: "- Marianne"
           ) ?>
 
           <!-- Testimonial 3: José's story -->
           <?php
-          $Jose = $home_JoseImage;
+          $John = $home_John;
           feedback_card(
             delay: 200,
-            image: $Jose,
-            feedback: "I've had an irritable bowel for 15 years.
-            Thanks to my dietitian,
-            I've learned to improve my food choices and have felt better than ever!",
-            name: "- José"
+            image: $John,
+            feedback: "“Without Lifesum, my life would have become a roller coaster.
+            It had taken significantly more time to find the optimal diet for me.
+            And if I found it, it would have been more difficult to get it implemented without Lifesum”",
+            name: "- John"
           ) ?>
         </div>
       </div>

@@ -4,17 +4,19 @@ function nutrinavbar($style)
 {
     $uri = explode("?=", $_SERVER['REQUEST_URI']);
     $text_white = " hover:text-[#f7c761] ";
-    $title_white = "";
+    $title_white = "hover:text-transparent hover:[-webkit-text-stroke:2px_#f7c761] transition-all duration-300";
     $text_title = "Nutriverse";
+    $request_cons = "button_color button_text px-4 py-2 rounded-full text-sm font-medium border duration-300 hover:{$text_white}";
     $mobile_menu = "";
     if ($uri[0] == "/nutriverse/about") {
-        $text_white = "text-white hover:text-[#f7c761]";
+        $text_white = "text-white hover:text-[#f7c761] transition-all duration-300";
     }
     if ($uri[0] == "/nutriverse/products") {
-        $text_title = "Nutriproducts";
-        $title_white = "text-white hover:text-[#FFFFFF]";
+        $text_title = "NutriTracker";
+        $title_white = "text-white hover:text-transparent hover:[-webkit-text-stroke:0.9px_white] transition-all duration-300";
         $mobile_menu = "text-white hover:text-[#FFFFFF]";
-        $text_white = "text-white hover:text-[#FFFFFF]";
+        $text_white = "text-white hover:text-[#212121] transition-all duration-300";
+        $request_cons = "px-4 py-2 rounded-full text-sm font-medium border duration-300 bg-white text-[#5FA69B] md:hover:bg-transparent md:hover:text-white";
     }
     $nutriverse_home = "/nutriverse/";
     $nutriverse_about = "/nutriverse/about";
@@ -37,11 +39,8 @@ function nutrinavbar($style)
                 <a href='{$nutriverse_products}' class='no-underline text px-2 text-xl $text_white '><b>Products</b> </a>
                 <a href='{$nutriverse_about}' class='no-underline text px-2 text-xl $text_white'><b>About</b></a>
                ");
-    if ($uri[0] != "/nutriverse/products")
-        printf("<a href='{$nutriverse_request}' class='button_color button_text px-4 py-2 rounded-full text-sm font-medium border duration-300 hover:$text_white'><b>Request Consultation</b></a>
+    printf("<a href='{$nutriverse_request}' class='{$request_cons}'><b>Request Consultation</b></a>
                 </div>");
-    else
-        printf("</div>");
 
     printf("
             <div class='lg:hidden'>
@@ -64,21 +63,25 @@ function nutrinavbar($style)
             <a href='{$nutriverse_blog}' class='mt-5 block no-underline text px-2 $mobile_menu text-lg'><b>Blog</b></a>
             <hr>
             ");
-    if ($uri[0] != "/nutriverse/products")
-        printf("
+
+    printf("
            <a href='{$nutriverse_products}' class='mt-5 block no-underline text px-2 $mobile_menu text-lg'><b>Products</b></a>
             <hr>
-         <a href='{$nutriverse_request}' class='mt-5 block bg-[#f7c761] text-white px-4 py-2 rounded-full'>
-                <b>Request Consultation</b></a>
+        ");
+    if($uri[0] == "/nutriverse/products")
+        printf("
+            <div class='text-center'>
+         <a href='{$nutriverse_request}' class='mt-5 block  bg-white text-[#1ab394] px-4 py-2 rounded-full'>
+                <b>Request Consultation</b></a>");
+    else
+        printf("
+            <div class='text-center'>
+         <a href='{$nutriverse_request}' class='mt-5 block  bg-[#f7c761] text-white px-4 py-2 rounded-full'>
+                <b>Request Consultation</b></a>");
+    print ("
                 <hr> 
             </div>
         </nav>");
-    else
-        printf("
-        </div>
-    </nav>");
-
-
 }
 
 
@@ -109,7 +112,7 @@ function side_image($image)
     print (
         "
         <div class='lg:w-1/2 mt-8 lg:mt-0'>
-            <img src='{$image}'class='hidden sm:block w-full max-w-lg mx-auto'>
+            <img src='{$image}'class='hidden sm:block w-full max-w-lg mx-auto' data-aos='fade-up'>
         </div>
     ");
 
@@ -188,7 +191,7 @@ function FAQ()
 
         <!-- Q1 -->
         <div data-aos="zoom-in"
-            class="lg:w-1/2 text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-16">
+            class="lg:w-auto text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-full mx-auto mt-8">
             <h2 class="body_text  font-semibold leading-normal">
                 How can I access the nutritional monitoring?
             </h2>
@@ -208,7 +211,7 @@ function FAQ()
 
         <!-- Q2 -->
         <div data-aos="zoom-in"
-            class="lg:w-1/2 text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-8">
+            class="lg:w-auto text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-8">
 
             <h2 class="body_text  font-semibold leading-normal">
                 How does NutriVerse analyze my food?
@@ -225,7 +228,7 @@ function FAQ()
 
         <!-- Q3 -->
         <div data-aos="zoom-in"
-            class="lg:w-1/2 text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-8">
+            class="lg:w-auto text-center lg:text-left bg-[#eef3fb] rounded-xl shadow-lg p-5 py-11 w-fit mx-auto inline-block mr-5 mt-8">
 
             <h2 class="body_text  font-semibold leading-normal">
                 Can I use NutriVerse without a dietician?

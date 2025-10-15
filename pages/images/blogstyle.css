@@ -34,12 +34,12 @@ body {
 
 
 .text {
-    color: #4a4a4a;
+    color: #231f20;
     font-family: Poppins 100;
 }
 
 .title {
-    color: #4a4a4a;
+    color: #231f20;
     transition: color 0.2s ease;
     font-family: Poppins 100;
 }

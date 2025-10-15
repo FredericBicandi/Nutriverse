@@ -1,41 +1,51 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  padding-top: env(safe-area-inset-top);
+}
+
 .button_color {
-    background-color: #f7c761;
-    border-color: #f7c761;
-  }
+  background-color: #f7c761;
+  border-color: #f7c761;
+}
 
-  .button_color:hover {
-    background-color: transparent;
-    border-color: #f7c761;
-  }
+.button_color:hover {
+  background-color: transparent;
+  border-color: #f7c761;
+}
 
-  .button_text {
-    color: white;
-    font-family: "poppins", system-ui;
-  }
+.button_text {
+  color: white;
+  font-family: "Open Sans", "Roboto";
+}
 
-  .button_text:hover {
-    color: #222222;
-    font-family: "poppins", system-ui;
-  }
+.button_text:hover {
+  color: #222222;
+  font-family: "Open Sans", "Roboto";
+}
 
-  .primary {
-    color: #f7c761;
-    transition: color 0.2s ease;
-    font-family: "Bebas Neue", sans-serif;
-  }
+.primary {
+  color: #f7c761;
+  transition: color 0.2s ease;
+  font-family: "Open Sans", "Roboto";
+}
 
-  .primary:hover {
-    color: #222222;
-    font-family: "Bebas Neue", sans-serif;
-  }
+.primary:hover {
+  color: #222222;
+  font-family: "Open Sans", "Roboto";
+}
 
-  .body_text {
-    color: #222222;
-    font-family: "poppins", system-ui;
-  }
+.body_text {
+  color: #222222;
+  font-family: "Open Sans", "Roboto";
+}
 
-  .text {
-    color: #222222;
-    transition: color 0.1s ease;
-    font-family: "Arima", system-ui;
-  }
+.text {
+  color: #222222;
+  transition: color 0.1s ease;
+  font-family: "Open Sans", "Roboto";
+}

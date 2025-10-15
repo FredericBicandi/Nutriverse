@@ -10,34 +10,40 @@
 
 .button_text {
   color: white;
-  font-family: "poppins", system-ui;
+  font-family: "Roboto";
 }
 
 .button_text:hover {
-  color: #343a45;
-  font-family: "poppins", system-ui;
+  color: #222222;
+  font-family: "Roboto";
 }
 
 .primary {
   color: #f7c761;
   transition: color 0.2s ease;
-  font-family: "Arima", system-ui;
+  font-family: "Roboto";
 }
 
 .primary:hover {
-  color: #343a45;
-  font-family: "Arima", system-ui;
+  color: #222222;
+  font-family: "Roboto";
 }
 
 .body_text {
   color: #222222;
-  font-family: "poppins", system-ui;
+  font-family: "Roboto";
 }
 
 .text {
   color: #222222;
   transition: color 0.1s ease;
-  font-family: "Arima", system-ui;
+  font-family: "Roboto";
+}
+
+.cursive {
+  color: #222222;
+  transition: color 0.1s ease;
+  font-family: "Story Script", cursive;
 }
 
 .bg_image {

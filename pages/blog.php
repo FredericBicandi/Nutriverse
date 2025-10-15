@@ -34,7 +34,7 @@ if (
     <!-- Meta tags for proper rendering and mobile optimization -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#EEF1F6">
+    <meta name="theme-color" content="#FFFFFF">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -50,7 +50,7 @@ if (
 
     <!-- Page title -->
     <title>
-        Nutriblog
+        nutriblog
     </title>
 
     <!-- JavaScript dependencies -->
@@ -76,9 +76,62 @@ if (
         }
 
     </script>
+    <script>
+
+        // Wait for <img> tags
+        function waitForTagImages() {
+            const imgs = Array.from(document.images);
+            return Promise.all(imgs.map(img =>
+                img.complete ? Promise.resolve() :
+                    new Promise(res => {
+                        img.addEventListener('load', res, { once: true });
+                        img.addEventListener('error', res, { once: true }); // don't block forever on errors
+                    })
+            ));
+        }
+
+        // Wait for background-image URLs in computed styles
+        function waitForBackgroundImages() {
+            const urls = new Set();
+            Array.from(document.querySelectorAll('*')).forEach(el => {
+                const bg = getComputedStyle(el).backgroundImage;
+                const match = bg && bg.match(/url\(([^)]+)\)/g);
+                if (match) match.forEach(m => urls.add(m.replace(/^url\(["']?/, '').replace(/["']?\)$/, '')));
+            });
+            const loaders = Array.from(urls).map(src => new Promise(res => {
+                const i = new Image();
+                i.onload = i.onerror = res;
+                i.src = src;
+            }));
+            return Promise.all(loaders);
+        }
+
+        // Wait for web fonts too
+        const fontsReady = ('fonts' in document) ? document.fonts.ready : Promise.resolve();
+
+        // Window 'load' covers most subresources, but we also explicitly wait for bg images & fonts
+        const fullReady = Promise.all([
+            new Promise(res => window.addEventListener('load', res, { once: true })),
+            waitForTagImages(),
+            waitForBackgroundImages(),
+            fontsReady
+        ]);
+
+        fullReady.then(() => {
+            // If you initialize AOS or other libs, do it here
+            // AOS.init({ once: true });
+            const loader = document.getElementById('app-loader');
+            if (loader) loader.remove();
+            document.documentElement.classList.add('page-loaded');
+        });
+    </script>
 </head>
 
 <body class="w-full h-screen overflow-x-hidden">
+    <div id="app-loader" class="fixed inset-0 z-[99999] flex items-center justify-center bg-white">
+        <div class="h-16 w-16 animate-spin rounded-full border-8 border-[#212121]/30 border-t-[#212121]"></div>
+    </div>
+
     <section>
         <?php
         if ($_GET["filter"] != 'ownBlogs') {
@@ -90,10 +143,9 @@ if (
         ?>
     </section>
 
-
     <main class="w-full sm:w-screen ">
         <div class="container mx-auto px-4">
-            <h3 class="text_accent text-5xl mt-12 lg:mt-32 ml-8 lg:ml-32">
+            <h3 class="text_accent text-5xl mt-16 lg:mt-32 ml-8 lg:ml-40 hover:text-transparent hover:[-webkit-text-stroke:2px_#1ab394] transition-all duration-300">
                 <b>
                     <?php
                     if ($_GET["filter"] == "ownBlogs") {

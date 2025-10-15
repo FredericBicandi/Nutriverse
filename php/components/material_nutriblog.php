@@ -10,7 +10,6 @@ function abort($message)
 
 function add_content_button()
 {
-
     print ("
         <div class='fixed bottom-4 right-4 md:mt-8 flex justify-center'>
 
@@ -88,7 +87,7 @@ function blog_navbar($content)
 
         <nav class='px-6 py-2 bg-white'>
             <div class='container mx-auto flex items-center justify-start'>
-                <div class='md:hidden lg:hidden'>
+                <div class='lg:hidden'>
                     <button
                         id='menu-toggle'
                         class='focus:outline-none'>
@@ -102,7 +101,7 @@ function blog_navbar($content)
                 </div>
 
                 <h1
-                    class='lg:ml-32 sm:ml-4 text-4xl leading-normal primary'>
+                    class='lg:ml-32 sm:ml-4 text-5xl leading-snug font-bold hover:text-transparent hover:[-webkit-text-stroke:2px_#212121] transition-all duration-300}'>
                     <a href='{$nutriblog_home}'>
                             <strong>NutriBlog</strong>
                     </a>
@@ -117,19 +116,27 @@ function blog_navbar($content)
                     </h1>
                 </div>
 
-                <div class='body_text hidden md:flex space-x-6 items-center ml-6 mt-2'>
-                    <a 
-                        data-aos='zoom-out'
-                        href='{$nutriblog_nutriverse}'
-                        class='px-2 w-fit hover:underline  '>
-                            <b>Home</b>
-                    </a>
-
+                <div class='hidden md:flex space-x-6 items-center ml-6 mt-2'>
+                 <a
+                href='$nutriblog_nutriverse'
+                    class='text-xl px-2 w-fit relative inline-block
+                    after:absolute after:left-0 after:bottom-0
+                    after:h-[2px] after:w-full after:bg-current
+                    after:scale-x-0 after:origin-left
+                    after:transition-transform after:duration-300
+                    hover:after:scale-x-100'>
+                        <b>Nutriverse</b>
+                </a>
                     <a 
                         data-aos-delay='100'
                         data-aos='zoom-out'
                         href='{$nutriblog_nutritions}'
-                        class='hover:underline px-2 w-fit'>
+                        class='text-xl px-2 w-fit relative inline-block
+                        after:absolute after:left-0 after:bottom-0
+                        after:h-[2px] after:w-full after:bg-current
+                        after:scale-x-0 after:origin-left
+                        after:transition-transform after:duration-300
+                        hover:after:scale-x-100'>
                             <b>Nutritions</b>
                     </a>
 
@@ -137,7 +144,12 @@ function blog_navbar($content)
                         data-aos-delay='200'
                         data-aos='zoom-out'
                         href='{$nutriblog_entrepreneur}'
-                        class='hover:underline px-2 w-fit'>
+                        class='text-xl px-2 w-fit relative inline-block
+                        after:absolute after:left-0 after:bottom-0
+                        after:h-[2px] after:w-full after:bg-current
+                        after:scale-x-0 after:origin-left
+                        after:transition-transform after:duration-300
+                        hover:after:scale-x-100'>
                             <b>Entrepreneur</b>
                     </a>
                 </div>
@@ -147,12 +159,12 @@ function blog_navbar($content)
         print ("
                 <a 
                     href='{$nutriblog_create_user}'
-                    class='px-2 w-fit title'>
+                    class='text-xl px-2 w-fit title'>
                         <b>Create</b>
                 </a>
                 <a
                     href='{$nutriblog_sign_in}'
-                    class='px-2 w-fit title'>
+                    class='text-xl px-2 w-fit title'>
                         <b>Sign in</b>
                 </a>
             ");
@@ -161,7 +173,7 @@ function blog_navbar($content)
         print ("
             <a 
                 href='{$create_blog}'
-                class='hover:underline px-2 w-fit title'>
+                class='px-2 w-fit title'>
                     <b>Write your blog</b>
             </a>
             <a href='/nutriblog/member/?filter=ownBlogs'>
@@ -180,8 +192,8 @@ function blog_navbar($content)
                 <a 
                     data-aos='zoom-out'
                     href='{$nutriblog_nutriverse}'
-                    class='px-2 w-fit text-xl'>
-                        <b>Home</b>
+                    class='px-2 w-fit text-xl text-black'>
+                        <b>Nutriverse</b>
                 </a>
                 <br>
                 <a 
@@ -205,7 +217,7 @@ function blog_navbar($content)
         print ("
                 <a 
                     href='{$nutriblog_create_user}'
-                    class='px-2 w-fit'>
+                    class='px-2 w-fit title'>
                         <b>Create</b>
                 </a>
 

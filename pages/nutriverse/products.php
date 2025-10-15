@@ -1,28 +1,82 @@
-<?php include("nutriverse/php/components/material_nutriverse.php") ?>
+<?php include("nutriverse/php/components/material_nutriverse.php");
+$hover = 'hover:text-transparent hover:[-webkit-text-stroke:1px_#1ab394] transition-all duration-300';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Meta tags for proper rendering and mobile optimization -->
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#1ab394">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
   <!-- External CSS and Font resources -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/style.css">
+  <link rel="stylesheet" href="https://bicandy-new.42web.io/nutriverse/pages/images/blogstyle.css">
   <link rel="icon" type="image/png" href="https://bicandy-new.42web.io/nutriverse/pages/images/nutriproduct_logo.png">
   <link
-    href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Story+Script&display=swap"
     rel="stylesheet">
-
-  <title>NutriProducts</title>
+  <title>nutritracker</title>
 
   <!-- JavaScript dependencies -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+
+    // Wait for <img> tags
+    function waitForTagImages() {
+      const imgs = Array.from(document.images);
+      return Promise.all(imgs.map(img =>
+        img.complete ? Promise.resolve() :
+          new Promise(res => {
+            img.addEventListener('load', res, { once: true });
+            img.addEventListener('error', res, { once: true }); // don't block forever on errors
+          })
+      ));
+    }
+
+    // Wait for background-image URLs in computed styles
+    function waitForBackgroundImages() {
+      const urls = new Set();
+      Array.from(document.querySelectorAll('*')).forEach(el => {
+        const bg = getComputedStyle(el).backgroundImage;
+        const match = bg && bg.match(/url\(([^)]+)\)/g);
+        if (match) match.forEach(m => urls.add(m.replace(/^url\(["']?/, '').replace(/["']?\)$/, '')));
+      });
+      const loaders = Array.from(urls).map(src => new Promise(res => {
+        const i = new Image();
+        i.onload = i.onerror = res;
+        i.src = src;
+      }));
+      return Promise.all(loaders);
+    }
+
+    // Wait for web fonts too
+    const fontsReady = ('fonts' in document) ? document.fonts.ready : Promise.resolve();
+
+    // Window 'load' covers most subresources, but we also explicitly wait for bg images & fonts
+    const fullReady = Promise.all([
+      new Promise(res => window.addEventListener('load', res, { once: true })),
+      waitForTagImages(),
+      waitForBackgroundImages(),
+      fontsReady
+    ]);
+
+    fullReady.then(() => {
+      // If you initialize AOS or other libs, do it here
+      // AOS.init({ once: true });
+      const loader = document.getElementById('app-loader');
+      if (loader) loader.remove();
+      document.documentElement.classList.add('page-loaded');
+    });
+  </script>
 </head>
 
 <!-- Body with overflow-x-hidden to prevent horizontal scrolling -->
@@ -33,21 +87,41 @@
     AOS.init();
   </script>
 
+  <div id="app-loader" class="fixed inset-0 z-[99999] flex items-center justify-center bg-white">
+    <div class="h-16 w-16 animate-spin rounded-full border-8 border-[#5FA69B]/30 border-t-[#1ab394]"></div>
+  </div>
   <!-- Hero Section with gradient background -->
   <div
-    class="bg-gradient-to-r from-[#5FA69B] via-[#5FA69B] to-[#F8C820] [background-size:200%_100%] [background-position:85%_0] overflow-x-hidden">
+    class="bg-gradient-to-r from-[#5FA69B] via-[#1ab394] to-[#5FA69B] [background-size:200%_100%] [background-position:85%_0] overflow-x-hidden">
     <!-- Navigation Bar -->
     <?= nutrinavbar("") ?>
 
+
     <!-- Main Hero Content -->
     <main>
-      <section class="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between">
+      <section name="Mobile" class="md:hidden">
+        <div data-aos="fade-up" class="min-h-screen text-[#343a45]">
+          <h1 class="ml-12 text-6xl text-white font-extrabold">
+            <br><br><br>
+            <b>
+              Nutrition <br>
+              tracking <br>
+              for
+              <span data-aos-delay="200" data-aos="fade-up"
+                class="bg-white text-[#1ab394] text-5xl font-extrabold py-0 px-3">
+                Real Life
+              </span>
+            </b>
+        </div>
+      </section>
+      <section
+        class="hidden container mx-auto px-6 md:px-12 py-12 lg:flex flex-col lg:flex-row items-center lg:justify-between">
         <!-- Hero Text Content -->
         <div class="lg:ml-32 lg:w-1/2 text-center lg:text-left">
           <h1 class="text-6xl text-white font-extrabold md:font-bold leading-normal">
             Nutrition tracking <br> for
             <?= Mobile($Device) ? "<br>" : "" ?>
-            <span data-aos="fade-up" class="text-[#1BB394] body_text bg-white py-0 px-1">
+            <span class="text_accent bg-white py-0 px-1">
               Real Life
             </span>
           </h1>
@@ -55,7 +129,7 @@
             Make progress with the all-in-one food, hydration, and calorie tracker.
             <br>
             <button onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' });"
-              class='mt-5 px-10 py-2 rounded-full text-lg font-medium border duration-300 bg-white text-[#5FA69B] hover:bg-[#5FA69B] hover:text-white'>
+              class='mt-5 px-10 py-2 rounded-full text-lg font-medium border duration-300 bg-white text-[#5FA69B] md:hover:bg-transparent md:hover:text-white'>
               <b>START TODAY</b>
             </button>
           </p>
@@ -73,9 +147,9 @@
   <!-- PHP Variables for consistent styling -->
   <?php
   $side_by_side = 'lg:w-1/2 lg:text-left';
-  $goal_number = 'body_text text-7xl font-bold leading-normal text-center text-[#1BB394]';
-  $goal_title = 'body_text text-4xl font-semibold leading-normal text-center text-[#212121]';
-  $goal_desc = 'body_text text-xl font-normal leading-normal mt-2 text-[#6c6c70] ';
+  $goal_number = 'text-7xl font-bold leading-normal text-center text_accent';
+  $goal_title = 'text-4xl font-semibold leading-normal text-center text-[#212121]';
+  $goal_desc = 'text-xl font-normal leading-normal mt-2 text-[#6c6c70] ';
   ?>
 
   <!-- Feature Section 1: Track calories -->
@@ -90,13 +164,18 @@
 
     <!-- Feature 1 text content -->
     <div class="<?= $side_by_side ?> order-first">
-      <h1 class="<?= $goal_number ?> lg:text-start">
+      <h1 class="<?= $goal_number ?> <?= $hover ?> lg:text-start">
         1
       </h1>
-      <p class="<?= $goal_title ?> lg:text-start">
-        Track calories,<br> macros & more
+      <p class="<?= $goal_title ?> text-start ml-12 md:ml-0">
+        <span <?= Mobile($Device) ? "data-aos='fade-up' data-aos-delay='100'" : "" ?>>
+          Track calories,
+        </span>
+        <span <?= Mobile($Device) ? "data-aos='fade-up' data-aos-delay='200'" : "" ?>>
+          <br> macros & more
+        </span>
       </p>
-      <p class="<?= $goal_desc ?> text-center lg:text-start">
+      <p data-aos="fade-up" data-aos-delay="200" class="<?= $goal_desc ?> text-center lg:text-start">
         Log even faster with tools like <?= !Mobile($Device) ? "<br>" : "" ?>
         AI food name nutrifacts & the NEW AI image scan.
       </p>
@@ -108,16 +187,24 @@
     class="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center lg:justify-between overflow-hidden">
     <!-- Feature 2 text content -->
     <div class="<?= $side_by_side ?> order-first">
-      <h1 class="<?= $goal_number ?> lg:text-end">
+      <h1 class="<?= $goal_number ?> <?= $hover ?> lg:text-end">
         2
       </h1>
-      <p class="<?= $goal_title ?> lg:text-end">
-        Follow your progress <?= !Mobile($Device) ? "<br>" : "" ?>
+      <p class="<?= $goal_title ?> text-start ml-12 lg:ml-0 lg:text-end">
+        <span <?= Mobile($Device) ? "data-aos='fade-up' data-aos-delay='100'" : "" ?>>
+          Follow your
+        </span>
+        <span <?= Mobile($Device) ? "data-aos='fade-up' data-aos-delay='200'" : "" ?>>
+          progress <?= !Mobile($Device) ? "<br>" : "" ?>
+        </span>
+
       </p>
-      <p class="<?= $goal_desc ?> text-center lg:text-end">
-        Forget perfection. This is about building<?= !Mobile($Device) ? "<br>" : "" ?>
-        long-term habits—and enjoying the journey.
+      <p data-aos="fade-up" data-aos-delay="200" class="<?= $goal_desc ?> text-start">
+        <span class=" lg:ml-28 ">Forget perfection. This is about building<?= !Mobile($Device) ? "<br>" : "" ?></span>
+        <span class=" lg:ml-28 ">long-term habit and enjoying<br></span>
+        <span class=" lg:ml-28 ">the journey.</span>
       </p>
+
     </div>
 
     <!-- Right image on desktop, top on mobile -->
@@ -140,38 +227,43 @@
 
     <!-- Feature 3 text content -->
     <div class="<?= $side_by_side ?> order-first">
-      <h1 class="<?= $goal_number ?> lg:text-start">
+      <h1 class="<?= $goal_number ?> <?= $hover ?> lg:text-start">
         3
       </h1>
       <p class="<?= $goal_title ?> lg:text-start">
-        Eat better and hit your goals
+        <span <?= Mobile($Device) ? "data-aos='fade-up' data-aos-delay='100'" : "" ?>>Eat better and hit</span>
+        <span <?= Mobile($Device) ? "data-aos='fade-up' data-aos-delay='200'" : "" ?>>your goals</span>
       </p>
-      <p class="<?= $goal_desc ?> text-center lg:text-start">
-        Learn which foods help you feel your best,<br> and get AI suggestions weekly meal<br> plans!
+      <p data-aos="fade-up" data-aos-delay="200" class="<?= $goal_desc ?> text-center lg:text-start">
+        Learn which foods help you feel your best,<?= Mobile($Device) ? "" : "<br>" ?> and get AI suggestions weekly
+        meal
+        plans!
       </p>
     </div>
   </section>
 
   <!-- Get Started Section with gradient background -->
   <div
-    class="mt-32 bg-gradient-to-r from-[#5FA69B] via-[#5FA69B] to-[#F8C820] [background-size:200%_100%] [background-position:45%_0]">
+    class="mt-96 bg-gradient-to-r from-[#5FA69B] via-[#1ab394] to-[#5FA69B] [background-size:200%_100%] [background-position:85%_0] overflow-x-hidden">
     <section id="goals" class="container flex flex-col lg:flex-row items-center justify-center md:h-[80vh]">
       <!-- Get Started text content -->
       <div class="<?= $side_by_side ?> lg:text-end ml-5">
-        <h1 class="font-semibold lg:text-start text-white text-3xl text-center">
-          Get Started
-        </h1>
-        <p class="font-bold sm:font-extrabold mt-2 text-3xl md:text-5xl lg:text-start text-white">
-          Starting is the hard part
-        </p>
-        <p class="font-normal mt-2 text-2xl md:text-3xl lg:text-start text-[#f1f1f1]">
-          <i>We make it easy...</i>
-        </p>
+        <h1 class="mt-32 font-semibold lg:text-start text-white text-3xl text-center">
+          <h1 class="mt-32 font-semibold lg:text-start text-white text-3xl text-center">
+            <h1 class="mt-32 font-semibold lg:text-start text-white text-6xl text-center">
+              Get Started
+            </h1>
+            <p class="font-bold sm:font-extrabold mt-2 text-3xl md:text-3xl lg:text-start text-white">
+              Starting is the hard part
+            </p>
+            <p class="font-normal mt-2 text-2xl md:text-3xl lg:text-start cursive text-white">
+              We make it easy
+            </p>
       </div>
 
       <!-- App survey image -->
-      <img data-aos="fade-up" class="w-1/3 lg:w-1/6 lg:self-end mt-5 lg:mt-0 rounded-xl"
-        src="https://bicandy-new.42web.io/nutriverse/pages/images/app%20survey.png">
+      <img data-aos="fade-up" class="w-1/3 lg:w-1/6 lg:self-end mt-32 lg:mt-0 rounded-t-xl"
+        src="https://bicandy-new.42web.io/nutriverse/pages/images/app%20survey.jpg">
     </section>
   </div>
 
@@ -195,11 +287,11 @@
       <h1 class="<?= $goal_title ?> font-extrabold lg:text-start text-5xl">
         Knowledge is power
       </h1>
-      <p class="<?= $goal_desc ?> font-bold mt-2 text-3xl text-center lg:text-start">
+      <p class="<?= $goal_desc ?> font-bold mt-2 text-md lg:text-3xl text-center lg:text-start p-8 lg:p-0">
         "Studies show people who keep a food diary are more likely to hit their goals. Nutritracker simplifies
         nutrition and calorie tracking, provides the data you want, and helps you make sense of it all.
       </p>
-      <p class="<?= $goal_desc ?> font-normal mt-2 text-3xl text-center lg:text-start">
+      <p class="<?= $goal_desc ?> font-normal mt-2 text-md lg:text-3xl text-center lg:text-start p-8 lg:p-0">
         Healthy eating is a continuous journey of self-discovery. And the more you track, the more empowered you'll
         become to make healthy choices that support your goals."
       </p>
@@ -211,7 +303,7 @@
     <h1 class="<?= $goal_desc ?> text-3xl">
       Welcome to
     </h1>
-    <h1 class="body_text font-bold leading-normal text-center text-[#1BB394] text-6xl">
+    <h1 class="body_text font-bold leading-normal text-center text-[#1BB394] text-6xl <?= $hover ?>">
       Nutritracker
     </h1>
   </div>
@@ -251,7 +343,7 @@
     <h1 class="<?= $goal_desc ?> text-3xl">
       Scan The Qr Code below To
     </h1>
-    <h1 class="body_text font-bold leading-normal text-center text- text-6xl text-[#212121]">
+    <h1 class="body_text font-bold leading-normal text-center text- text-6xl text-transparent [-webkit-text-stroke:1px_#212121] transition-all duration-300">
       Download The App
     </h1>
   </div>
@@ -269,7 +361,7 @@
 
     <!-- iOS QR Code -->
     <div class="flex flex-col items-center justify-center md:ml-32 self-center mb-12">
-      <img data-aos="fade-up" data-aos-delay="100" class="w-1/3 lg:w-32 rounded-3xl mb-2"
+      <img data-aos="fade-up" data-aos-delay="200" class="w-1/3 lg:w-32 rounded-3xl mb-2"
         src="https://bicandy-new.42web.io/nutriverse/pages/images/qr_code.png">
 
       <h1 class="<?= $goal_desc ?> font-extrabold lg:text-center">
