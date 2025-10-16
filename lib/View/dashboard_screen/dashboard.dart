@@ -93,7 +93,9 @@ class _DashboardState extends State<Dashboard> {
           )
         ],
       ),
-      body: const Center(),
+      body: material.SingleChildScrollView(
+        child: Center(child: material.Text("KCAL left:${userInfo['calorie_score']}")),
+      ),
     );
   }
 }
